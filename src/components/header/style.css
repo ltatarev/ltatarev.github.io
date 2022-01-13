@@ -30,7 +30,7 @@
 }
 
 .header__text-inline-color:nth-of-type(2) {
-  color:  var(--peach);
+  color: var(--peach);
 }
 
 .header__text-inline-color:nth-of-type(3) {

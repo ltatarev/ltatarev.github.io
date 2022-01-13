@@ -19,14 +19,13 @@ export function Header() {
           hi, i&apos;m <p className="header__inline-color">lucija</p>;
         </h2>
         <p className="header__text">
-          I&apos;m a software developer based in Croatia.
-          Interested in&nbsp;
+          I&apos;m a software developer based in Croatia. Interested in&nbsp;
           <p className="header__text-inline-color">full stack development</p>,
           <br />
           <p className="header__text-inline-color">
             cross platform mobile development
-          </p>,
-          and everything&nbsp;
+          </p>
+          , and everything&nbsp;
           <p className="header__text-inline-color">JavaScript</p>.
         </p>
       </div>
