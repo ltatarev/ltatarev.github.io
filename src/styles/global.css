@@ -1,0 +1,32 @@
+html,
+body,
+#___gatsby {
+  background: rgb(255,239,246);
+  background: linear-gradient(344deg, rgba(255,239,246,1) 0%, rgba(229,229,229,1) 100%);
+  background-position: center center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  min-width: 350px;
+  padding: 0px 40px;
+  overflow: auto;
+  font-family: 'Epilogue', sans-serif !important;
+  font-weight: 500;
+  color: #333333;
+}
+
+p {
+  user-select: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+:root {
+  --white: whitesmoke;
+  --dark: rgb(35 35 35);
+  --pink: #CA718D;
+  --blue: #6099C2;
+  --purple: #8684CF;
+  --peach: #D07F7C;
+}
