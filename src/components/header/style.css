@@ -1,9 +1,20 @@
-.header__header-container {
-  display: flex;
-  flex-direction: row;
-  max-width: 80%;
-  margin: auto;
-  margin-top: 200px;
+@media only screen and (max-width: 600px) {
+  .header__header-container {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 20px;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .header__header-container {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    margin-top: 200px;
+    justify-content: center;
+  }
 }
 
 .header__text-container {
