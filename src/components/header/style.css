@@ -11,9 +11,7 @@
   .header__header-container {
     display: flex;
     flex-direction: row;
-    margin: auto;
     margin-top: 200px;
-    justify-content: center;
   }
 }
 

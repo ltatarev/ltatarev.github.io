@@ -1,0 +1,53 @@
+.rb {
+  padding-inline-start: 10px;
+  margin-top: 4em;
+}
+
+.rb-container ul.rb li {
+  list-style: none;
+  min-height: 50px;
+  border-left: 1px dashed white;
+  padding: 0 0 50px 30px;
+  position: relative;
+}
+
+.rb-container ul.rb li:last-child {
+  border-left: 0;
+}
+
+.rb-container ul.rb li::before {
+  position: absolute;
+  left: -9px;
+  top: -2px;
+  content: "";
+  border: 3px solid white;
+  border-radius: 500%;
+  background: var(--pink);
+  height: 10px;
+  width: 10px;
+  transition: all 500ms ease-in-out;
+}
+
+.rb-container ul.rb li:hover::before {
+  border-color: var(--pink);
+  background: whitesmoke;
+  transition: all 1000ms ease-in-out;
+}
+
+.timestamp {
+  color: var(--pink);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.item-title {
+  margin: 1.5em 0em 0.75em 0em;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.item-description {
+  font-size: 13px;
+  line-height: 26px;
+}

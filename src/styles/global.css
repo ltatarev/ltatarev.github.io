@@ -2,7 +2,7 @@ html,
 body,
 #___gatsby {
   background: rgb(255, 232, 243);
-  background: linear-gradient(344deg, rgb(255, 232, 243) 0%, rgba(229,229,229,1) 100%);
+  background: linear-gradient(344deg, rgb(216, 216, 216) 0%, rgb(255, 235, 240) 100%);
   background-position: center center;
   background-repeat: no-repeat;
   min-height: 100vh;
@@ -13,9 +13,9 @@ body,
   color: #333333;
 }
 
-p {
-  user-select: none;
-}
+/* div, p {
+  border: 0.5px dashed rgba(128, 128, 128, 0.404);
+}  */
 
 a {
   text-decoration: none;

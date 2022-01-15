@@ -2,7 +2,7 @@ import React from 'react';
 import { StaticImage } from 'gatsby-plugin-image';
 import './style.css';
 
-export function Header() {
+function Header() {
   return (
     <div className="header__header-container">
       <StaticImage

@@ -1,15 +1,12 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
-import { Header } from '../components';
+import '../styles/index.css';
+import { Experience, Header } from '../components';
 
 export default function IndexPage() {
   return (
-    <>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>ltatarev</title>
-      </Helmet>
+    <div className="main-container">
       <Header />
-    </>
+      <Experience />
+    </div>
   );
 }
