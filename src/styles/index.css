@@ -1,13 +1,26 @@
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) {
   .main-container {
     min-width: fit-content;
     margin: auto;
+    padding: 20px;
+    transition: all 1s ease;
   }
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 801px) and (max-width: 1700px) {
   .main-container {
     margin: auto;
-    max-width: 70%;
+    max-width: 65%;
+    padding: 20px;
+    transition: all 1s ease;
+  }
+}
+
+
+@media only screen and (min-width: 1701px) {
+  .main-container {
+    margin: auto;
+    max-width: 60%;
+    transition: all 1s ease;
   }
 }

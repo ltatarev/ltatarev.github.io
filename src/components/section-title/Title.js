@@ -10,7 +10,7 @@ export function Title({ color, title }) {
     [color],
   );
 
-  const resolvedTitle = useMemo(() => `/ ${title}`, [title]);
+  const resolvedTitle = useMemo(() => `(${title})`, [title]);
 
   return (
     <p className="section-title__title" style={style}>
