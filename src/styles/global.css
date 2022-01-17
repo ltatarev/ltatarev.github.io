@@ -1,8 +1,8 @@
 html,
 body,
 #___gatsby {
-  background: rgb(255, 232, 243);
-  background: linear-gradient(344deg, rgb(216, 216, 216) 0%, rgb(255, 235, 240) 100%);
+  background: rgb(230,228,255);
+  background: linear-gradient(152deg, rgba(230,228,255,1) 0%, rgba(235,215,221,1) 100%);
   background-position: center center;
   background-repeat: no-repeat;
   min-height: 100vh;
