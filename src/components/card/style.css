@@ -1,0 +1,98 @@
+.container {
+  position: relative;
+}
+
+.container .card {
+  position: relative;
+  max-width: 330px;
+  min-height: 350px;
+  background: rgb(98, 75, 121);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.container .card:before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #7e71ca;
+  clip-path: circle(150px at 80% 20%);
+  transition: 0.5s ease-in-out;
+}
+
+.container .card:hover:before{
+  clip-path: circle(300px at 80% -20%);
+}
+
+.container .card:after{
+  content: 'moviest';
+  position: absolute;
+  top: 30%;
+  left: -20%;
+  font-size: 12em;
+  font-weight: 800;
+  font-style: italic;
+  color: rgba(229, 186, 253, 0.1);
+  transition: 1s ease-in;
+}
+
+.container .card:hover:after{
+  color: rgba(229, 186, 253, 0.03);
+  transition: 1s ease-out;
+}
+
+.container .card .imgBx{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10000;
+  width: 100%;
+  height: 220px;
+  transition: 0.5s;
+}
+
+.container .card:hover .imgBx{
+  top: 0%;
+  transform: translateY(0%);
+    
+}
+
+.container .card .imgBx img{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-15deg);
+  width: 170px;
+}
+
+.container .card .contentBx{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  text-align: center;
+  transition: 1s;
+  z-index: 10;
+  opacity: 0;
+}
+
+.container .card:hover .contentBx{
+  height: 100px;
+  opacity: 1;
+}
+
+.container .card .contentBx h2{
+  position: relative;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--white);
+  margin: 0;
+}
+
+.container .card .contentBx p{
+  color: var(--white);
+  font-size: 12px;
+}
