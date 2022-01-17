@@ -6,6 +6,10 @@
     margin-top: 20px;
     transition: all 1s ease;
   }
+
+  .header__text-container {
+    margin-left: 0px;
+  }
 }
 
 @media only screen and (min-width: 1000px) {
@@ -15,12 +19,15 @@
     margin-top: 200px;
     transition: all 1s ease;
   }
+
+  .header__text-container {
+    margin-left: 2em;
+  }
 }
 
 .header__text-container {
-  align-items: center;
+  align-items: flex-start;
   margin-top: auto;
-  margin-left: 2em;
   letter-spacing: 0.8px;
 }
 

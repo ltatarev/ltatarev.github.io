@@ -13,7 +13,11 @@ export function Card(props) {
           />
         </div>
         <div className="contentBx">
-          <a href="https://github.com/ltatarev/the-moviest" target="_blank">
+          <a
+            href="https://github.com/ltatarev/the-moviest"
+            rel="noreferrer"
+            target="_blank"
+          >
             <h2>Moviest</h2>
             <p>MEAN stack movie app</p>
           </a>
