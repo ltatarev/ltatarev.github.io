@@ -21,19 +21,19 @@ export function Card({
   });
 
   return (
-    <div className="card__container">
-      <div className={overlayClass} style={cardStyle}>
-        <div className="card__image-box">
-          <img alt="movie" border="0" src={imgSrc} />
-        </div>
-        <div className="card__content-box">
-          <a href={url} rel="noreferrer" target="_blank">
+    <a href={url} rel="noreferrer" target="_blank">
+      <div className="card__container">
+        <div className={overlayClass} style={cardStyle}>
+          <div className="card__image-box">
+            <img alt="movie" border="0" src={imgSrc} />
+          </div>
+          <div className="card__content-box">
             <h2>{title}</h2>
             <p>{description}</p>
-          </a>
+          </div>
         </div>
       </div>
-    </div>
+    </a>
   );
 }
 
