@@ -21,8 +21,8 @@ export function Card({
   });
 
   return (
-    <a href={url} rel="noreferrer" target="_blank">
-      <div className="card__container">
+    <div className="card__container">
+      <a href={url} rel="noreferrer" target="_blank">
         <div className={overlayClass} style={cardStyle}>
           <div className="card__image-box">
             <img alt="movie" border="0" src={imgSrc} />
@@ -32,8 +32,8 @@ export function Card({
             <p>{description}</p>
           </div>
         </div>
-      </div>
-    </a>
+      </a>
+    </div>
   );
 }
 
