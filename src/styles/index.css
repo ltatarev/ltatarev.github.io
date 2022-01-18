@@ -22,7 +22,7 @@
   .main-container {
     margin: auto;
     margin-bottom: 100px;
-    max-width: 55%;
+    max-width: 60%;
     transition: all 1s ease;
   }
 }
