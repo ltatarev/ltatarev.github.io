@@ -6,6 +6,10 @@
     margin-top: 20px;
     transition: all 1s ease;
   }
+
+  .header__text-container {
+    margin-left: 0;
+  }
 }
 
 @media only screen and (min-width: 1000px) {
@@ -15,13 +19,16 @@
     margin-top: 200px;
     transition: all 1s ease;
   }
+
+  .header__text-container {
+    margin-left: 2em;
+  }
 }
 
 .header__text-container {
-  align-items: center;
-  margin-top: auto;
-  margin-left: 2em;
+  align-items: flex-start;
   letter-spacing: 0.8px;
+  margin-top: auto;
 }
 
 .header__title {
@@ -29,14 +36,14 @@
 }
 
 .header__inline-color {
-  display: inline;
   color: var(--pink);
+  display: inline;
   font-weight: 600;
 }
 
 .header__text-inline-color {
-  display: inline;
   color: var(--purple);
+  display: inline;
   font-weight: 600;
 }
 

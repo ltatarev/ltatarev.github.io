@@ -1,12 +1,12 @@
 .rb {
-  padding-inline-start: 10px;
   margin-top: 4em;
+  padding-inline-start: 10px;
 }
 
 .rb-container ul.rb li {
+  border-left: 1px dashed white;
   list-style: none;
   min-height: 50px;
-  border-left: 1px dashed white;
   padding: 0 0 50px 30px;
   position: relative;
 }
@@ -16,21 +16,21 @@
 }
 
 .rb-container ul.rb li::before {
-  position: absolute;
-  left: -9px;
-  top: -2px;
-  content: "";
+  background: var(--pink);
   border: 3px solid white;
   border-radius: 500%;
-  background: var(--pink);
+  content: "";
   height: 10px;
-  width: 10px;
+  left: -9px;
+  position: absolute;
+  top: -2px;
   transition: all 500ms ease-in-out;
+  width: 10px;
 }
 
 .rb-container ul.rb li:hover::before {
-  border-color: var(--pink);
   background: whitesmoke;
+  border-color: var(--pink);
   transition: all 1000ms ease-in-out;
 }
 
@@ -41,10 +41,10 @@
 }
 
 .item-title {
-  margin: 1.5em 0em 0.75em 0em;
   font-size: 18px;
-  letter-spacing: 0.5px;
   font-weight: 600;
+  letter-spacing: 0.5px;
+  margin: 1.5em 0 0.75em;
 }
 
 .item-description {
