@@ -33,21 +33,3 @@
   border-color: var(--pink);
   transition: all 1000ms ease-in-out;
 }
-
-.timestamp {
-  color: var(--pink);
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.item-title {
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  margin: 1.5em 0 0.75em;
-}
-
-.item-description {
-  font-size: 13px;
-  line-height: 26px;
-}
