@@ -1,16 +1,16 @@
 html,
 body,
 #___gatsby {
-  background: rgb(230,228,255);
-  background: linear-gradient(152deg, rgba(230,228,255,1) 0%, rgba(235,215,221,1) 100%);
+  background: rgb(230 228 255);
+  background: linear-gradient(152deg, rgb(230 228 255 / 100%) 0%, rgb(235 215 221 / 100%) 100%);
   background-position: center center;
   background-repeat: no-repeat;
+  color: #333;
+  font-family: Epilogue, sans-serif !important;
+  font-weight: 500;
   min-height: 100vh;
   min-width: 350px;
   overflow: auto;
-  font-family: 'Epilogue', sans-serif !important;
-  font-weight: 500;
-  color: #333333;
 }
 
 /* div, p {
@@ -24,8 +24,8 @@ a {
 :root {
   --white: whitesmoke;
   --dark: rgb(35 35 35);
-  --pink: #CA718D;
-  --blue: #6099C2;
-  --purple: #8684CF;
-  --peach: #D07F7C;
+  --pink: #ca718d;
+  --blue: #6099c2;
+  --purple: #8684cf;
+  --peach: #d07f7c;
 }

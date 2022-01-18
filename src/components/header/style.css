@@ -8,7 +8,7 @@
   }
 
   .header__text-container {
-    margin-left: 0px;
+    margin-left: 0;
   }
 }
 
@@ -27,8 +27,8 @@
 
 .header__text-container {
   align-items: flex-start;
-  margin-top: auto;
   letter-spacing: 0.8px;
+  margin-top: auto;
 }
 
 .header__title {
@@ -36,14 +36,14 @@
 }
 
 .header__inline-color {
-  display: inline;
   color: var(--pink);
+  display: inline;
   font-weight: 600;
 }
 
 .header__text-inline-color {
-  display: inline;
   color: var(--purple);
+  display: inline;
   font-weight: 600;
 }
 
