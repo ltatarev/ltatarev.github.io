@@ -2,13 +2,14 @@
   .header__header-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     margin: auto;
     margin-top: 20px;
     transition: all 1s ease;
   }
 
   .header__text-container {
-    margin-left: 0;
+    margin-left: 1em;
   }
 }
 
@@ -16,12 +17,13 @@
   .header__header-container {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     margin-top: 200px;
     transition: all 1s ease;
   }
 
   .header__text-container {
-    margin-left: 2em;
+    margin-left: 3em;
   }
 }
 
