@@ -21,6 +21,11 @@
   flex: 2;
 }
 
+.timeline__details-container:empty {
+  display: flex;
+  flex: 0;
+}
+
 .item-title {
   font-size: 18px;
   font-weight: 600;

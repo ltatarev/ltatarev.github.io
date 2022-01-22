@@ -57,7 +57,7 @@
 }
 
 .card__main-container::after {
-  color: rgb(229 186 253 / 7%);
+  color: rgb(229 186 253 / 5%);
   content: "app";
   font-size: 12em;
   font-style: italic;
@@ -76,7 +76,7 @@
 }
 
 .card__main-container:hover::after {
-  color: rgb(229 186 253 / 3%);
+  color: rgb(229 186 253 / 2%);
   transition: 1s ease-out;
 }
 
