@@ -29,8 +29,8 @@ export function TimelineItem({
 TimelineItem.propTypes = {
   title: PropTypes.string.isRequired,
   year: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  details: PropTypes.string,
+  description: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  details: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
 };
 
 TimelineItem.defaultProps = {

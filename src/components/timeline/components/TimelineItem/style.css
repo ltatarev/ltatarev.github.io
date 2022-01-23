@@ -19,6 +19,7 @@
 .timeline__details-container {
   display: flex;
   flex: 2;
+  flex-direction: column;
 }
 
 .timeline__details-container:empty {
@@ -40,6 +41,6 @@
 
 .item-detailed-description {
   font-size: 13px;
-  line-height: 26px;
+  line-height: 9px;
   margin: 1.5em 0 0.75em;
 }

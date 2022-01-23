@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default [
   {
     id: 1,
@@ -9,7 +11,17 @@ export default [
     id: 2,
     year: '2019 - 2021',
     title: 'Five Agency',
-    description: 'React Native developer',
+    description: ['React Native developer'],
+    details: [
+      <b key={1}>Plato Money - mobile wallet app</b>,
+      'React Native, Redux, backend conforming to JSON:API spec',
+      <b key={2}>Mint House - apartment booking app</b>,
+      `React Native, Redux, Jumio (identity verification), 
+       Stripe (payments), Intercom (in-app messaging)`,
+      <b key={3}>57hours - mountain guide booking app</b>,
+      `React Native, Redux, backend conforming to 
+       JSON:API spec, backend in NodeJS`,
+    ],
   },
   {
     id: 3,

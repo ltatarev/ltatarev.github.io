@@ -43,12 +43,12 @@ Card.propTypes = {
   title: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   backgroundColor: PropTypes.string,
-  overlayColor: PropTypes.oneOf(['pink', 'peach', 'blue']),
+  overlayColor: PropTypes.oneOf(['pink', 'peach', 'blue', 'purple']),
 };
 
 Card.defaultProps = {
   backgroundColor: null,
-  overlayColor: null,
+  overlayColor: 'purple',
 };
 
 export default React.memo(Card);
