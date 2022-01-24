@@ -6,7 +6,6 @@ function Text({ className, text }) {
     return text.map((child) => (
       <div key={child} className={className}>
         {child}
-        <br />
       </div>
     ));
   }
