@@ -6,20 +6,27 @@
 
 .timeline__content-container {
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
 }
 
 .timeline__main-container {
-  display: flex;
-  flex: 1;
   flex-direction: column;
+  flex-grow: 3;
+  flex-shrink: 2;
   margin-right: 2em;
 }
 
 .timeline__details-container {
   display: flex;
-  flex: 2;
   flex-direction: column;
+  flex-grow: 1.5;
+  flex-shrink: 1;
+}
+
+@media only screen and (max-width: 1400px) {
+  .timeline__details-container {
+    margin-top: 2rem;
+  }
 }
 
 .timeline__details-container:empty {
