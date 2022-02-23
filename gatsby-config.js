@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
     siteUrl: 'https://ltatarev.github.io/',
-    author: 'ltatarev',
-    title: "lucija's homepage",
+    author: 'Lucija Tatarević',
+    title: "Lucija Tatarević",
   },
   plugins: [
     'gatsby-plugin-react-helmet',
