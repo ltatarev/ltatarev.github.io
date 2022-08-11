@@ -3,7 +3,7 @@ import React from 'react';
 export default [
   {
     id: 1,
-    year: '2021-',
+    year: '2021 -',
     title: 'Shoutem',
     description: 'React Native developer',
   },

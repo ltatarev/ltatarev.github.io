@@ -12,6 +12,8 @@ body,
   min-width: 350px;
   overflow: auto;
   scroll-behavior: smooth;
+  -webkit-touch-callout: none; /* iOS Safari */
+  user-select: none;
 }
 
 /* div, p {
