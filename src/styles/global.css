@@ -22,6 +22,8 @@ body,
 
 a {
   text-decoration: none;
+  color: rgb(35 35 35);
+  font-weight: bold;
 }
 
 :root {

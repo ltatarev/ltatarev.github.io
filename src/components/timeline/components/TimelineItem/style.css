@@ -11,21 +11,19 @@
 
 .timeline__main-container {
   flex-direction: column;
-  flex-grow: 3;
-  flex-shrink: 2;
-  margin-right: 2em;
+  margin-right: 4em;
 }
 
 .timeline__details-container {
   display: flex;
   flex-direction: column;
-  flex-grow: 1.5;
+  flex-grow: 2;
   flex-shrink: 1;
 }
 
 @media only screen and (max-width: 1400px) {
   .timeline__details-container {
-    margin-top: 2rem;
+    margin-top: 1rem;
   }
 }
 
@@ -48,5 +46,5 @@
 
 .item-detailed-description {
   font-size: 13px;
-  margin: 1.5em 0 0.75em;
+  margin: 0.5em 0 0.75em;
 }
