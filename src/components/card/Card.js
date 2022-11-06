@@ -1,15 +1,20 @@
 import React, { useMemo } from 'react';
 import classNames from 'classnames';
+import { GatsbyImage } from 'gatsby-plugin-image';
 import PropTypes from 'prop-types';
 import './style.css';
+import { Link } from './Link';
+import { Tag } from './Tag';
 
 export function Card({
   backgroundColor,
+  description,
   overlayColor,
   imgSrc,
-  url,
+  demoUrl,
+  sourceUrl,
   title,
-  description,
+  tags,
 }) {
   const cardStyle = useMemo(() => ({ backgroundColor }), [backgroundColor]);
 
@@ -22,32 +27,55 @@ export function Card({
 
   return (
     <div className="card__container">
-      <a href={url} rel="noreferrer" target="_blank">
-        <div className={overlayClass} style={cardStyle}>
-          <div className="card__image-box">
-            <img alt="movie" border="0" src={imgSrc} />
+      <div className={overlayClass} style={cardStyle}>
+        <div className="card__image-box">
+          <GatsbyImage
+            alt={title}
+            height={200}
+            image={imgSrc}
+            layout="constrained"
+            objectFit="cover"
+          />
+        </div>
+        <div className="card__content-box">
+          <div className="card__tags-container">
+            <h2 className="card__content-title">{title}</h2>
+            {!!description && (
+              <p className="card__description">{description}</p>
+            )}
           </div>
-          <div className="card__content-box">
-            <h2>{title}</h2>
-            <p>{description}</p>
+          <div className="card__links-container">
+            {!!demoUrl && <Link href={demoUrl} type="Demo" url={demoUrl} />}
+            {!!sourceUrl && (
+              <Link href={sourceUrl} type="GitHub" url={sourceUrl} />
+            )}
           </div>
         </div>
-      </a>
+        <div className="card__tags-row">
+          {tags.map((tag) => (
+            <Tag key={title + tag} color={overlayColor} title={tag} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
 
 Card.propTypes = {
-  description: PropTypes.string.isRequired,
   imgSrc: PropTypes.string.isRequired,
+  sourceUrl: PropTypes.string.isRequired,
+  tags: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
   backgroundColor: PropTypes.string,
+  demoUrl: PropTypes.string,
+  description: PropTypes.string,
   overlayColor: PropTypes.oneOf(['pink', 'peach', 'blue', 'purple']),
 };
 
 Card.defaultProps = {
   backgroundColor: null,
+  demoUrl: null,
+  description: null,
   overlayColor: 'purple',
 };
 

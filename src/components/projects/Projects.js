@@ -12,11 +12,13 @@ export function Projects() {
         {projects.map((project) => (
           <Card
             key={project.id}
-            description={project.description}
+            demoUrl={project.demoUrl}
+            description={project?.description}
             imgSrc={project.image}
             overlayColor={project.color}
+            sourceUrl={project.sourceUrl}
+            tags={project.tags}
             title={project.title}
-            url={project.url}
           />
         ))}
       </div>

@@ -9,7 +9,7 @@ export function TimelineItem({
   return (
     <div>
       <div className="timestamp">{year}</div>
-      <div className="timeline__content-container ">
+      <div className="timeline__content-container">
         <div className="timeline__main-container">
           <Text className="item-title" text={title} />
           {!!description && (

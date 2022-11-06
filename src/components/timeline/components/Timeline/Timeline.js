@@ -8,7 +8,7 @@ function Timeline() {
     <div className="rb-container">
       <ul className="rb">
         {data.map((item) => (
-          <li key={item.id} className="rb-item">
+          <li key={item.id + item.title} className="rb-item">
             <TimelineItem
               description={item.description}
               details={item.details}

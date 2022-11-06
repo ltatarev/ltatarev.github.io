@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     siteUrl: 'https://ltatarev.github.io/',
     author: 'Lucija Tatarević',
-    title: "Lucija Tatarević",
+    title: 'Lucija Tatarević',
   },
   plugins: [
     'gatsby-plugin-react-helmet',
@@ -15,7 +15,24 @@ module.exports = {
       },
     },
     'gatsby-transformer-sharp',
-    'gatsby-plugin-sharp',
+    {
+      resolve: 'gatsby-plugin-sharp',
+      options: {
+        defaults: {
+          formats: ['auto', 'webp'],
+          placeholder: 'blurred',
+          quality: 100,
+          breakpoints: [750, 1080, 1366, 1920],
+          backgroundColor: 'transparent',
+          tracedSVGOptions: {},
+          blurredOptions: {},
+          jpgOptions: {},
+          pngOptions: {},
+          webpOptions: {},
+          avifOptions: {},
+        },
+      },
+    },
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
