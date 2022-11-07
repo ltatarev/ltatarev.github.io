@@ -5,7 +5,7 @@ export default [
     id: 1,
     title: 'Moviest',
     description: 'Web app for browsing through TV shows and movies',
-    tags: ['mean', 'tmbd', 'react'],
+    tags: ['angular', 'nodejs', 'tmdb'],
     image: resolveImage(
       'https://user-images.githubusercontent.com/38048916/124809471-705e1300-df60-11eb-8d6c-8d79756fdc04.png',
     ),
@@ -16,7 +16,8 @@ export default [
   {
     id: 2,
     title: 'Translatia',
-    tags: ['mean', 'tmbd', 'react'],
+    description: 'Web application for editing and translating .srt subtitles',
+    tags: ['react', 'redux', 'vite'],
     image: resolveImage(
       'https://user-images.githubusercontent.com/38048916/153944916-bb27c380-2bdc-496c-bdc6-3dbf8a13457f.gif',
     ),
@@ -26,52 +27,67 @@ export default [
   },
   {
     id: 3,
+    title: 'Knjigoteka',
+    description: 'Organization landing page',
+    tags: ['gatsbyjs', 'contentful cms'],
+    image: resolveImage(
+      'https://user-images.githubusercontent.com/38048916/200192099-a222512e-0d7e-4cc3-945d-d82b52f57ab6.png',
+    ),
+    sourceUrl: 'https://github.com/ltatarev/knjigoteka-web',
+    color: 'pink',
+    demoUrl: 'https://knjigoteka.club/',
+  },
+  {
+    id: 4,
     title: 'React Native to do',
-    tags: ['mean', 'tmbd', 'react'],
+    description: 'Simple app that lets you create to do lists and tasks,',
+    tags: ['react native', 'redux'],
     image: resolveImage(
       'https://user-images.githubusercontent.com/38048916/124808519-540da680-df5f-11eb-922d-1f5953ce514b.gif',
     ),
     sourceUrl: 'https://github.com/ltatarev/react-native-to-do',
-    color: 'blue',
+    color: 'peach',
   },
   {
-    id: 4,
+    id: 5,
     title: 'React Native news',
-    tags: ['mean', 'tmbd', 'react'],
+    description: 'App for latest news using newsapi.org.',
+    tags: ['react native', 'redux', 'newsapi.org'],
     image: resolveImage(
       'https://user-images.githubusercontent.com/38048916/124803811-dbf0b200-df59-11eb-852f-bc36090b8ca7.png',
     ),
     sourceUrl: 'https://github.com/ltatarev/news-app',
-    color: 'peach',
+    color: 'blue',
   },
-
   {
     id: 6,
+    title: 'Personal landing page',
+    description: 'Basic to do app in Electron with electron-forge',
+    tags: ['gatsbyjs', 'github pages'],
+    image: resolveImage(
+      'https://user-images.githubusercontent.com/38048916/200418641-5b4c86bb-d495-4367-8515-1bbe758b73d4.png',
+    ),
+    sourceUrl: 'https://github.com/ltatarev/ltatarev.github.io',
+    color: 'purple',
+  },
+  {
+    id: 7,
     title: 'Electron to do',
-    tags: ['mean', 'tmbd', 'react'],
+    description: 'Basic to do app in Electron with electron-forge',
+    tags: ['electron', 'electron store'],
     image: resolveImage(
       'https://user-images.githubusercontent.com/38048916/124805257-903f0800-df5b-11eb-85da-a1ac65eefd79.gif',
     ),
     sourceUrl: 'https://github.com/ltatarev/electron-to-do',
-    color: 'blue',
-  },
-  {
-    id: 7,
-    title: '3 day weather',
-    tags: ['mean', 'tmbd', 'react'],
-    image: resolveImage(
-      'https://camo.githubusercontent.com/4b728d0b1220e4e31c6092202fd3314541f8a049eab9a4dcab8862c11ed522c5/68747470733a2f2f692e696d6775722e636f6d2f78727a7379546f2e706e67',
-    ),
-    sourceUrl: 'https://github.com/ltatarev/3-day-weather',
-    color: 'pink',
-    demoUrl: 'https://threedayweather.herokuapp.com/',
+    color: 'purple',
   },
   {
     id: 8,
-    title: 'Knjigoteka',
-    tags: ['mean', 'tmbd', 'react'],
+    title: '3 day weather',
+    description: 'Website for browsing weather forecast',
+    tags: ['html', 'css', 'javascript'],
     image: resolveImage(
-      'https://user-images.githubusercontent.com/38048916/200149160-47869e6a-6e59-4451-aac1-6cf01938c490.png',
+      'https://camo.githubusercontent.com/4b728d0b1220e4e31c6092202fd3314541f8a049eab9a4dcab8862c11ed522c5/68747470733a2f2f692e696d6775722e636f6d2f78727a7379546f2e706e67',
     ),
     sourceUrl: 'https://github.com/ltatarev/3-day-weather',
     color: 'pink',

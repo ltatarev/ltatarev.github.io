@@ -50,7 +50,7 @@
   flex: 1;
   flex-flow: row nowrap;
   justify-content: space-between;
-  margin: 10px 25px 20px;
+  margin: 10px 25px 10px;
 }
 
 .card__content-title {
@@ -61,12 +61,12 @@
 
 .card__description {
   color: var(--dark);
-  font-size: 13px; 
+  font-size: 13px;
 }
 
 .card__tags-row {
-  flex-direction: row; 
-  margin: 0px 25px 20px;
+  flex-direction: row;
+  margin: 0 25px 20px;
 }
 
 .card__tags-container {

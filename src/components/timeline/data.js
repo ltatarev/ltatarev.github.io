@@ -7,6 +7,7 @@ export default [
     title: 'Shoutem',
     description: 'React Native developer',
     details: [
+      <b key={2}>Shoutem platform</b>,
       <p
         key={2}
         style={{ display: 'inline', marginBlockStart: 0, marginBlockEnd: 0 }}
@@ -15,7 +16,7 @@ export default [
         <a href="https://github.com/shoutem/extensions">extensions</a>{' '}
         (affiliate, notification journeys, e-commerce integrations
       </p>,
-      '• worked on native implementation of Shopif SDK',
+      '• worked on native implementation of Shopify SDK',
       <b key={2}>Disclose - Shoutem companion app</b>,
       '• developed mobile app used for sending push notifications and previewing Shoutem projects',
       '• worked on native implementation of opening multiple React Native bundles inside one app',
