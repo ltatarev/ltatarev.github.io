@@ -6,7 +6,7 @@ body,
   background-position: center center;
   background-repeat: no-repeat;
   color: #333;
-  font-family: Epilogue, sans-serif !important;
+  font-family: Montserrat, sans-serif !important;
   font-weight: 500;
   min-height: 100vh;
   min-width: 350px;
@@ -21,6 +21,8 @@ body,
 }  */
 
 a {
+  color: rgb(35 35 35);
+  font-weight: bold;
   text-decoration: none;
 }
 

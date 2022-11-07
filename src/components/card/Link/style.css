@@ -1,0 +1,16 @@
+.link__container {
+  display: block;
+  margin: 15px 5px;
+  text-align: end;
+}
+
+.link__title {
+  border-bottom: 2px solid rgb(0 0 0 / 0%);
+  display: inline;
+  margin: 15px 5px;
+}
+
+.link__title:hover {
+  border-bottom: 2px solid var(--dark);
+  transition: 0.4s all;
+}
