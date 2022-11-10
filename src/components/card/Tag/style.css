@@ -4,19 +4,8 @@
   color: var(--dark);
   display: inline;
   font-size: 12px;
+  font-weight: 700;
   margin-right: 10px;
   padding: 10px;
   text-transform: lowercase;
-}
-
-.tag__container-pink {
-  background: rgb(161 123 156 / 45.5%);
-}
-
-.tag__container-blue {
-  background: rgb(106 108 161 / 45.5%);
-}
-
-.tag__container-peach {
-  background: rgb(212 153 129 / 45.5%);
 }

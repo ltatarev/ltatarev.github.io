@@ -1,21 +1,19 @@
-import React from 'react';
-import classNames from 'classnames';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import { generateRandomBackgroundColor } from './colorsUtil';
 
-export function Tag({ title, color }) {
-  const overlayClass = classNames({
-    tag__container: true,
-    'tag__container-pink': color === 'pink',
-    'tag__container-blue': color === 'blue',
-    'tag__container-peach': color === 'peach',
-  });
+export function Tag({ title }) {
+  const style = useMemo(() => generateRandomBackgroundColor(), []);
 
-  return <p className={overlayClass}>{title}</p>;
+  return (
+    <p className="tag__container" style={style}>
+      {title}
+    </p>
+  );
 }
 
 Tag.propTypes = {
-  color: PropTypes.oneOf(['pink', 'peach', 'blue', 'purple']).isRequired,
   title: PropTypes.string.isRequired,
 };
 

@@ -53,7 +53,7 @@ export function Card({
         </div>
         <div className="card__tags-row">
           {tags.map((tag) => (
-            <Tag key={title + tag} color={overlayColor} title={tag} />
+            <Tag key={title + tag} title={tag} />
           ))}
         </div>
       </div>
@@ -62,7 +62,7 @@ export function Card({
 }
 
 Card.propTypes = {
-  imgSrc: PropTypes.string.isRequired,
+  imgSrc: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   sourceUrl: PropTypes.string.isRequired,
   tags: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
