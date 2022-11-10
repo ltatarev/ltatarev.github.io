@@ -16,7 +16,7 @@ export default [
         <a href="https://github.com/shoutem/extensions">extensions</a>{' '}
         (affiliate, notification journeys, e-commerce integrations
       </p>,
-      '• worked on native implementation of Shopify SDK',
+      '• worked on native integration of Shopify SDK',
       <b key={2}>Disclose - Shoutem companion app</b>,
       '• developed mobile app used for sending push notifications and previewing Shoutem projects',
       '• worked on native implementation of opening multiple React Native bundles inside one app',
