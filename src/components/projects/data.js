@@ -52,7 +52,7 @@ export default [
     id: 5,
     title: 'React Native news',
     description: 'App for latest news using newsapi.org.',
-    tags: ['react native', 'redux', 'newsapi.org'],
+    tags: ['react native', 'newsapi.org'],
     image: resolveImage(
       'https://user-images.githubusercontent.com/38048916/124803811-dbf0b200-df59-11eb-852f-bc36090b8ca7.png',
     ),

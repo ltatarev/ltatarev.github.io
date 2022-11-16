@@ -7,7 +7,7 @@
   border-left: 1px dashed white;
   list-style: none;
   min-height: 50px;
-  padding: 0 0 50px 30px;
+  padding: 20px 10px 50px 30px;
   position: relative;
 }
 
@@ -32,4 +32,17 @@
   background: whitesmoke;
   border-color: var(--pink);
   transition: all 1000ms ease-in-out;
+}
+
+.rb-container ul.rb li:hover {
+  background-color: rgb(255 0 0 / 1%);
+  border-radius: 6px;
+  box-shadow:
+    5px 5px 25px 5px rgb(0 0 0 / 2%),
+    -5px -5px 25px 5px rgb(0 0 0 / 0%);
+  transition: 0.5s ease-in-out;
+}
+
+.rb-container ul.rb li:hover::after {
+  transition: 1s ease-out;
 }

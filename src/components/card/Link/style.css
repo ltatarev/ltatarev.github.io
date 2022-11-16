@@ -4,6 +4,11 @@
   text-align: end;
 }
 
+/* Override default a:hover */
+.link__container:hover {
+  border-bottom: 2px solid rgb(0 0 0 / 0%);
+}
+
 .link__title {
   border-bottom: 2px solid rgb(0 0 0 / 0%);
   display: inline;
@@ -12,5 +17,9 @@
 
 .link__title:hover {
   border-bottom: 2px solid var(--dark);
+  transition: 0.4s all;
+}
+
+.link__title:hover::after {
   transition: 0.4s all;
 }
