@@ -1,8 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
+
 html,
 body,
 #___gatsby {
   background: rgb(230 228 255);
-  background: linear-gradient(152deg, rgb(230 228 255 / 100%) 0%, rgb(235 215 221 / 100%) 100%);
+  background:
+    linear-gradient(
+      152deg,
+      rgb(230 228 255 / 100%) 0%,
+      rgb(235 215 221 / 100%) 100%
+    );
   background-position: center center;
   background-repeat: no-repeat;
   color: #333;

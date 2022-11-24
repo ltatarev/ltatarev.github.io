@@ -5,7 +5,6 @@ module.exports = {
     title: 'Lucija Tatarević',
   },
   plugins: [
-    'gatsby-plugin-react-helmet',
     'gatsby-plugin-image',
     {
       resolve: 'gatsby-source-filesystem',
@@ -37,13 +36,6 @@ module.exports = {
       resolve: 'gatsby-plugin-manifest',
       options: {
         icon: 'src/images/icon.png',
-      },
-    },
-    {
-      resolve: 'gatsby-plugin-google-fonts',
-      options: {
-        fonts: ['DM Sans:300,400,400i,700'],
-        display: 'swap',
       },
     },
   ],
