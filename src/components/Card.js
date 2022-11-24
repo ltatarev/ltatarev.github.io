@@ -1,8 +1,7 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import PropTypes from 'prop-types';
-import './style.css';
 import { Link } from './Link';
 import { Tag } from './Tag';
 
@@ -16,42 +15,41 @@ export function Card({
   title,
   tags,
 }) {
-  const cardStyle = useMemo(() => ({ backgroundColor }), [backgroundColor]);
-
-  const overlayClass = classNames({
-    'card__main-container': true,
-    'card__main-container-pink': overlayColor === 'pink',
-    'card__main-container-blue': overlayColor === 'blue',
-    'card__main-container-peach': overlayColor === 'peach',
-  });
+  const overlayClass = classNames(
+    'rounded-xl bg-pale-mauve shadow-lg overflow-hidden relative transition-all duration-75 ease-in-out',
+    'hover:shadow-xl hover:-translate-y-0.5 hover:transition-all hover:duration-75 hover:ease-in',
+    'hover:after:bg-pale-mauve hover:after:transition-all hover:after:duration-100 hover:after:ease',
+    {
+      'bg-pale-pink': overlayColor === 'pink',
+      'bg-pale-blue': overlayColor === 'blue',
+      'bg-pale-peach': overlayColor === 'peach',
+    },
+  );
 
   return (
-    <div className="card__container">
-      <div className={overlayClass} style={cardStyle}>
-        <div className="card__image-box">
-          <GatsbyImage
-            alt={title}
-            height={200}
-            image={imgSrc}
-            layout="constrained"
-            objectFit="cover"
-          />
-        </div>
-        <div className="card__content-box">
+    <div className="relative m-2 inline-block flex-grow ">
+      <div className={overlayClass} style={{ backgroundColor }}>
+        <GatsbyImage
+          alt={title}
+          className="w-100 h-52 object-cover"
+          height={200}
+          image={imgSrc}
+          layout="constrained"
+          objectFit="cover"
+        />
+        <div className="mx-5 my-2 flex flex-row flex-nowrap place-content-between items-start">
           <div className="card__tags-container">
-            <h2 className="card__content-title">{title}</h2>
-            {!!description && (
-              <p className="card__description">{description}</p>
-            )}
+            <h2 className="text-xl font-extrabold text-dark">{title}</h2>
+            {!!description && <p className="text-sm">{description}</p>}
           </div>
-          <div className="card__links-container">
+          <div className="flex flex-shrink-0 flex-col">
             {!!demoUrl && <Link href={demoUrl} type="Demo" url={demoUrl} />}
             {!!sourceUrl && (
               <Link href={sourceUrl} type="GitHub" url={sourceUrl} />
             )}
           </div>
         </div>
-        <div className="card__tags-row">
+        <div className="mx-5 mb-3 flex flex-row">
           {tags.map((tag) => (
             <Tag key={title + tag} title={tag} />
           ))}
@@ -78,5 +76,3 @@ Card.defaultProps = {
   description: null,
   overlayColor: 'purple',
 };
-
-export default React.memo(Card);

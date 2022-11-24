@@ -1,14 +1,13 @@
 import React from 'react';
-import './style.css';
-import { Card } from '../card';
-import { Title } from '../section-title';
-import projects from './data';
+import { projects } from '../data';
+import { Card } from './Card';
+import { Title } from './Title';
 
 export function Projects() {
   return (
-    <div>
-      <Title color="#6099C2" title="projects" />
-      <div className="projects__grid-container">
+    <div className="my-10">
+      <Title color="blue" title="projects" />
+      <div className="mt-5 grid grid-cols-2 place-content-between gap-2">
         {projects.map((project) => (
           <Card
             key={project.id}

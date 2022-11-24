@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const keyExtractor = (elem) => (_.isObject(elem) ? elem.props.children : elem);
 
-function Text({ className, text }) {
+export function Text({ className, text }) {
   const classes = cn('', className);
 
   if (Array.isArray(text)) {
@@ -27,5 +27,3 @@ Text.propTypes = {
 Text.defaultProps = {
   className: null,
 };
-
-export default React.memo(Text);

@@ -1,6 +1,0 @@
-.projects__grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, max(50%, 330px));
-  place-content: space-between;
-  row-gap: 10px;
-}

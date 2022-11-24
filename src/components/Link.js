@@ -1,8 +1,7 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { StaticImage } from 'gatsby-plugin-image';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import './style.css';
 
 const TYPES = { LINK: 'Demo', GITHUB: 'GitHub' };
 
@@ -15,7 +14,7 @@ function GitHubImage() {
       objectFit="contain"
       placeholder="blurred"
       quality={100}
-      src="./assets/github.png"
+      src="../images/icons/github.png"
     />
   );
 }
@@ -29,20 +28,24 @@ function LinkImage() {
       objectFit="contain"
       placeholder="blurred"
       quality={100}
-      src="./assets/arrow.png"
+      src="../images/icons/arrow.png"
     />
   );
 }
 
 export function Link({ url, type }) {
-  const ImgComponent = useMemo(
-    () => (type === TYPES.LINK ? <LinkImage /> : <GitHubImage />),
-    [type],
-  );
+  const ImgComponent = type === TYPES.LINK ? <LinkImage /> : <GitHubImage />;
 
   return (
-    <a className="link__container" href={url} rel="noreferrer" target="_blank">
-      <p className="link__title">{type}</p>
+    <a
+      className="flex h-8 items-center border-0 text-end hover:border-0"
+      href={url}
+      rel="noreferrer"
+      target="_blank"
+    >
+      <p className="mx-2 border-b-2 border-transparent hover:border-b-2 hover:border-black">
+        {type}
+      </p>
       {ImgComponent}
     </a>
   );
@@ -56,5 +59,3 @@ Link.propTypes = {
 Link.defaultProps = {
   type: TYPES.LINK,
 };
-
-export default React.memo(Link);

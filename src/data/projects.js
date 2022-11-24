@@ -1,6 +1,6 @@
-import { resolveImage } from './service';
+import { resolveImage } from '../common';
 
-export default [
+export const projects = [
   {
     id: 1,
     title: 'Moviest',
@@ -61,8 +61,8 @@ export default [
   },
   {
     id: 6,
-    title: 'Personal landing page',
-    description: 'Basic to do app in Electron with electron-forge',
+    title: 'ltatarev.github.io',
+    description: 'Personal landing page',
     tags: ['gatsbyjs', 'github pages'],
     image: resolveImage(
       'https://user-images.githubusercontent.com/38048916/200418641-5b4c86bb-d495-4367-8515-1bbe758b73d4.png',

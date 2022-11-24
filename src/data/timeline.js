@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default [
+export const timeline = [
   {
     id: 1,
     year: '2021 -',

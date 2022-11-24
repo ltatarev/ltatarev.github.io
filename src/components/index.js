@@ -1,3 +1,3 @@
-export { Experience } from './experience';
-export { Header } from './header';
-export { Projects } from './projects';
+export { Experience } from './Experience';
+export { Header } from './Header';
+export { Projects } from './Projects';
