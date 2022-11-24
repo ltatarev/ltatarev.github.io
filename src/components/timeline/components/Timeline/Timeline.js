@@ -3,23 +3,19 @@ import './style.css';
 import data from '../../data';
 import TimelineItem from '../TimelineItem';
 
-function Timeline() {
+export function Timeline() {
   return (
-    <div className="rb-container">
-      <ul className="rb">
-        {data.map((item) => (
-          <li key={item.id + item.title} className="rb-item">
-            <TimelineItem
-              description={item.description}
-              details={item.details}
-              title={item.title}
-              year={item.year}
-            />
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul className="space-y-12 py-8">
+      {data.map((item) => (
+        <li key={item.id + item.title} className="flex space-x-3">
+          <TimelineItem
+            description={item.description}
+            details={item.details}
+            title={item.title}
+            year={item.year}
+          />
+        </li>
+      ))}
+    </ul>
   );
 }
-
-export default React.memo(Timeline);

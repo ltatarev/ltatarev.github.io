@@ -12,14 +12,14 @@ export default [
         key={2}
         style={{ display: 'inline', marginBlockStart: 0, marginBlockEnd: 0 }}
       >
-        • developed new{' '}
+        Developed new{' '}
         <a href="https://github.com/shoutem/extensions">extensions</a>{' '}
-        (affiliate, notification journeys, e-commerce integrations
+        (affiliate, notification journeys, e-commerce integrations). Worked on
+        native integration of Shopify SDK
       </p>,
-      '• worked on native integration of Shopify SDK',
+
       <b key={2}>Disclose - Shoutem companion app</b>,
-      '• developed mobile app used for sending push notifications and previewing Shoutem projects',
-      '• worked on native implementation of opening multiple React Native bundles inside one app',
+      'Developed mobile app used for sending push notifications and previewing Shoutem projects. Worked on native implementation of opening multiple React Native bundles inside one app. ',
       <b key={3}>Open source projects</b>,
       <p
         key={2}

@@ -3,26 +3,29 @@ import PropTypes from 'prop-types';
 import './style.css';
 import { Text } from '../../../text';
 
-export function TimelineItem({
-  title, year, description, details,
-}) {
+export function TimelineItem({ title, year, description, details }) {
   return (
-    <div>
-      <div className="timestamp">{year}</div>
-      <div className="timeline__content-container">
-        <div className="timeline__main-container">
-          <Text className="item-title" text={title} />
-          {!!description && (
-            <Text className="item-description" text={description} />
-          )}
+    <>
+      <p className="flex h-8 items-center text-sm font-bold" />
+      <div className="flex-1 space-y-3">
+        <div className="flex items-center justify-between space-x-4 text-gray-400">
+          <div className="text-smb border-1 my-1 inline-flex items-center space-x-2 rounded-full border border-accent-purple px-3 py-1 hover:bg-violet-200">
+            <span
+              aria-hidden="true"
+              className="h-1.5 w-1.5 rounded-full bg-violet-400"
+            />
+            <span className="font-bold text-dark">{title}</span>
+          </div>
+          <span className="whitespace-nowrap text-xs">{year}</span>
         </div>
-        <div className="timeline__details-container">
+        <div>
+          <span className="my-6 font-bold text-dark">{description}</span>
           {!!details && (
             <Text className="item-detailed-description" text={details} />
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

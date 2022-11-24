@@ -3,7 +3,7 @@ import './style.css';
 import { Title } from '../section-title';
 import { Timeline } from '../timeline';
 
-function Experience() {
+export function Experience() {
   return (
     <div className="experience__container">
       <Title color="#AE7DB8" title="experience" />
@@ -11,5 +11,3 @@ function Experience() {
     </div>
   );
 }
-
-export default React.memo(Experience);

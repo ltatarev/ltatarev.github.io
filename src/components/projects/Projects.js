@@ -25,5 +25,3 @@ export function Projects() {
     </div>
   );
 }
-
-export default React.memo(Projects);

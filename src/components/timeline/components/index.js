@@ -1,2 +1,2 @@
-export { default as Timeline } from './Timeline';
+export { Timeline } from './Timeline';
 export { default as TimelineItem } from './TimelineItem';
