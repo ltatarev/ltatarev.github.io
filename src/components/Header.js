@@ -11,7 +11,7 @@ export function Header() {
         objectFit="contain"
         placeholder="blurred"
         quality={100}
-        src="../../images/memoji.png"
+        src="../images/memoji.png"
       />
       <div className="ml-3 mt-auto items-start md:ml-10">
         <h2 className="my-1 text-7xl font-bold">
