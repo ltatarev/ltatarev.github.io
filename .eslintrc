@@ -1,9 +1,8 @@
 {
   "root": true,
-  "extends": [
-     "@menelaia/react"
-  ],
+  "extends": ["@menelaia/react"],
   "rules": {
-    "max-len": "off"
+    "max-len": "off",
+    "object-curly-newline": "off"
   }
 }

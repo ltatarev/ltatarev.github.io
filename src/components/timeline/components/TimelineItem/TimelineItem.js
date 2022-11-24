@@ -5,27 +5,43 @@ import { Text } from '../../../text';
 
 export function TimelineItem({ title, year, description, details }) {
   return (
-    <>
-      <p className="flex h-8 items-center text-sm font-bold" />
-      <div className="flex-1 space-y-3">
-        <div className="flex items-center justify-between space-x-4 text-gray-400">
-          <div className="text-smb border-1 my-1 inline-flex items-center space-x-2 rounded-full border border-accent-purple px-3 py-1 hover:bg-violet-200">
-            <span
-              aria-hidden="true"
-              className="h-1.5 w-1.5 rounded-full bg-violet-400"
-            />
-            <span className="font-bold text-dark">{title}</span>
+    <div className="grid gap-4 py-3 sm:grid-cols-12">
+      <div className="col-span-12 sm:col-span-3">
+        <div className="text-center before:mx-auto before:mb-5 before:block before:h-2 before:w-24 before:rounded-md before:dark:bg-accent-pink sm:text-left sm:before:mx-0">
+          <h3 className="text-2xl font-bold">{title}</h3>
+          <span className="text-xs font-bold uppercase tracking-wider dark:text-gray-500">
+            {description}
+          </span>
+          <div>
+            <time className="text-xs uppercase tracking-wide dark:text-gray-400">
+              {year}
+            </time>
           </div>
-          <span className="whitespace-nowrap text-xs">{year}</span>
-        </div>
-        <div>
-          <span className="my-6 font-bold text-dark">{description}</span>
-          {!!details && (
-            <Text className="item-detailed-description" text={details} />
-          )}
         </div>
       </div>
-    </>
+      <div className="relative col-span-12 px-4 sm:col-span-9">
+        <div className="relative col-span-12 space-y-3 px-4 before:bg-neutral-300 sm:col-span-8 sm:space-y-5 sm:before:absolute sm:before:top-2 sm:before:bottom-0 sm:before:-left-3 sm:before:w-0.5">
+          {details.map((item) => (
+            <div
+              key={item.description}
+              className="flex flex-col pb-1 before:bg-accent-pink sm:relative sm:before:absolute sm:before:top-1 sm:before:left-[-33px] sm:before:z-[1] sm:before:h-3 sm:before:w-3 sm:before:rounded-full"
+            >
+              <span className="inline">
+                {!!item.title && (
+                  <h2 className="inline font-semibold">{item.title}</h2>
+                )}{' '}
+                {!!item.subtitle && (
+                  <p className="inline text-sm font-medium">
+                    ({item.subtitle})
+                  </p>
+                )}
+              </span>
+              <Text text={item.description} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 

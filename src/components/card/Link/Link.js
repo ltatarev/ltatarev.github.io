@@ -6,29 +6,33 @@ import './style.css';
 
 const TYPES = { LINK: 'Demo', GITHUB: 'GitHub' };
 
-const GitHubImage = () => (
-  <StaticImage
-    alt="GitHub"
-    height={14}
-    layout="constrained"
-    objectFit="contain"
-    placeholder="blurred"
-    quality={100}
-    src="./assets/github.png"
-  />
-);
+function GitHubImage() {
+  return (
+    <StaticImage
+      alt="GitHub"
+      height={14}
+      layout="constrained"
+      objectFit="contain"
+      placeholder="blurred"
+      quality={100}
+      src="./assets/github.png"
+    />
+  );
+}
 
-const LinkImage = () => (
-  <StaticImage
-    alt="Demo"
-    height={12}
-    layout="constrained"
-    objectFit="contain"
-    placeholder="blurred"
-    quality={100}
-    src="./assets/arrow.png"
-  />
-);
+function LinkImage() {
+  return (
+    <StaticImage
+      alt="Demo"
+      height={12}
+      layout="constrained"
+      objectFit="contain"
+      placeholder="blurred"
+      quality={100}
+      src="./assets/arrow.png"
+    />
+  );
+}
 
 export function Link({ url, type }) {
   const ImgComponent = useMemo(

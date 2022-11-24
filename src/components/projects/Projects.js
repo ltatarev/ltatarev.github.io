@@ -13,7 +13,7 @@ export function Projects() {
           <Card
             key={project.id}
             demoUrl={project.demoUrl}
-            description={project?.description}
+            description={project.description}
             imgSrc={project.image}
             overlayColor={project.color}
             sourceUrl={project.sourceUrl}
