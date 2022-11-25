@@ -91,6 +91,6 @@ export const projects = [
     ),
     sourceUrl: 'https://github.com/ltatarev/3-day-weather',
     color: 'pink',
-    demoUrl: 'https://threedayweather.herokuapp.com/',
+    demoUrl: 'https://ltatarev.github.io/3-day-weather/',
   },
 ];
