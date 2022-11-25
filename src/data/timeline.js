@@ -22,8 +22,8 @@ export const timeline = [
         title: 'Disclose',
         subtitle: '📱 Shoutem companion app',
         description: [
-          '• developed mobile app used for sending push notifications and previewing Shoutem projects.',
-          '• worked on native implementation of opening multiple React Native bundles inside one app.',
+          '• developed mobile app used for sending push notifications and previewing Shoutem projects',
+          '• worked on native implementation of opening multiple React Native bundles inside one app',
         ],
       },
       {
@@ -79,7 +79,7 @@ export const timeline = [
         title: '57hours',
         subtitle: '🏔 mountain guide booking app',
         description: [
-          '• maintained and developed mountain guide booking app  with NodeJS backend conforming to JSON:API spec',
+          '• maintained and developed mountain guide booking app with NodeJS backend conforming to JSON:API spec',
         ],
       },
     ],
@@ -93,7 +93,7 @@ export const timeline = [
       {
         title: 'React Native Bootcamp',
         description:
-          'Worked on developing simple React Native to do and news app',
+          'Worked on developing simple React Native to do and news app while learning about basic React concepts',
       },
     ],
   },

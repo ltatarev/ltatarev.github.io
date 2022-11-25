@@ -40,7 +40,7 @@ export const projects = [
   {
     id: 4,
     title: 'React Native to do',
-    description: 'Simple app that lets you create to do lists and tasks,',
+    description: 'Mobile app that lets you create to do lists and tasks',
     tags: ['react native', 'redux'],
     image: resolveImage(
       'https://user-images.githubusercontent.com/38048916/124808519-540da680-df5f-11eb-922d-1f5953ce514b.gif',
@@ -51,7 +51,7 @@ export const projects = [
   {
     id: 5,
     title: 'React Native news',
-    description: 'App for latest news using newsapi.org.',
+    description: 'App for latest news using newsapi.org',
     tags: ['react native', 'newsapi.org'],
     image: resolveImage(
       'https://user-images.githubusercontent.com/38048916/124803811-dbf0b200-df59-11eb-852f-bc36090b8ca7.png',

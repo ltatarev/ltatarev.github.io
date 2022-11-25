@@ -43,9 +43,7 @@ export function Link({ url, type }) {
       rel="noreferrer"
       target="_blank"
     >
-      <p className="mx-2 border-b-2 border-transparent hover:border-b-2 hover:border-black">
-        {type}
-      </p>
+      <p className="mx-2">{type}</p>
       {ImgComponent}
     </a>
   );
