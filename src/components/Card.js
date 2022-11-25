@@ -27,7 +27,7 @@ export function Card({
   );
 
   return (
-    <div className="relative m-2 inline-block flex-grow ">
+    <div className="relative m-2 inline-block flex-grow hover:cursor-crosshair">
       <div className={overlayClass} style={{ backgroundColor }}>
         <GatsbyImage
           alt={title}

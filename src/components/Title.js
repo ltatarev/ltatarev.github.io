@@ -7,7 +7,9 @@ export function Title({ color, title }) {
   const classNames = cn(
     'mt-2 w-max border-b-4 border-transparent text-4xl font-bold hover:border-b-4 hover:cursor-crosshair hover:transition hover:duration-100 ease',
     { 'text-accent-purple hover:border-accent-purple': color === 'purple' },
-    { 'text-accent-blue hover:border-accent-blue ': color === 'blue' },
+    { 'text-accent-blue hover:border-accent-blue': color === 'blue' },
+    { 'text-accent-pink hover:border-accent-pink': color === 'pink' },
+    { 'text-accent-peach hover:border-accent-peach': color === 'peach' },
   );
 
   return <p className={classNames}>{`(${title})`}</p>;

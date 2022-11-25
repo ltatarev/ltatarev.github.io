@@ -18,6 +18,16 @@ module.exports = {
         'pale-blue': 'rgb(148 149 202 / 45.5%)',
         'pale-peach': 'rgb(212 147 137 / 45.5%)',
       },
+      animation: {
+        fadeIn: 'fadeIn 1s linear 0.5s',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: 0 },
+          '75%': { opacity: 0.45 },
+          '100%%': { opacity: 1 },
+        },
+      },
     },
     plugins: [],
   },

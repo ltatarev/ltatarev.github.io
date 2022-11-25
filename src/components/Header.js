@@ -20,16 +20,19 @@ export function Header() {
         </h2>
         <span className="leading-loose">
           I&apos;m a software developer based in Croatia. Interested in&nbsp;
-          <p className="inline font-bold text-accent-purple">
+          <p className="inline text-lg font-bold text-accent-purple">
             full stack development
           </p>
           ,
           <br />
-          <p className="inline font-bold text-accent-peach">
+          <p className="inline text-lg font-bold text-accent-peach">
             cross platform mobile development
           </p>
           , and everything&nbsp;
-          <p className="inline font-bold text-accent-blue">JavaScript</p>.
+          <p className="inline text-lg font-bold text-accent-blue">
+            JavaScript
+          </p>
+          .
         </span>
       </div>
     </div>

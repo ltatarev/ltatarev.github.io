@@ -7,7 +7,7 @@ export function Projects() {
   return (
     <div className="my-10">
       <Title color="blue" title="projects" />
-      <div className="mt-5 grid grid-cols-2 place-content-between gap-2">
+      <div className="mt-5 grid max-w-5xl grid-cols-1 place-content-between gap-4 lg:grid-cols-2">
         {projects.map((project) => (
           <Card
             key={project.id}
