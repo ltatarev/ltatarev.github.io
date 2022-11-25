@@ -1,57 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
+
 @tailwind base;
+
+@layer base {
+  a {
+    @apply font-bold underline decoration-accent-pink decoration-wavy decoration-2;
+  }
+
+  a:hover {
+    @apply decoration-dashed;
+  }
+}
+
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
 
 html,
 body,
 #___gatsby {
   background: rgb(230 228 255);
-  background:
-    linear-gradient(
-      152deg,
-      rgb(230 228 255 / 100%) 0%,
-      rgb(235 215 221 / 100%) 100%
-    );
+  background: linear-gradient(
+    152deg,
+    rgb(230 228 255 / 100%) 0%,
+    rgb(235 215 221 / 100%) 100%
+  );
   background-position: center center;
   background-repeat: no-repeat;
-  color: #333;
-  font-family: "DM Sans", sans-serif !important;
-  font-weight: 500;
   min-height: 100vh;
   min-width: 350px;
   overflow: auto;
   scroll-behavior: smooth;
   -webkit-touch-callout: none; /* iOS Safari */
   user-select: none;
-}
-
-/* div, p {
-  border: 0.5px dashed rgba(128, 128, 128, 0.404);
-}  */
-
-a {
-  border-bottom: 2px solid rgb(0 0 0 / 0%);
-  color: rgb(35 35 35);
-  font-weight: bold;
-  text-decoration: none;
-}
-
-a:hover {
-  border-bottom: 2px solid var(--dark);
-  transition: 0.4s all;
-}
-
-a:hover::after {
-  transition: 0.4s all;
-}
-
-:root {
-  --white: whitesmoke;
-  --dark: rgb(35 35 35);
-  --pink: #ca718d;
-  --blue: #6099c2;
-  --purple: #8684cf;
-  --peach: #d07f7c;
 }

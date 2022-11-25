@@ -16,9 +16,9 @@ export function Card({
   tags,
 }) {
   const overlayClass = classNames(
-    'rounded-xl bg-pale-mauve shadow-lg overflow-hidden relative transition-all duration-75 ease-in-out',
+    'rounded-xl bg-pale-purple shadow-lg overflow-hidden relative transition-all duration-75 ease-in-out',
     'hover:shadow-xl hover:-translate-y-0.5 hover:transition-all hover:duration-75 hover:ease-in',
-    'hover:after:bg-pale-mauve hover:after:transition-all hover:after:duration-100 hover:after:ease',
+    'hover:after:bg-pale-purple hover:after:transition-all hover:after:duration-100 hover:after:ease',
     {
       'bg-pale-pink': overlayColor === 'pink',
       'bg-pale-blue': overlayColor === 'blue',
