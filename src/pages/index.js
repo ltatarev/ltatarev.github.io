@@ -3,7 +3,7 @@ import { Experience, Header, Projects } from '../components';
 
 export default function IndexPage() {
   return (
-    <div className="ease m-auto mb-20 flex min-w-min max-w-screen-xl animate-fadeIn flex-col items-center p-10 transition-all duration-75">
+    <div className="ease m-auto mb-20 flex min-w-min max-w-screen-xl flex-col items-center p-10 transition-all duration-75">
       <Header />
       <Experience />
       <Projects />
