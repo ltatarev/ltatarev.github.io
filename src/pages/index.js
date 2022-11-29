@@ -17,7 +17,7 @@ export function Head() {
       <meta charSet="utf-8" />
       <meta content="index,follow" name="robots" />
       <meta content="lucija, tatarević" name="keywords" />
-      <meta content="learn more about me :)" name="description" />
+      <meta content="personal landing page built with gatsbyjs" name="description" />
       <meta
         content="personal landing page built with gatsbyjs"
         name="abstract"
