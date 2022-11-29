@@ -17,7 +17,10 @@ export function Head() {
       <meta charSet="utf-8" />
       <meta content="index,follow" name="robots" />
       <meta content="lucija, tatarević" name="keywords" />
-      <meta content="personal landing page built with gatsbyjs" name="description" />
+      <meta
+        content="personal landing page built with gatsbyjs"
+        name="description"
+      />
       <meta
         content="personal landing page built with gatsbyjs"
         name="abstract"
@@ -41,6 +44,20 @@ export function Head() {
       <meta
         content="personal landing page built with gatsbyjs"
         name="og:description"
+      />
+      <meta
+        content="personal landing page built with gatsbyjs"
+        name="twitter:card"
+      />
+      <meta
+        content="personal landing page built with gatsbyjs"
+        name="twitter:description"
+      />
+      <meta content="lucija tatarević" name="twitter:title" />
+
+      <meta
+        content="https://user-images.githubusercontent.com/38048916/200418641-5b4c86bb-d495-4367-8515-1bbe758b73d4.png"
+        name="twitter:image"
       />
       <title>lucija tatarević</title>
       <link href="https://ltatarev.github.io/" rel="canonical" />
