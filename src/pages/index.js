@@ -22,6 +22,10 @@ export function Head() {
         name="description"
       />
       <meta
+        content="MUtmvo-wlIEuxu3YE3Y1Qq1MxQhVp8XlSTsyEnQsUJo"
+        name="google-site-verification"
+      />
+      <meta
         content="personal landing page built with gatsbyjs"
         name="abstract"
       />
