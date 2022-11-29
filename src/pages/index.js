@@ -20,6 +20,15 @@ export function Head() {
       <meta content="learn more about me :)" name="description" />
       <meta
         content="personal landing page built with gatsbyjs"
+        name="abstract"
+      />
+      <meta content="personal landing page built with gatsbyjs" name="topic" />
+      <meta
+        content="personal landing page built with gatsbyjs"
+        name="summary"
+      />
+      <meta
+        content="personal landing page built with gatsbyjs"
         name="subject"
       />
       <meta content="lucija tatarević" name="og:title" />
@@ -29,7 +38,6 @@ export function Head() {
         content="https://user-images.githubusercontent.com/38048916/200418641-5b4c86bb-d495-4367-8515-1bbe758b73d4.png"
         name="og:image"
       />
-
       <meta
         content="personal landing page built with gatsbyjs"
         name="og:description"
