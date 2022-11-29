@@ -11,16 +11,6 @@ export default function IndexPage() {
       <Header />
       <Experience />
       <Projects />
-      <div>
-        <span content="2015-02-05T08:00:00+08:00" itemProp="datePublished">
-          February 5, 2015 at 8:00am
-        </span>
-        (last modified
-        <span content="2015-02-05T09:20:00+08:00" itemProp="dateModified">
-          February 5, 2015 at 9:20am
-        </span>
-        )
-      </div>
     </div>
   );
 }
