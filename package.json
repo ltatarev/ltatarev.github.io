@@ -18,6 +18,7 @@
     "classnames": "2.3.2",
     "gatsby": "5.0.0",
     "gatsby-plugin-google-fonts": "1.0.1",
+    "gatsby-plugin-google-tagmanager": "^5.2.0",
     "gatsby-plugin-image": "3.1.0",
     "gatsby-plugin-manifest": "5.1.0",
     "gatsby-plugin-offline": "6.1.0",

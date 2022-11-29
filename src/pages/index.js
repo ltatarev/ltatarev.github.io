@@ -3,10 +3,24 @@ import { Experience, Header, Projects } from '../components';
 
 export default function IndexPage() {
   return (
-    <div className="ease m-auto mb-20 flex min-w-min max-w-screen-xl flex-col items-center p-10 transition-all duration-75">
+    <div
+      itemScope
+      className="ease m-auto mb-20 flex min-w-min max-w-screen-xl flex-col items-center p-10 transition-all duration-75"
+      itemType="https://schema.org/Article"
+    >
       <Header />
       <Experience />
       <Projects />
+      <div>
+        <span content="2015-02-05T08:00:00+08:00" itemProp="datePublished">
+          February 5, 2015 at 8:00am
+        </span>
+        (last modified
+        <span content="2015-02-05T09:20:00+08:00" itemProp="dateModified">
+          February 5, 2015 at 9:20am
+        </span>
+        )
+      </div>
     </div>
   );
 }
@@ -24,19 +38,6 @@ export function Head() {
       <meta
         content="FLPcfobSwhV5Sr-unIaVcYbTHyv1nvUpiJuU1z9z8Kk"
         name="google-site-verification"
-      />
-      <meta
-        content="personal landing page built with gatsbyjs"
-        name="abstract"
-      />
-      <meta content="personal landing page built with gatsbyjs" name="topic" />
-      <meta
-        content="personal landing page built with gatsbyjs"
-        name="summary"
-      />
-      <meta
-        content="personal landing page built with gatsbyjs"
-        name="subject"
       />
       <meta content="lucija tatarević" name="og:title" />
       <meta content="website" name="og:type" />

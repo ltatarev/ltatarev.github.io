@@ -34,6 +34,7 @@ export function Card({
           className="w-100 h-52 object-cover"
           height={200}
           image={imgSrc}
+          itemprop="image"
           layout="constrained"
           objectFit="cover"
         />
@@ -50,7 +51,7 @@ export function Card({
           </div>
         </div>
         <div className="mx-5 mb-3 flex flex-row">
-          {tags.map((tag) => (
+          {tags.map(tag => (
             <Tag key={title + tag} title={tag} />
           ))}
         </div>

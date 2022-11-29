@@ -5,10 +5,10 @@ import { Title } from './Title';
 
 export function Projects() {
   return (
-    <div className="my-10">
+    <div itemScope className="my-10" itemType="exampleOfWork">
       <Title color="blue" title="projects" />
       <div className="mt-5 grid max-w-5xl grid-cols-1 place-content-between gap-4 lg:grid-cols-2">
-        {projects.map((project) => (
+        {projects.map(project => (
           <Card
             key={project.id}
             demoUrl={project.demoUrl}

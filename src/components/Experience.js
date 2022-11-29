@@ -6,7 +6,7 @@ import { Title } from './Title';
 
 export function Experience() {
   return (
-    <div className="mt-48 md:mt-64">
+    <div itemScope className="mt-48 md:mt-64" itemType="articleBody">
       <Title color="purple" title="experience" />
       <div className="max-w-5xl py-12">
         {timeline.map((item, index) => (
