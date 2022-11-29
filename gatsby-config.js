@@ -8,6 +8,7 @@ module.exports = {
       'https://user-images.githubusercontent.com/38048916/200418641-5b4c86bb-d495-4367-8515-1bbe758b73d4.png',
   },
   plugins: [
+    'gatsby-plugin-sitemap',
     'gatsby-plugin-image',
     {
       resolve: 'gatsby-source-filesystem',
