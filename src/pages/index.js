@@ -22,7 +22,7 @@ export function Head() {
         name="description"
       />
       <meta
-        content="MUtmvo-wlIEuxu3YE3Y1Qq1MxQhVp8XlSTsyEnQsUJo"
+        content="FLPcfobSwhV5Sr-unIaVcYbTHyv1nvUpiJuU1z9z8Kk"
         name="google-site-verification"
       />
       <meta
