@@ -11,7 +11,6 @@ export const projects = [
     ),
     sourceUrl: 'https://github.com/ltatarev/the-moviest',
     color: 'purple',
-    demoUrl: 'http://the-moviest.herokuapp.com/',
   },
   {
     id: 2,
