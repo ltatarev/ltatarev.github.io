@@ -5,11 +5,12 @@ export const projects = [
     id: 1,
     title: 'Moviest',
     description: 'Web app for browsing through TV shows and movies',
-    tags: ['angular', 'nodejs', 'tmdb'],
+    tags: ['nextjs', 'mongodb', 'tmdb'],
     image: resolveImage(
       'https://user-images.githubusercontent.com/38048916/124809471-705e1300-df60-11eb-8d6c-8d79756fdc04.png',
     ),
     sourceUrl: 'https://github.com/ltatarev/the-moviest',
+    demoUrl: "https://the-moviest.vercel.app/",
     color: 'purple',
   },
   {
