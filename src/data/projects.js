@@ -7,10 +7,10 @@ export const projects = [
     description: 'Web app for browsing through TV shows and movies',
     tags: ['nextjs', 'mongodb', 'tmdb'],
     image: resolveImage(
-      'https://user-images.githubusercontent.com/38048916/124809471-705e1300-df60-11eb-8d6c-8d79756fdc04.png',
+      'https://user-images.githubusercontent.com/38048916/206591569-ecfd781d-5404-48aa-9268-40cd80bedcc2.gif',
     ),
     sourceUrl: 'https://github.com/ltatarev/the-moviest',
-    demoUrl: "https://the-moviest.vercel.app/",
+    demoUrl: 'https://the-moviest.vercel.app/',
     color: 'purple',
   },
   {
@@ -65,7 +65,7 @@ export const projects = [
     description: 'Personal landing page',
     tags: ['gatsbyjs', 'github pages'],
     image: resolveImage(
-      'https://user-images.githubusercontent.com/38048916/200418641-5b4c86bb-d495-4367-8515-1bbe758b73d4.png',
+      'https://user-images.githubusercontent.com/38048916/206591055-5061e6f6-8620-4316-af62-25ed51a51a79.png',
     ),
     sourceUrl: 'https://github.com/ltatarev/ltatarev.github.io',
     color: 'purple',
