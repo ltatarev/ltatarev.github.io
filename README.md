@@ -1,9 +1,9 @@
 # 💫 ltatarev.github.io
 
 [![GitHub Pages](https://github.com/ltatarev/ltatarev.github.io/actions/workflows/gatsby.yml/badge.svg)](https://github.com/ltatarev/ltatarev.github.io/actions/workflows/gatsby.yml)
-![gatsbyjs](https://badgen.net/badge/icon/gatsbyjs?icon=sourcegraph&color=pink&label)
-![tailwindcss](https://img.shields.io/badge/-tailwind-blue?logo=tailwindcss&logoColor=white)
-![ESLint](https://img.shields.io/badge/code%20style-eslint-%23831843?logo=eslint)
+![gatsby](https://user-images.githubusercontent.com/38048916/207946515-c4dc3039-9c9a-4ae6-b586-df93490a8010.svg)
+![tailwind](https://user-images.githubusercontent.com/38048916/207945652-72d2c080-5b12-411f-8057-2645cb314ef7.svg)
+![eslint](https://user-images.githubusercontent.com/38048916/207945659-c4ed8358-6824-4aa1-9860-652834aa6308.svg)
 
 Personal landing page built with GatsbyJS, styled with Tailwind CSS, deployed using GitHub pages.
 
