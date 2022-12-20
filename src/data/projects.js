@@ -38,6 +38,29 @@ export const projects = [
     demoUrl: 'https://knjigoteka.club/',
   },
   {
+    id: 9,
+    title: 'React Native template',
+    description: 'Modern template for bootstrapping your app',
+    tags: ['react native', 'redux', 'react navigation'],
+    image: resolveImage(
+      'https://user-images.githubusercontent.com/38048916/208326220-37928d96-5c1d-448d-b6ee-b854143add25.png',
+    ),
+    color: 'purple',
+    sourceUrl: 'https://github.com/ltatarev/react-native-template',
+  },
+  {
+    id: 10,
+    title: 'NextJS blog',
+    description: 'Clean colorful personal blog',
+    tags: ['nextjs', 'i18n', 'vercel'],
+    image: resolveImage(
+      'https://user-images.githubusercontent.com/38048916/208768219-3e2d1306-9c6d-4eb4-959f-09d10293f00e.png',
+    ),
+    color: 'purple',
+    sourceUrl: 'https://github.com/ltatarev/react-native-template',
+    demoUrl: 'https://nextjs-blog-ltatarev.vercel.app/',
+  },
+  {
     id: 4,
     title: 'React Native to do',
     description: 'Mobile app that lets you create to do lists and tasks',
