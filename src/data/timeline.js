@@ -3,7 +3,7 @@ import React from 'react';
 export const timeline = [
   {
     id: 1,
-    year: '2021 -',
+    year: '2021 - Apr 2023',
     title: 'Shoutem',
     description: 'React Native developer',
     details: [
