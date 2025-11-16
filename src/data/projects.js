@@ -58,7 +58,7 @@ export const projects = [
     ),
     color: 'purple',
     sourceUrl: 'https://github.com/ltatarev/react-native-template',
-    demoUrl: 'https://nextjs-blog-ltatarev.vercel.app/',
+    demoUrl: 'https://nextjs-blog-pi-amber.vercel.app/',
   },
   {
     id: 4,
