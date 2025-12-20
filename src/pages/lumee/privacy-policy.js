@@ -1,17 +1,11 @@
 import React from 'react';
-import { Link } from 'gatsby';
 
 export default function PrivacyPolicyPage() {
   return (
     <div className="ease m-auto mb-20 flex min-w-min max-w-screen-xl flex-col items-start p-10 transition-all duration-75">
-      <Link className="mb-6 text-lg" to="/lumee">
-        ← Back to Lumee
-      </Link>
       <h1 className="mb-6 text-4xl font-bold">Privacy Policy</h1>
       <div className="prose max-w-none">
         <div>
-          <h1>Privacy Policy</h1>
-
           <p>
             <strong>Last Updated:</strong> 20.12.2025.
           </p>
@@ -28,14 +22,14 @@ export default function PrivacyPolicyPage() {
             we use it, and your rights regarding your data.
           </p>
 
-          <h2>1. Information We Collect</h2>
+          <h2 className="bold">1. Information We Collect</h2>
           <p>
             Lumee does not require users to create an account and does not
             directly collect personally identifiable information such as your
             name, email address, or precise location.
           </p>
 
-          <h3>a) Usage Data</h3>
+          <h3 className="bold">a) Usage Data</h3>
           <p>
             We use Amplitude to understand how users interact with the App. This
             may include:
@@ -50,7 +44,7 @@ export default function PrivacyPolicyPage() {
             users.
           </p>
 
-          <h3>b) Crash and Error Data</h3>
+          <h3 className="bold">b) Crash and Error Data</h3>
           <p>
             We use Sentry to monitor app crashes and technical issues. This may
             include:
@@ -65,14 +59,14 @@ export default function PrivacyPolicyPage() {
             performance.
           </p>
 
-          <h2>2. In-App Purchases</h2>
+          <h2 className="bold">2. Ih2App Purchases</h2>
           <p>
             Lumee offers optional in-app purchases. Payments are processed
             securely by Apple through the App Store. We do not collect or store
             payment information.
           </p>
 
-          <h2>3. How We Use Information</h2>
+          <h2 className="bold">3. How We h2e Information</h2>
           <p>The information we collect is used only to:</p>
           <ul>
             <li>Improve app functionality and user experience</li>
@@ -83,7 +77,7 @@ export default function PrivacyPolicyPage() {
             We do not sell, rent, or share your data for advertising purposes.
           </p>
 
-          <h2>4. Third-Party Services</h2>
+          <h2 className="bold">4. Thirdh2arty Services</h2>
           <p>
             Lumee uses third-party services that may collect data according to
             their own privacy policies:
@@ -93,20 +87,20 @@ export default function PrivacyPolicyPage() {
             <li>Sentry (Crash reporting)</li>
           </ul>
 
-          <h2>5. Data Retention</h2>
+          <h2 className="bold">5.h2ata Retention</h2>
           <p>
             We retain analytics and crash data only for as long as necessary to
             fulfill the purposes described in this policy or as required by law.
           </p>
 
-          <h2>6. Children’s Privacy</h2>
+          <h2 className="bold">6. Chih2ren’s Privacy</h2>
           <p>
             Lumee is intended for adults only and is not designed for use by
             children under the age of 13. We do not knowingly collect personal
             data from children.
           </p>
 
-          <h2>7. Your Rights (GDPR)</h2>
+          <h2 className="bold">7. Youh2Rights (GDPR)</h2>
           <p>
             If you are located in the European Union, you have the right to:
           </p>
