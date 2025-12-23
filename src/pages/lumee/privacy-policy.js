@@ -127,7 +127,7 @@ export default function PrivacyPolicyPage() {
 export function Head() {
   return (
     <>
-      <title>Terms of Service - Lumee</title>
+      <title>Privacy Policy - Lumee</title>
       <meta charSet="utf-8" />
       <meta content="index,follow" name="robots" />
     </>
