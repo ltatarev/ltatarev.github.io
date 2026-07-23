@@ -92,6 +92,18 @@ section {
   scroll-margin-top: 48px;
 }
 
+/* components/ui/Cursor.js draws the charm itself so it can swing, and adds this
+   class once it's running. !important because it has to beat every `cursor:` in
+   the CSS modules, some of which are more specific than this can be. */
+html.charm,
+html.charm * {
+  cursor: none !important;
+}
+html.charm input,
+html.charm textarea {
+  cursor: text !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;

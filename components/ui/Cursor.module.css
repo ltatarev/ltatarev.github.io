@@ -1,0 +1,29 @@
+/* The wrapper's origin sits exactly on the pointer, so every transform written
+   by Cursor.js — the follow and the hover/press scale — pivots on the arrow tip
+   and the click point never drifts. */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  pointer-events: none;
+  transform-origin: 0 0;
+  will-change: transform;
+  opacity: 0;
+}
+/* only once the pointer has told us where it is — otherwise it flashes at 0,0 */
+.visible {
+  opacity: 1;
+}
+/* off-screen pointer, or a text field that wants its own caret */
+.hidden {
+  opacity: 0;
+}
+
+.art {
+  position: absolute;
+  /* left/top come from Cursor.js: they pull the tip back onto the wrapper origin */
+  overflow: visible; /* the swing takes the charm outside the viewBox */
+  /* the drop shadow the SVG file bakes in, in px at this size */
+  filter: drop-shadow(0 1.4px 2.5px rgba(42, 30, 24, 0.28));
+}

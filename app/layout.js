@@ -3,6 +3,7 @@ import Script from 'next/script';
 import { Dock } from '@/components/sections/Dock';
 import { Footer } from '@/components/sections/Footer';
 import { MenuBar } from '@/components/sections/MenuBar';
+import { Cursor } from '@/components/ui/Cursor';
 import './globals.css';
 import styles from './layout.module.css';
 
@@ -92,6 +93,7 @@ j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNo
         <main>{children}</main>
         <Footer />
         <Dock />
+        <Cursor />
       </body>
     </html>
   );
