@@ -42,7 +42,10 @@ const PRESS_KICK = 360; // deg/s a click jolts down the keychain
 const REST_V = 0.5; // deg/s (and px/s) below which a part counts as settled
 const REST_A = 0.05; // ...as long as it's also this close to hanging straight
 
-const HOVERABLE = 'a, button, [role="button"], select, summary, label';
+const HOVERABLE = 'button, [role="button"], select, summary, label';
+// links keep the familiar hand, so the charm steps aside over them the same way
+// it does over a text field — see the cursor overrides in globals.css
+const POINTER = 'a';
 const TEXTUAL =
   "input:not([type='button']):not([type='submit']), textarea, [contenteditable='true']";
 
@@ -160,10 +163,12 @@ export function Cursor() {
         wrap.style.transform = `translate3d(${x}px, ${y}px, 0)`;
         wrap.classList.add(styles.visible);
       }
-      // a text field keeps its own caret, so step out of the way over one
+      // a text field keeps its own caret and a link keeps the hand, so step out
+      // of the way over either one and let the OS cursor show through
       const overText = !!e.target.closest?.(TEXTUAL);
-      wrap.classList.toggle(styles.hidden, overText);
-      hovering = !overText && !!e.target.closest?.(HOVERABLE);
+      const overLink = !overText && !!e.target.closest?.(POINTER);
+      wrap.classList.toggle(styles.hidden, overText || overLink);
+      hovering = !overText && !overLink && !!e.target.closest?.(HOVERABLE);
       want = hovering ? HOVER_SCALE : 1;
       run();
     };

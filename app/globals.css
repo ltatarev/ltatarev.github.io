@@ -104,6 +104,11 @@ html.charm input,
 html.charm textarea {
   cursor: text !important;
 }
+/* links keep the familiar hand, so the charm hides over them (Cursor.js) and
+   the real pointer shows through instead of the charm's cursor: none */
+html.charm a {
+  cursor: pointer !important;
+}
 
 @media (prefers-reduced-motion: reduce) {
   * {
