@@ -24,8 +24,8 @@ export function ControlCenter() {
       <div className="tile t-lg">
         <div className="t-hd">the short version</div>
         <h3>
-          i make fast, friendly apps — and i care about the <span className="it">little details</span>
-          .
+          i make fast, friendly apps — and i care about the{' '}
+          <span className="it">little details</span>.
         </h3>
         <p>
           eight+ years of React Native and full-stack JavaScript, from fintech wallets to shared
@@ -36,7 +36,7 @@ export function ControlCenter() {
       <div className="tile t-h2">
         <div className="t-hd">Top skills</div>
         <div className="skills">
-          {SKILLS.map(s => (
+          {SKILLS.map((s) => (
             <div key={s.name} className="skill">
               <span>{s.name}</span>
               <span className="track">
@@ -50,7 +50,7 @@ export function ControlCenter() {
       <div className="tile t-h2">
         <div className="t-hd">Toolbox</div>
         <div className="chips">
-          {TOOLBOX.map(t => (
+          {TOOLBOX.map((t) => (
             <span key={t} className="chip">
               {t}
             </span>

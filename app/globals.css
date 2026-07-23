@@ -67,7 +67,8 @@ img {
   position: fixed;
   inset: 0;
   z-index: -2;
-  background: radial-gradient(80vw 60vh at 12% -8%, rgba(201, 201, 246, 0.3), transparent 60%),
+  background:
+    radial-gradient(80vw 60vh at 12% -8%, rgba(201, 201, 246, 0.3), transparent 60%),
     radial-gradient(70vw 55vh at 100% 0%, rgba(246, 194, 212, 0.28), transparent 55%),
     radial-gradient(80vw 60vh at 90% 108%, rgba(168, 214, 190, 0.26), transparent 60%), var(--paper);
 }
@@ -203,7 +204,9 @@ section {
 .reveal {
   opacity: 0;
   transform: translateY(26px);
-  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  transition:
+    opacity 0.7s var(--ease),
+    transform 0.7s var(--ease);
 }
 .reveal.in {
   opacity: 1;
@@ -216,7 +219,9 @@ section {
   border: 1px solid var(--line);
   border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) inset, 0 26px 60px -24px rgba(40, 30, 20, 0.35),
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 26px 60px -24px rgba(40, 30, 20, 0.35),
     0 8px 20px -12px rgba(40, 30, 20, 0.25);
 }
 .titlebar {
@@ -290,7 +295,9 @@ section {
   background: radial-gradient(120% 120% at 30% 20%, var(--rose), #7a3f66);
   display: grid;
   place-items: center;
-  box-shadow: 0 14px 30px -10px rgba(40, 30, 20, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+  box-shadow:
+    0 14px 30px -10px rgba(40, 30, 20, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.4);
 }
 .memoji img {
   width: 100%;
@@ -383,7 +390,10 @@ section {
   rotate: var(--r, 0deg);
   animation: bobf var(--d, 6s) var(--ease) infinite;
   animation-delay: var(--dl, 0s);
-  transition: rotate 0.4s var(--spring), scale 0.4s var(--spring), filter 0.3s var(--ease);
+  transition:
+    rotate 0.4s var(--spring),
+    scale 0.4s var(--spring),
+    filter 0.3s var(--ease);
   cursor: grab;
   touch-action: none;
   user-select: none;
@@ -405,7 +415,10 @@ section {
   cursor: grabbing;
   rotate: 0deg;
   scale: 1.12;
-  transition: rotate 0.18s var(--spring), scale 0.18s var(--spring), filter 0.18s var(--ease);
+  transition:
+    rotate 0.18s var(--spring),
+    scale 0.18s var(--spring),
+    filter 0.18s var(--ease);
   filter: drop-shadow(0 24px 26px rgba(40, 30, 20, 0.34));
 }
 .tk.dragging * {
@@ -446,7 +459,10 @@ section {
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   cursor: default;
-  transition: background 0.25s var(--ease), color 0.25s var(--ease), transform 0.4s var(--spring);
+  transition:
+    background 0.25s var(--ease),
+    color 0.25s var(--ease),
+    transform 0.4s var(--spring);
 }
 .tidy .b {
   display: none;
@@ -481,7 +497,10 @@ section {
   border-radius: 36px;
   background: #141210;
   padding: 8px;
-  box-shadow: 0 34px 60px -22px rgba(40, 30, 20, 0.55), 0 0 0 2px #2c2824, inset 0 0 0 1px #000;
+  box-shadow:
+    0 34px 60px -22px rgba(40, 30, 20, 0.55),
+    0 0 0 2px #2c2824,
+    inset 0 0 0 1px #000;
 }
 .screen {
   width: 100%;
@@ -575,7 +594,9 @@ section {
   color: inherit;
   text-align: left;
   cursor: pointer;
-  transition: translate 0.18s var(--spring), box-shadow 0.18s var(--ease);
+  transition:
+    translate 0.18s var(--spring),
+    box-shadow 0.18s var(--ease);
 }
 .task:hover {
   translate: 0 -1px;
@@ -599,7 +620,9 @@ section {
   place-items: center;
   font-size: 9px;
   color: #fff;
-  transition: background 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  transition:
+    background 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
 }
 .task .tc.o {
   background: none;
@@ -845,11 +868,15 @@ section {
 .pin {
   display: flex;
   flex-direction: column;
-  transition: transform 0.5s var(--spring), box-shadow 0.5s var(--ease);
+  transition:
+    transform 0.5s var(--spring),
+    box-shadow 0.5s var(--ease);
 }
 .pin:hover {
   transform: translateY(-7px);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.7) inset, 0 34px 66px -26px rgba(40, 30, 20, 0.45);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 34px 66px -26px rgba(40, 30, 20, 0.45);
 }
 .pin .titlebar {
   height: 34px;
@@ -1157,7 +1184,9 @@ section {
   gap: 9px;
   padding: 8px 4px;
   border-radius: 12px;
-  transition: background 0.2s, transform 0.5s var(--spring);
+  transition:
+    background 0.2s,
+    transform 0.5s var(--spring);
 }
 .folder-btn:hover {
   background: rgba(47, 123, 246, 0.08);
@@ -1249,7 +1278,9 @@ section {
   -webkit-backdrop-filter: saturate(160%) blur(16px);
   backdrop-filter: saturate(160%) blur(16px);
   box-shadow: 0 14px 30px -20px rgba(40, 30, 20, 0.4);
-  transition: transform 0.5s var(--spring), background 0.3s;
+  transition:
+    transform 0.5s var(--spring),
+    background 0.3s;
 }
 .tile:hover {
   transform: translateY(-4px);
@@ -1711,7 +1742,9 @@ section {
   padding: 11px 21px;
   border-radius: 9px;
   box-shadow: 0 9px 18px -8px rgba(47, 123, 246, 0.95);
-  transition: transform 0.35s var(--spring), filter 0.2s var(--ease);
+  transition:
+    transform 0.35s var(--spring),
+    filter 0.2s var(--ease);
 }
 .mail-send:hover {
   transform: translateY(-2px);
@@ -1823,7 +1856,9 @@ section {
   place-items: center;
   position: relative;
   transform-origin: bottom center;
-  transition: transform 0.28s var(--spring), background 0.2s;
+  transition:
+    transform 0.28s var(--spring),
+    background 0.2s;
 }
 .dock-btn:hover {
   background: rgba(0, 0, 0, 0.06);
@@ -1842,7 +1877,9 @@ section {
   background: rgba(28, 26, 23, 0.85);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.18s, transform 0.18s;
+  transition:
+    opacity 0.18s,
+    transform 0.18s;
 }
 .dock-btn:hover .tip {
   opacity: 1;
@@ -1882,7 +1919,9 @@ section {
   width: min(540px, 100%);
   transform: scale(0.86) translateY(14px);
   opacity: 0;
-  transition: transform 0.5s var(--spring), opacity 0.35s var(--ease);
+  transition:
+    transform 0.5s var(--spring),
+    opacity 0.35s var(--ease);
 }
 .scrim.open .pwin {
   transform: none;
@@ -1952,7 +1991,9 @@ section {
   font-weight: 600;
   font-size: 14.5px;
   border: 1px solid var(--line);
-  transition: transform 0.35s var(--spring), background 0.2s;
+  transition:
+    transform 0.35s var(--spring),
+    background 0.2s;
 }
 .mbtn.primary {
   background: var(--blue);

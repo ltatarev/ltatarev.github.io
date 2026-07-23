@@ -6,12 +6,7 @@ import { experience } from '@/lib/experience';
 function ReminderItem({ entry, open, onToggle }) {
   return (
     <div className={`rem-item${open ? ' open' : ''}`}>
-      <button
-        className="rem-row"
-        type="button"
-        aria-expanded={open}
-        onClick={onToggle}
-      >
+      <button className="rem-row" type="button" aria-expanded={open} onClick={onToggle}>
         <span className="rem-check done" style={{ background: entry.c, color: entry.c }}>
           ✓
         </span>

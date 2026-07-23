@@ -23,7 +23,7 @@ function Preview({ item }) {
       <BrowserMock url={item.url}>
         <div className="mk-h" />
         <div className="posters">
-          {posters.map(bg => (
+          {posters.map((bg) => (
             <span key={bg} className="poster" style={{ background: bg }} />
           ))}
         </div>
@@ -36,7 +36,7 @@ function Preview({ item }) {
       <BrowserMock url={item.url}>
         <div className="mk-h" style={{ width: '34%' }} />
         <div className="subs">
-          {subtitles.map(s => (
+          {subtitles.map((s) => (
             <div key={s.at} className={`sub-row${s.active ? ' active' : ''}`}>
               <span className="tc">{s.at}</span>
               <span className="tx" style={s.w ? { width: s.w } : undefined} />
@@ -73,7 +73,7 @@ function Preview({ item }) {
 export function Featured() {
   return (
     <div className="pin-grid">
-      {featured.map(item => (
+      {featured.map((item) => (
         <article key={item.name} className="win pin">
           <div className="titlebar">
             <div className="lights">
@@ -93,12 +93,12 @@ export function Featured() {
             </div>
             <p>{item.desc}</p>
             <div className="pin-tags">
-              {item.tags.map(t => (
+              {item.tags.map((t) => (
                 <span key={t}>{t}</span>
               ))}
             </div>
             <div className="pin-links">
-              {item.links.map(l =>
+              {item.links.map((l) =>
                 l.internal ? (
                   <Link key={l.label} className={l.muted ? 'muted' : undefined} href={l.href}>
                     {l.label}

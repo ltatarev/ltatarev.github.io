@@ -74,10 +74,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-      className={`${archivo.variable} ${instrument.variable} ${silkscreen.variable}`}
-    >
+    <html lang="en" className={`${archivo.variable} ${instrument.variable} ${silkscreen.variable}`}>
       <body>
         {isProd && (
           <Script id="gtm" strategy="afterInteractive">

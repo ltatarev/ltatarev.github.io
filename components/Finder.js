@@ -6,7 +6,7 @@ import { FolderIcon } from './FolderIcon';
 import { ProjectWindow } from './ProjectWindow';
 
 function count(key) {
-  return key === 'all' ? projects.length : projects.filter(p => p.cat === key).length;
+  return key === 'all' ? projects.length : projects.filter((p) => p.cat === key).length;
 }
 
 export function Finder() {
@@ -32,7 +32,7 @@ export function Finder() {
       <div className="win finder">
         <aside className="fsidebar">
           <div className="fs-group">Favorites</div>
-          {filters.map(f => (
+          {filters.map((f) => (
             <button
               key={f.key}
               className={`fs-item${filter === f.key ? ' active' : ''}`}
@@ -48,7 +48,7 @@ export function Finder() {
         </aside>
         <div className="fmain">
           <div className="fgrid">
-            {projects.map(p => (
+            {projects.map((p) => (
               <button
                 key={p.name}
                 className={`folder-btn${filter === 'all' || p.cat === filter ? '' : ' hide'}`}

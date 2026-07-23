@@ -18,7 +18,7 @@ export function ProjectWindow({ project, open, onClose }) {
     // The scrim stays mounted so the project keeps rendering through the close transition.
     <div
       className={`scrim${open ? ' open' : ''}`}
-      onClick={e => {
+      onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
       role="presentation"
@@ -48,7 +48,7 @@ export function ProjectWindow({ project, open, onClose }) {
           </div>
           <p>{project?.desc}</p>
           <div className="pwin-tags">
-            {project?.tags.map(t => (
+            {project?.tags.map((t) => (
               <span key={t} className="chip">
                 {t}
               </span>
