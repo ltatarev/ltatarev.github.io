@@ -10,7 +10,7 @@ export function MenuBar() {
     <div className="menubar">
       <span className="mb-logo">l</span>
       <span className="mb-name">lucija tatarević</span>
-      <Link className="mb-item" href="/#work">
+      <Link className="mb-item" href="/#featured">
         Work
       </Link>
       <Link className="mb-item" href="/#about">

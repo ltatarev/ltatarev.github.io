@@ -27,7 +27,7 @@ const ITEMS = [
     ),
   },
   {
-    href: '/#work',
+    href: '/#featured',
     tip: 'Work',
     svg: (
       <svg width="24" height="24" viewBox="0 0 74 60">

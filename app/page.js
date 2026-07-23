@@ -1,5 +1,6 @@
 import { Contact } from '@/components/Contact';
 import { ControlCenter } from '@/components/ControlCenter';
+import { Featured } from '@/components/Featured';
 import { Finder } from '@/components/Finder';
 import { Hero } from '@/components/Hero';
 import { Reminders } from '@/components/Reminders';
@@ -10,11 +11,24 @@ export default function HomePage() {
     <>
       <Hero />
 
+      <section className="pinned wrap" id="featured">
+        <Reveal>
+          <div className="eyebrow">/ pinned</div>
+          <h2 className="h-sec">
+            start <span className="it">here</span>
+            <span className="semi">;</span>
+          </h2>
+        </Reveal>
+        <Reveal>
+          <Featured />
+        </Reveal>
+      </section>
+
       <section className="work wrap" id="work">
         <Reveal className="work-head">
           <div className="eyebrow">/ projects</div>
           <h2 className="h-sec">
-            selected <span className="it">work</span>
+            all <span className="it">projects</span>
             <span className="semi">;</span>
           </h2>
         </Reveal>
