@@ -54,9 +54,11 @@ typings/
 # dotenv environment variable files
 .env*
 
-# gatsby files
-.cache/
-public
+# next.js
+# NOTE: `public/` is source in Next (it was Gatsby's build output) — it must stay tracked.
+.next/
+out/
+next-env.d.ts
 
 # Mac files
 .DS_Store
