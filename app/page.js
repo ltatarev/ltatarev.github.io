@@ -3,6 +3,7 @@ import { ControlCenter } from '@/components/ControlCenter';
 import { Featured } from '@/components/Featured';
 import { Finder } from '@/components/Finder';
 import { Hero } from '@/components/Hero';
+import { Marquee } from '@/components/Marquee';
 import { Reminders } from '@/components/Reminders';
 import { Reveal } from '@/components/Reveal';
 
@@ -62,6 +63,8 @@ export default function HomePage() {
           <Reminders />
         </Reveal>
       </section>
+
+      <Marquee />
 
       <section className="contact wrap" id="contact">
         <Contact />
