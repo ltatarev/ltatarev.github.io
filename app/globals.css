@@ -38,6 +38,7 @@
 }
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
   /* plain-url fallback: browsers that reject image-set() inside cursor drop the
      var() rules below and inherit this instead, so the cursor never reverts */
   cursor:
