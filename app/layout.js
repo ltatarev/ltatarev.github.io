@@ -1,6 +1,7 @@
 import { Archivo, Instrument_Serif, Silkscreen } from 'next/font/google';
 import Script from 'next/script';
 import { Dock } from '@/components/Dock';
+import { Footer } from '@/components/Footer';
 import { MenuBar } from '@/components/MenuBar';
 import './globals.css';
 
@@ -91,6 +92,7 @@ j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNo
         <div className="grain" aria-hidden="true" />
         <MenuBar />
         <main>{children}</main>
+        <Footer />
         <Dock />
       </body>
     </html>
