@@ -1,9 +1,10 @@
 import { Archivo, Instrument_Serif, Silkscreen } from 'next/font/google';
 import Script from 'next/script';
-import { Dock } from '@/components/Dock';
-import { Footer } from '@/components/Footer';
-import { MenuBar } from '@/components/MenuBar';
+import { Dock } from '@/components/sections/Dock';
+import { Footer } from '@/components/sections/Footer';
+import { MenuBar } from '@/components/sections/MenuBar';
 import './globals.css';
+import styles from './layout.module.css';
 
 // Carried over from the Gatsby setup (gatsby-plugin-google-tagmanager), which also
 // loaded it in production only.
@@ -34,14 +35,14 @@ const silkscreen = Silkscreen({
 
 const SITE = 'https://ltatarev.github.io';
 const DESCRIPTION =
-  'lucija tatarević — software developer. full-stack & cross-platform mobile, everything javascript.';
+  'lucija tatarevic — software developer. full-stack & cross-platform mobile, everything javascript.';
 
 export const metadata = {
   metadataBase: new URL(SITE),
-  title: 'lucija tatarević',
+  title: 'lucija tatarevic',
   description: DESCRIPTION,
-  keywords: ['lucija', 'tatarević', 'software developer', 'react native', 'javascript'],
-  authors: [{ name: 'Lucija Tatarević' }],
+  keywords: ['lucija', 'tatarevic', 'software developer', 'react native', 'javascript'],
+  authors: [{ name: 'Lucija tatarevic' }],
   alternates: { canonical: SITE },
   robots: { index: true, follow: true },
   verification: { google: 'FLPcfobSwhV5Sr-unIaVcYbTHyv1nvUpiJuU1z9z8Kk' },
@@ -50,7 +51,7 @@ export const metadata = {
   openGraph: {
     type: 'website',
     url: SITE,
-    title: 'lucija tatarević',
+    title: 'lucija tatarevic',
     description: DESCRIPTION,
     images: [
       'https://user-images.githubusercontent.com/38048916/200418641-5b4c86bb-d495-4367-8515-1bbe758b73d4.png',
@@ -58,7 +59,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'lucija tatarević',
+    title: 'lucija tatarevic',
     description: DESCRIPTION,
     images: [
       'https://user-images.githubusercontent.com/38048916/200418641-5b4c86bb-d495-4367-8515-1bbe758b73d4.png',
@@ -85,8 +86,8 @@ j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNo
 })(window,document,'script','dataLayer','${GTM_ID}');`}
           </Script>
         )}
-        <div className="wallpaper" aria-hidden="true" />
-        <div className="grain" aria-hidden="true" />
+        <div className={styles.wallpaper} aria-hidden="true" />
+        <div className={styles.grain} aria-hidden="true" />
         <MenuBar />
         <main>{children}</main>
         <Footer />

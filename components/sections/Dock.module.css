@@ -1,0 +1,65 @@
+.dock {
+  position: fixed;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 70;
+  display: flex;
+  gap: 6px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 22px;
+  -webkit-backdrop-filter: saturate(180%) blur(22px);
+  backdrop-filter: saturate(180%) blur(22px);
+  box-shadow: 0 18px 44px -18px rgba(40, 30, 20, 0.5);
+}
+.btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  transform-origin: bottom center;
+  transition:
+    transform 0.28s var(--spring),
+    background 0.2s;
+}
+.btn:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+.tip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(5px);
+  font-family: var(--pixel);
+  font-size: 10px;
+  white-space: nowrap;
+  padding: 5px 9px;
+  border-radius: 8px;
+  color: #fff;
+  background: rgba(28, 26, 23, 0.85);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.18s,
+    transform 0.18s;
+}
+.btn:hover .tip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+@media (max-width: 520px) {
+  .dock {
+    /* lift it clear of the home indicator / browser chrome */
+    bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+    gap: 2px;
+    padding: 7px 8px;
+  }
+  .btn {
+    width: 42px;
+    height: 42px;
+  }
+}

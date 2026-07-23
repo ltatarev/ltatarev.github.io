@@ -1,4 +1,4 @@
-import { DocWindow } from '@/components/DocWindow';
+import { DocWindow } from '@/components/ui/DocWindow';
 
 export const metadata = {
   title: 'Privacy Policy - Lumee',

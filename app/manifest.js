@@ -2,7 +2,7 @@ export const dynamic = 'force-static';
 
 export default function manifest() {
   return {
-    name: 'Lucija Tatarević',
+    name: 'Lucija tatarevic',
     short_name: 'ltatarev',
     description: 'personal landing page',
     start_url: '/',

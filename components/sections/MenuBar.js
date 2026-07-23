@@ -2,28 +2,29 @@
 
 import Link from 'next/link';
 import { useClock } from '@/lib/useClock';
+import styles from './MenuBar.module.css';
 
 export function MenuBar() {
   const { time, dayShort } = useClock();
 
   return (
-    <div className="menubar">
-      <span className="mb-logo">l</span>
-      <span className="mb-name">lucija tatarević</span>
-      <Link className="mb-item" href="/#featured">
+    <div className={styles.menubar}>
+      <span className={styles.logo}>l</span>
+      <span className={styles.name}>lucija tatarevic</span>
+      <Link className={styles.item} href="/#featured">
         Work
       </Link>
-      <Link className="mb-item" href="/#about">
+      <Link className={styles.item} href="/#about">
         About
       </Link>
-      <Link className="mb-item" href="/#experience">
+      <Link className={styles.item} href="/#experience">
         Experience
       </Link>
-      <Link className="mb-item" href="/#contact">
+      <Link className={styles.item} href="/#contact">
         Contact
       </Link>
-      <div className="mb-right">
-        <span className="ico" aria-hidden="true">
+      <div className={styles.right}>
+        <span className={styles.ico} aria-hidden="true">
           <svg width="17" height="12" viewBox="0 0 17 12" fill="none">
             <path d="M8.5 10.4a1.3 1.3 0 100-2.6 1.3 1.3 0 000 2.6z" fill="#6c665b" />
             <path
@@ -45,7 +46,7 @@ export function MenuBar() {
             <rect x="22.2" y="4" width="1.6" height="4" rx=".8" fill="#6c665b" />
           </svg>
         </span>
-        <span className="mb-clock">{`${dayShort} ${time}`}</span>
+        <span className={styles.clock}>{`${dayShort} ${time}`}</span>
       </div>
     </div>
   );

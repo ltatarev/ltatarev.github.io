@@ -1,23 +1,25 @@
-import { Contact } from '@/components/Contact';
-import { ControlCenter } from '@/components/ControlCenter';
-import { Featured } from '@/components/Featured';
-import { Finder } from '@/components/Finder';
-import { Hero } from '@/components/Hero';
-import { Marquee } from '@/components/Marquee';
-import { Reminders } from '@/components/Reminders';
-import { Reveal } from '@/components/Reveal';
+import { Contact } from '@/components/sections/Contact';
+import { ControlCenter } from '@/components/sections/ControlCenter';
+import { Featured } from '@/components/sections/Featured';
+import { Finder } from '@/components/sections/Finder';
+import { Hero } from '@/components/sections/Hero';
+import { Marquee } from '@/components/sections/Marquee';
+import { Reminders } from '@/components/sections/Reminders';
+import { Reveal } from '@/components/ui/Reveal';
+import ui from '@/styles/shared.module.css';
+import styles from './page.module.css';
 
 export default function HomePage() {
   return (
     <>
       <Hero />
 
-      <section className="pinned wrap" id="featured">
+      <section className={styles.pinned} id="featured">
         <Reveal>
-          <div className="eyebrow">/ pinned</div>
-          <h2 className="h-sec">
-            start <span className="it">here</span>
-            <span className="semi">;</span>
+          <div className={ui.eyebrow}>/ pinned</div>
+          <h2 className={ui.hSec}>
+            featured <span className={ui.it}>projects</span>
+            <span className={ui.semi}>;</span>
           </h2>
         </Reveal>
         <Reveal>
@@ -25,12 +27,12 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      <section className="work wrap" id="work">
-        <Reveal className="work-head">
-          <div className="eyebrow">/ projects</div>
-          <h2 className="h-sec">
-            all <span className="it">projects</span>
-            <span className="semi">;</span>
+      <section className={styles.work} id="work">
+        <Reveal className={styles.workHead}>
+          <div className={ui.eyebrow}>/ projects</div>
+          <h2 className={ui.hSec}>
+            all <span className={ui.it}>projects</span>
+            <span className={ui.semi}>;</span>
           </h2>
         </Reveal>
         <Reveal>
@@ -38,12 +40,12 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      <section className="about wrap" id="about">
+      <section className={styles.about} id="about">
         <Reveal>
-          <div className="eyebrow">/ control center</div>
-          <h2 className="h-sec">
-            a bit <span className="it">about me</span>
-            <span className="semi">;</span>
+          <div className={ui.eyebrow}>/ control center</div>
+          <h2 className={ui.hSec}>
+            a bit <span className={ui.it}>about me</span>
+            <span className={ui.semi}>;</span>
           </h2>
         </Reveal>
         <Reveal>
@@ -51,12 +53,12 @@ export default function HomePage() {
         </Reveal>
       </section>
 
-      <section className="exp wrap" id="experience">
+      <section className={styles.exp} id="experience">
         <Reveal>
-          <div className="eyebrow">/ reminders</div>
-          <h2 className="h-sec">
-            where i&apos;ve <span className="it">worked</span>
-            <span className="semi">;</span>
+          <div className={ui.eyebrow}>/ reminders</div>
+          <h2 className={ui.hSec}>
+            where i&apos;ve <span className={ui.it}>worked</span>
+            <span className={ui.semi}>;</span>
           </h2>
         </Reveal>
         <Reveal>
@@ -66,7 +68,7 @@ export default function HomePage() {
 
       <Marquee />
 
-      <section className="contact wrap" id="contact">
+      <section className={styles.contact} id="contact">
         <Contact />
       </section>
     </>

@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { filters, projects } from '@/lib/projects';
-import { FolderIcon } from './FolderIcon';
-import { ProjectWindow } from './ProjectWindow';
+import styles from './Finder.module.css';
+import { FolderIcon } from '@/components/ui/FolderIcon';
+import { ProjectWindow } from '@/components/ui/ProjectWindow';
+import { Window } from '@/components/ui/Window';
 
 function count(key) {
   return key === 'all' ? projects.length : projects.filter((p) => p.cat === key).length;
@@ -29,39 +31,41 @@ export function Finder() {
 
   return (
     <>
-      <div className="win finder">
-        <aside className="fsidebar">
-          <div className="fs-group">Favorites</div>
+      <Window className={styles.finder}>
+        <aside className={styles.sidebar}>
+          <div className={styles.group}>Favorites</div>
           {filters.map((f) => (
             <button
               key={f.key}
-              className={`fs-item${filter === f.key ? ' active' : ''}`}
+              className={`${styles.item} ${filter === f.key ? styles.active : ''}`.trim()}
               type="button"
               onClick={() => setFilter(f.key)}
             >
-              <span className="dot" style={{ background: f.dot }}>
+              <span className={styles.dot} style={{ background: f.dot }}>
                 {f.star ? '★' : ''}
               </span>{' '}
-              {f.label} <span className="fs-count">{count(f.key)}</span>
+              {f.label} <span className={styles.count}>{count(f.key)}</span>
             </button>
           ))}
         </aside>
-        <div className="fmain">
-          <div className="fgrid">
+        <div className={styles.main}>
+          <div className={styles.grid}>
             {projects.map((p) => (
               <button
                 key={p.name}
-                className={`folder-btn${filter === 'all' || p.cat === filter ? '' : ' hide'}`}
+                className={`${styles.folderBtn} ${
+                  filter === 'all' || p.cat === filter ? '' : styles.hide
+                }`.trim()}
                 type="button"
                 onClick={() => openWin(p)}
               >
                 <FolderIcon c={p.c} d={p.d} emo={p.emo} />
-                <span className="folder-lbl">{p.name}</span>
+                <span className={styles.folderLabel}>{p.name}</span>
               </button>
             ))}
           </div>
         </div>
-      </div>
+      </Window>
 
       <ProjectWindow open={open} project={active} onClose={() => setOpen(false)} />
     </>

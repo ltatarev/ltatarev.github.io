@@ -1,0 +1,99 @@
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  background: rgba(40, 30, 20, 0.28);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease);
+}
+.scrim.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.pwin {
+  width: min(540px, 100%);
+  transform: scale(0.86) translateY(14px);
+  opacity: 0;
+  transition:
+    transform 0.5s var(--spring),
+    opacity 0.35s var(--ease);
+}
+.scrim.open .pwin {
+  transform: none;
+  opacity: 1;
+}
+.body {
+  padding: 30px 30px 30px;
+}
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 20px;
+  /* sizes the FolderIcon; see the note in FolderIcon.module.css */
+  --folder-w: 78px;
+  --folder-h: 64px;
+}
+.hero h3 {
+  font-family: var(--sans);
+  font-weight: 900;
+  font-size: 26px;
+  letter-spacing: -0.01em;
+}
+.kind {
+  font-family: var(--pixel);
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-top: 4px;
+}
+.body p {
+  color: var(--ink-2);
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 18px 0 22px;
+}
+.actions {
+  display: flex;
+  gap: 11px;
+  flex-wrap: wrap;
+}
+.btn {
+  flex: 1;
+  min-width: 140px;
+  text-align: center;
+  padding: 12px;
+  border-radius: 9px;
+  font-weight: 600;
+  font-size: 14.5px;
+  border: 1px solid var(--line);
+  transition:
+    transform 0.35s var(--spring),
+    background 0.2s;
+}
+.btn.primary {
+  background: var(--blue);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 8px 18px -8px rgba(47, 123, 246, 0.8);
+}
+.btn.ghost {
+  background: rgba(0, 0, 0, 0.03);
+}
+.btn:hover {
+  transform: translateY(-2px);
+}
+.btn.ghost:hover {
+  background: rgba(0, 0, 0, 0.07);
+}

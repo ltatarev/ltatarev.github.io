@@ -1,0 +1,130 @@
+.rem {
+  margin-top: 26px;
+}
+.list {
+  padding: 6px 0;
+}
+.item {
+  border-bottom: 1px solid var(--line-2);
+}
+.item:last-child {
+  border-bottom: none;
+}
+.row {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 20px;
+  text-align: left;
+  transition: background 0.2s;
+}
+.row:hover {
+  background: rgba(0, 0, 0, 0.025);
+}
+.check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  flex: none;
+  margin-top: 1px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 12px;
+  box-shadow: inset 0 0 0 2px currentColor;
+}
+.check.done {
+  box-shadow: none;
+}
+.meta {
+  flex: 1;
+  min-width: 0;
+}
+.role {
+  display: block;
+  font-weight: 600;
+  font-size: 16px;
+}
+.co {
+  display: block;
+  color: var(--ink-2);
+  font-size: 13.5px;
+  margin-top: 1px;
+}
+.when {
+  font-family: var(--pixel);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.chev {
+  width: 16px;
+  height: 16px;
+  color: var(--ink-3);
+  margin-top: 4px;
+  flex: none;
+  transition: transform 0.4s var(--spring);
+}
+.item.open .chev {
+  transform: rotate(90deg);
+}
+/* grid 0fr -> 1fr animates to the real content height */
+.body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.42s var(--ease);
+}
+.item.open .body {
+  grid-template-rows: 1fr;
+}
+.bodyInner {
+  min-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.18s ease-out;
+}
+.item.open .bodyInner {
+  opacity: 1;
+  transition: opacity 0.3s ease-in 0.1s;
+}
+.body ul {
+  list-style: none;
+  padding: 2px 20px 18px 56px;
+}
+.sub {
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+  padding: 8px 0;
+  color: var(--ink-2);
+  font-size: 14px;
+  line-height: 1.45;
+  transform: translateY(-6px);
+  transition: transform 0.36s var(--ease);
+}
+.item.open .sub {
+  transform: none;
+  transition-delay: calc(60ms + var(--i) * 45ms);
+}
+.subDot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex: none;
+  margin-top: 1px;
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.2);
+}
+.sub b {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@media (max-width: 520px) {
+  .body ul {
+    padding-left: 20px;
+  }
+  .when {
+    display: none;
+  }
+}

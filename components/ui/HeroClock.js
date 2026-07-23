@@ -1,14 +1,15 @@
 'use client';
 
 import { useClock } from '@/lib/useClock';
+import styles from './HeroClock.module.css';
 
 export function HeroClock() {
   const { time, dateLong } = useClock();
 
   return (
-    <div className="today">
-      <div className="d">{dateLong}</div>
-      <div className="t">{time}</div>
+    <div className={styles.today}>
+      <div className={styles.date}>{dateLong}</div>
+      <div className={styles.time}>{time}</div>
     </div>
   );
 }

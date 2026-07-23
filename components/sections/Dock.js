@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
+import styles from './Dock.module.css';
 
 const ITEMS = [
   {
@@ -92,7 +93,7 @@ export function Dock() {
     const reduced = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
     if (reduced || !window.matchMedia('(hover:hover)').matches) return undefined;
 
-    const btns = Array.from(dock.querySelectorAll('.dock-btn'));
+    const btns = Array.from(dock.querySelectorAll(`.${styles.btn}`));
 
     function onMove(e) {
       btns.forEach((btn) => {
@@ -120,10 +121,10 @@ export function Dock() {
   }, []);
 
   return (
-    <nav ref={dockRef} className="dock" aria-label="Primary">
+    <nav ref={dockRef} className={styles.dock} aria-label="Primary">
       {ITEMS.map((item) => (
-        <Link key={item.href} className="dock-btn" href={item.href}>
-          <span className="tip">{item.tip}</span>
+        <Link key={item.href} className={styles.btn} href={item.href}>
+          <span className={styles.tip}>{item.tip}</span>
           {item.svg}
         </Link>
       ))}

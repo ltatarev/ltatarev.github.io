@@ -1,0 +1,34 @@
+/* The home page's section wrappers. Each one composes the page gutter, so the
+   markup only needs a single class. */
+
+.pinned {
+  composes: wrap from '../styles/shared.module.css';
+  padding-block: 20px 56px;
+}
+
+.work {
+  composes: wrap from '../styles/shared.module.css';
+  padding-block: 30px 70px;
+}
+.workHead {
+  margin-bottom: 26px;
+}
+
+.about {
+  composes: wrap from '../styles/shared.module.css';
+  padding-block: 30px 70px;
+}
+
+.exp {
+  composes: wrap from '../styles/shared.module.css';
+  padding-block: 30px 80px;
+}
+
+.contact {
+  composes: wrap from '../styles/shared.module.css';
+  /* the footer carries the bottom padding that clears the dock */
+  padding-block: 0 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

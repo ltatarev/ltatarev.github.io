@@ -1,23 +1,24 @@
 import Link from 'next/link';
 import { featured } from '@/lib/featured';
 import { projects } from '@/lib/projects';
+import styles from './Footer.module.css';
 
 export function Footer() {
   return (
-    <footer className="footer">
-      <div className="footer-in">
-        <span className="fl">
-          <span className="flogo" aria-hidden="true">
+    <footer className={styles.footer}>
+      <div className={styles.inner}>
+        <span className={styles.left}>
+          <span className={styles.logo} aria-hidden="true">
             l
           </span>{' '}
-          lucija tatarević © {new Date().getFullYear()}
+          lucija tatarevic © {new Date().getFullYear()}
         </span>
-        <span className="fmid">
+        <span className={styles.mid}>
           {`${projects.length} items · ${featured.length} pinned · 0 bugs (allegedly)`}
         </span>
-        <span className="fr">
+        <span className={styles.right}>
           <span>made with ♥ & javascript</span>
-          <Link className="to-top" href="/#home">
+          <Link className={styles.toTop} href="/#home">
             back to top
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
               <path

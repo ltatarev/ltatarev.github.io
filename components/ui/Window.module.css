@@ -1,0 +1,74 @@
+.win {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 26px 60px -24px rgba(40, 30, 20, 0.35),
+    0 8px 20px -12px rgba(40, 30, 20, 0.25);
+}
+
+.titlebar {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 15px;
+  background: var(--bar);
+  border-bottom: 1px solid var(--line-2);
+  position: relative;
+}
+/* shorter bar, for windows used as cards */
+.compact {
+  height: 34px;
+}
+
+.lights {
+  display: flex;
+  gap: 8px;
+}
+.light {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  position: relative;
+}
+.red {
+  background: var(--tl-red);
+}
+.yellow {
+  background: var(--tl-yellow);
+}
+.green {
+  background: var(--tl-green);
+}
+
+/* the red light, when the window is actually closable */
+.close {
+  cursor: var(--charm-lg), pointer;
+}
+.close:hover::after {
+  content: '×';
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.5);
+  line-height: 1;
+}
+
+.title {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+  pointer-events: none;
+}
+.compact .title {
+  font-size: 12px;
+}

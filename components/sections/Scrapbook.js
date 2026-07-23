@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { PhoneClock } from './HeroClock';
+import { PhoneClock } from '@/components/ui/HeroClock';
+import styles from './Scrapbook.module.css';
 
 const TASKS = [
   { id: 'build', label: 'ship a new build', emoji: '🚀', color: 'var(--rose)', done: true },
@@ -9,23 +10,59 @@ const TASKS = [
   { id: 'plants', label: 'water the plants', emoji: '🌱', color: '#9ed8b6', done: false },
 ];
 
+const CONFETTI_COLORS = ['var(--rose)', '#7fb2ef', '#9ed8b6', '#f2c14e', '#c79ae0', '#f28f7a'];
+
+/* hand-tuned rather than random so the pieces never clump and the markup stays
+   identical between server and client — it's only ever 18 of them */
+const CONFETTI = Array.from({ length: 18 }, (_, i) => ({
+  x: 4 + ((i * 37) % 92),
+  color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+  delay: ((i * 7) % 11) / 22,
+  dur: 1.5 + ((i * 5) % 7) / 10,
+  drift: (i % 2 ? 1 : -1) * (14 + ((i * 13) % 40)),
+  spin: (i % 2 ? 1 : -1) * (360 + ((i * 53) % 360)),
+  size: 5 + (i % 3) * 2,
+  round: i % 3 === 0,
+}));
+
+/* a touch past the slowest piece's delay + duration, so the layer unmounts
+   only once every piece has fallen out of frame */
+const CONFETTI_MS = 2800;
+
 export function Scrapbook() {
   const boardRef = useRef(null);
   const tidyRef = useRef(null);
   const [tasks, setTasks] = useState(TASKS);
+  const [burst, setBurst] = useState(0);
 
   const doneCount = tasks.filter((t) => t.done).length;
+  const allDone = doneCount === tasks.length;
 
   function toggleTask(id) {
-    setTasks((ts) => ts.map((t) => (t.id === id ? { ...t, done: !t.done } : t)));
+    const next = tasks.map((t) => (t.id === id ? { ...t, done: !t.done } : t));
+    setTasks(next);
+    // celebrate only on the crossing into "all done", so re-ticking the last
+    // task fires a fresh burst but a list that was already complete stays quiet
+    if (!allDone && next.every((t) => t.done)) {
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        setBurst((b) => b + 1);
+      }
+    }
   }
+
+  useEffect(() => {
+    if (!burst) return undefined;
+    const t = setTimeout(() => setBurst(0), CONFETTI_MS);
+    return () => clearTimeout(t);
+  }, [burst]);
 
   useEffect(() => {
     const board = boardRef.current;
     if (!board) return undefined;
-    const hero = board.closest('.hero') || board.parentElement;
+    // the board sits directly inside the hero, which is what the drag is clamped to
+    const hero = board.parentElement;
     const tidy = tidyRef.current;
-    const trinkets = Array.from(board.querySelectorAll('.tk'));
+    const trinkets = Array.from(board.querySelectorAll(`.${styles.tk}`));
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     let zTop = 40;
@@ -185,7 +222,7 @@ export function Scrapbook() {
       const onDown = (e) => {
         if (e.button && e.button !== 0) return;
         // the phone's todo list is tappable — don't hijack it into a drag
-        if (e.target.closest && e.target.closest('.task')) return;
+        if (e.target.closest && e.target.closest(`.${styles.task}`)) return;
         if (raf) {
           cancelAnimationFrame(raf);
           raf = 0;
@@ -202,7 +239,7 @@ export function Scrapbook() {
         lastT = performance.now();
         lastX = baseX;
         lastY = baseY;
-        el.classList.add('dragging', 'moved');
+        el.classList.add(styles.dragging, styles.moved);
         el.style.rotate = ''; // let .dragging straighten it (peel off the page)
         el.style.zIndex = Math.min(60, (zTop += 1));
         try {
@@ -233,7 +270,7 @@ export function Scrapbook() {
         }
         if (!anyMoved && (Math.abs(e.clientX - startX) > 3 || Math.abs(e.clientY - startY) > 3)) {
           anyMoved = true;
-          if (tidy) tidy.classList.add('show');
+          if (tidy) tidy.classList.add(styles.show);
         }
       };
 
@@ -241,7 +278,7 @@ export function Scrapbook() {
         if (!dragging || (e && e.pointerId !== pid)) return;
         dragging = false;
         pid = null;
-        el.classList.remove('dragging');
+        el.classList.remove(styles.dragging);
         if (!reduce && Math.hypot(vx, vy) > 0.04) glide();
         else settle();
       };
@@ -250,7 +287,7 @@ export function Scrapbook() {
         if (!dragging) return;
         dragging = false;
         pid = null;
-        el.classList.remove('dragging');
+        el.classList.remove(styles.dragging);
         settle();
       };
 
@@ -280,10 +317,10 @@ export function Scrapbook() {
         el.style.translate = '';
         el.style.zIndex = '';
         el.style.rotate = '';
-        el.classList.remove('moved');
+        el.classList.remove(styles.moved);
       });
       anyMoved = false;
-      tidy.classList.remove('show');
+      tidy.classList.remove(styles.show);
     };
     if (tidy) tidy.addEventListener('click', onTidy);
 
@@ -296,70 +333,90 @@ export function Scrapbook() {
 
   return (
     <>
-      <div className="scrapbook" ref={boardRef} aria-hidden="true">
+      <div className={styles.scrapbook} ref={boardRef} aria-hidden="true">
         {/* polaroid (behind) */}
-        <div className="tk tk-polaroid">
-          <div className="polaroid">
-            <div className="pic" />
-            <div className="cap">hello :)</div>
+        <div className={`${styles.tk} ${styles.tkPolaroid}`}>
+          <div className={styles.polaroid}>
+            <div className={styles.pic} />
+            <div className={styles.cap}>hello :)</div>
           </div>
         </div>
 
         {/* washi tape */}
-        <div className="tk tk-washi">
-          <div className="washi" />
+        <div className={`${styles.tk} ${styles.tkWashi}`}>
+          <div className={styles.washi} />
         </div>
 
         {/* virtual-pet egg */}
-        <div className="tk tk-pet tk-shadow">
+        <div className={`${styles.tk} ${styles.tkPet} ${styles.shadow}`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/tamagochi.png" alt="pink virtual-pet egg" />
         </div>
 
         {/* phone */}
-        <div className="tk tk-phone">
-          <div className="phone">
-            <div className="screen">
-              <div className="island" />
-              <div className="scr-status">
+        <div className={`${styles.tk} ${styles.tkPhone}`}>
+          <div className={styles.phone}>
+            <div className={styles.screen}>
+              {burst > 0 && (
+                <div className={styles.confetti} key={burst} aria-hidden="true">
+                  {CONFETTI.map((c, i) => (
+                    <i
+                      key={i}
+                      style={{
+                        left: `${c.x}%`,
+                        width: c.size,
+                        height: c.round ? c.size : c.size * 1.7,
+                        background: c.color,
+                        borderRadius: c.round ? '50%' : '1px',
+                        animationDelay: `${c.delay}s`,
+                        animationDuration: `${c.dur}s`,
+                        '--drift': `${c.drift}px`,
+                        '--spin': `${c.spin}deg`,
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
+              <div className={styles.island} />
+              <div className={styles.status}>
                 <PhoneClock />
-                <span className="bat">
+                <span className={styles.battery}>
                   <i />
                 </span>
               </div>
-              <div className="scr-head">
-                <div className="greet">
+              <div className={styles.head}>
+                <div className={styles.greet}>
                   hey, <b>lucija</b> ✿
                 </div>
-                <div className="sub">
+                <div className={styles.sub}>
                   {doneCount} of {tasks.length} done today
                 </div>
               </div>
-              <div className="scr-progress">
+              <div className={styles.progress}>
                 <i style={{ width: `${(doneCount / tasks.length) * 100}%` }} />
               </div>
-              <div className="scr-list">
+              <div className={styles.list}>
                 {tasks.map((t) => (
                   <button
                     key={t.id}
-                    className={`task${t.done ? ' done' : ''}`}
+                    className={`${styles.task} ${t.done ? styles.done : ''}`.trim()}
                     type="button"
                     tabIndex={-1}
                     onClick={() => toggleTask(t.id)}
                   >
-                    <span className="bar" style={{ background: t.color }} />
+                    <span className={styles.taskBar} style={{ background: t.color }} />
                     <span
-                      className={`tc${t.done ? '' : ' o'}`}
+                      className={`${styles.taskCheck} ${t.done ? '' : styles.open}`.trim()}
                       style={t.done ? { background: t.color } : undefined}
                     >
                       {t.done ? '✓' : ''}
                     </span>
-                    <span className="tl">{t.label}</span>
-                    <span className="emj">{t.emoji}</span>
+                    <span className={styles.taskLabel}>{t.label}</span>
+                    <span className={styles.taskEmoji}>{t.emoji}</span>
                   </button>
                 ))}
               </div>
-              <div className="scr-tab">
+              <div className={styles.tabs}>
                 <svg viewBox="0 0 24 24" fill="none">
                   <path
                     d="M3 10.5L12 3l9 7.5M5 9.5V20h14V9.5"
@@ -430,13 +487,13 @@ export function Scrapbook() {
         </div>
 
         {/* figurine */}
-        <div className="tk tk-figure tk-shadow">
+        <div className={`${styles.tk} ${styles.tkFigure} ${styles.shadow}`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/smiski.png" alt="little green figurine at a laptop" />
         </div>
 
         {/* film canister */}
-        <div className="tk tk-film tk-shadow">
+        <div className={`${styles.tk} ${styles.tkFilm} ${styles.shadow}`}>
           <svg width="60" height="80" viewBox="0 0 60 80">
             <path d="M8 40h30l14-8v34l-14-6H8z" fill="#efe7d6" />
             <g fill="#141210">
@@ -456,7 +513,7 @@ export function Scrapbook() {
         </div>
 
         {/* cassette */}
-        <div className="tk tk-tape tk-shadow">
+        <div className={`${styles.tk} ${styles.tkTape} ${styles.shadow}`}>
           <svg width="104" height="66" viewBox="0 0 104 66">
             <rect x="1" y="1" width="102" height="64" rx="8" fill="#f0b9cf" />
             <rect x="1" y="1" width="102" height="64" rx="8" fill="url(#casG)" opacity=".4" />
@@ -478,8 +535,8 @@ export function Scrapbook() {
         </div>
 
         {/* paperclip */}
-        <div className="tk tk-clip">
-          <svg className="die" width="26" height="60" viewBox="0 0 26 60" fill="none">
+        <div className={`${styles.tk} ${styles.tkClip}`}>
+          <svg className={styles.die} width="26" height="60" viewBox="0 0 26 60" fill="none">
             <path
               d="M18 14v30a6 6 0 01-12 0V12a9 9 0 0118 0v34"
               stroke="#b9b3a6"
@@ -490,17 +547,17 @@ export function Scrapbook() {
         </div>
 
         {/* stickers */}
-        <div className="tk tk-star">
-          <span className="die">🌟</span>
+        <div className={`${styles.tk} ${styles.tkStar}`}>
+          <span className={styles.die}>🌟</span>
         </div>
-        <div className="tk tk-heart">
-          <span className="die">💗</span>
+        <div className={`${styles.tk} ${styles.tkHeart}`}>
+          <span className={styles.die}>💗</span>
         </div>
       </div>
 
-      <button className="tidy" ref={tidyRef} type="button">
-        <span className="a">✦ drag the trinkets</span>
-        <span className="b">↺ tidy up</span>
+      <button className={styles.tidy} ref={tidyRef} type="button">
+        <span className={styles.before}>✦ drag the trinkets</span>
+        <span className={styles.after}>↺ tidy up</span>
       </button>
     </>
   );

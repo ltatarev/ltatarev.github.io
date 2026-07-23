@@ -1,0 +1,70 @@
+.menubar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 80;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 14px;
+  font-size: 13.5px;
+  background: rgba(248, 246, 241, 0.72);
+  border-bottom: 1px solid var(--line-2);
+  -webkit-backdrop-filter: saturate(180%) blur(18px);
+  backdrop-filter: saturate(180%) blur(18px);
+}
+.logo {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  background: linear-gradient(150deg, var(--rose), #8f4d7a);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-family: var(--sans);
+  font-weight: 900;
+  font-size: 12px;
+  margin-right: 8px;
+}
+.name {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 13.5px;
+  margin-right: 10px;
+}
+.item {
+  padding: 3px 10px;
+  border-radius: 7px;
+  color: var(--ink);
+  font-weight: 500;
+  transition: background 0.18s;
+}
+.item:hover {
+  background: rgba(0, 0, 0, 0.07);
+}
+.right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--ink-2);
+}
+.right .ico {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.clock {
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+@media (max-width: 720px) {
+  .item {
+    display: none;
+  }
+  .name {
+    margin-right: auto;
+  }
+}

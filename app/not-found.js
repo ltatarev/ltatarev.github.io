@@ -1,7 +1,7 @@
-import { DocWindow } from '@/components/DocWindow';
+import { DocWindow } from '@/components/ui/DocWindow';
 
 export const metadata = {
-  title: '404 — lucija tatarević',
+  title: '404 — lucija tatarevic',
 };
 
 export default function NotFound() {

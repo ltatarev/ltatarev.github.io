@@ -1,0 +1,15 @@
+.today {
+  font-family: var(--ui);
+}
+.date {
+  font-size: 13px;
+  color: var(--ink-2);
+}
+.time {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}

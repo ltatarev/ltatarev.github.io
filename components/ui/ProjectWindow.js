@@ -1,7 +1,10 @@
 'use client';
 
 import { useEffect } from 'react';
+import ui from '@/styles/shared.module.css';
 import { FolderIcon } from './FolderIcon';
+import styles from './ProjectWindow.module.css';
+import { TitleBar, Window } from './Window';
 
 export function ProjectWindow({ project, open, onClose }) {
   useEffect(() => {
@@ -17,47 +20,39 @@ export function ProjectWindow({ project, open, onClose }) {
   return (
     // The scrim stays mounted so the project keeps rendering through the close transition.
     <div
-      className={`scrim${open ? ' open' : ''}`}
+      className={`${styles.scrim} ${open ? styles.open : ''}`.trim()}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
       role="presentation"
     >
-      <div className="win pwin" role="dialog" aria-modal="true" aria-label={project?.name ?? ''}>
-        <div className="titlebar">
-          <div className="lights">
-            <button
-              className="light l-r"
-              type="button"
-              title="Close"
-              aria-label="Close"
-              onClick={onClose}
-            />
-            <span className="light l-y" />
-            <span className="light l-g" />
-          </div>
-          <span className="title-txt">{project ? `${project.name} — Finder` : 'project'}</span>
-        </div>
-        <div className="pwin-body">
-          <div className="pwin-hero">
+      <Window
+        className={styles.pwin}
+        role="dialog"
+        aria-modal="true"
+        aria-label={project?.name ?? ''}
+      >
+        <TitleBar title={project ? `${project.name} — Finder` : 'project'} onClose={onClose} />
+        <div className={styles.body}>
+          <div className={styles.hero}>
             {project && <FolderIcon c={project.c} d={project.d} emo={project.emo} />}
             <div>
               <h3>{project?.name}</h3>
-              <div className="kind">{project?.kind}</div>
+              <div className={styles.kind}>{project?.kind}</div>
             </div>
           </div>
           <p>{project?.desc}</p>
-          <div className="pwin-tags">
+          <div className={styles.tags}>
             {project?.tags.map((t) => (
-              <span key={t} className="chip">
+              <span key={t} className={ui.chip}>
                 {t}
               </span>
             ))}
           </div>
-          <div className="pwin-actions">
+          <div className={styles.actions}>
             {project?.demo && (
               <a
-                className="mbtn primary"
+                className={`${styles.btn} ${styles.primary}`}
                 href={project.demo}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -67,7 +62,7 @@ export function ProjectWindow({ project, open, onClose }) {
             )}
             {project?.code && (
               <a
-                className="mbtn ghost"
+                className={`${styles.btn} ${styles.ghost}`}
                 href={project.code}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -77,7 +72,7 @@ export function ProjectWindow({ project, open, onClose }) {
             )}
           </div>
         </div>
-      </div>
+      </Window>
     </div>
   );
 }
