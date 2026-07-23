@@ -2,23 +2,22 @@ import ui from '@/styles/shared.module.css';
 import styles from './ControlCenter.module.css';
 
 const SKILLS = [
-  { name: 'JavaScript', level: 100 },
-  { name: 'React Native', level: 95 },
-  { name: 'React / Next', level: 92 },
+  { name: 'React Native', level: 100 },
+  { name: 'TypeScript', level: 90 },
   { name: 'Node / APIs', level: 80 },
+  { name: 'Expo', level: 74 },
 ];
 
 const TOOLBOX = [
-  'React Native',
-  'TypeScript',
-  'Redux',
+  'React Navigation',
+  'Reanimated',
+  'Redux Toolkit',
+  'TanStack Query',
+  'Jest',
+  'Maestro',
+  'Sentry',
+  'Native Modules',
   'Claude Code',
-  'Swift',
-  'NextJS',
-  'Vite',
-  'Stripe',
-  'MongoDB',
-  'GraphGL',
 ];
 
 export function ControlCenter() {

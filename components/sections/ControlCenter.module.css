@@ -1,7 +1,7 @@
 .cc {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 112px;
+  grid-auto-rows: minmax(112px, auto);
   gap: 14px;
   margin-top: 26px;
 }
