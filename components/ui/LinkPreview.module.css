@@ -1,0 +1,118 @@
+/* Floating hover card for outbound experience links — driven by
+   components/ui/LinkPreview.js. Positioned fixed (viewport coords) and tethered
+   to the link by a dotted line + diamond, in the site's own card language. */
+
+.wrap {
+  position: fixed;
+  z-index: 90;
+  width: 264px; /* keep in step with WIDTH in LinkPreview.js */
+  pointer-events: none; /* never steal the hover from the link underneath */
+}
+/* .top anchors the wrap by its bottom edge (card above the link) and reserves the
+   tether length below; .below flips both so the card hangs under the link. */
+.above {
+  transform: translateY(-100%);
+  padding-bottom: var(--conn);
+}
+.below {
+  padding-top: var(--conn);
+}
+
+.card {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 15px 17px 16px;
+  text-align: center;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 24px 54px -22px rgba(40, 30, 20, 0.4),
+    0 8px 20px -12px rgba(40, 30, 20, 0.22);
+}
+
+.spark {
+  position: absolute;
+  top: 11px;
+  right: 14px;
+  font-size: 14px;
+  line-height: 1;
+  color: var(--accent);
+}
+
+.eyebrow {
+  font-family: var(--pixel);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.title {
+  font-family: var(--serif);
+  font-size: 24px;
+  line-height: 1.08;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+}
+
+.sub {
+  margin-top: 7px;
+  font-family: var(--ui);
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--ink-2);
+}
+
+/* the dotted tether + diamond, pinned under the link's centre via --caret */
+.conn {
+  position: absolute;
+  left: var(--caret);
+  width: 2px;
+  height: var(--conn);
+  transform: translateX(-1px);
+  background-image: linear-gradient(var(--ink-3) 42%, transparent 0);
+  background-size: 2px 6px;
+  background-repeat: repeat-y;
+  opacity: 0.5;
+}
+.above .conn {
+  bottom: 0;
+}
+.below .conn {
+  top: 0;
+}
+.conn::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+/* enter animation lives on .inner so it doesn't fight the wrap's placement
+   transform; globals.css already disables it under prefers-reduced-motion */
+.inner {
+  animation: lp-pop 0.28s var(--spring) both;
+}
+.above .inner {
+  transform-origin: center bottom;
+}
+.below .inner {
+  transform-origin: center top;
+}
+@keyframes lp-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
