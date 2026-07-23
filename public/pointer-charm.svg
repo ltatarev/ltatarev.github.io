@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 350" width="220" height="350" role="img" aria-label="Pink cursor pointer charm with a sparkle keychain">
+  <title>Pointer charm with sparkle keychain</title>
+
+  <defs>
+    <!-- Deep enough to hold up on cream paper and white windows; the plum rim
+         below does most of the work. Mirrored in components/ui/Cursor.js. -->
+    <linearGradient id="pink" x1="0.1" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#ffc4d8"/>
+      <stop offset="0.35" stop-color="#f291b4"/>
+      <stop offset="0.75" stop-color="#d2718f"/>
+      <stop offset="1" stop-color="#b8536f"/>
+    </linearGradient>
+
+    <linearGradient id="pgloss" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ded2b8"/>
+      <stop offset="0.45" stop-color="#9c907a"/>
+      <stop offset="1" stop-color="#635a49"/>
+    </linearGradient>
+
+    <linearGradient id="charm2" x1="0.2" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#ffe6ae"/>
+      <stop offset="0.5" stop-color="#eeba61"/>
+      <stop offset="1" stop-color="#b9822f"/>
+    </linearGradient>
+
+    <filter id="pdrop" x="-40%" y="-20%" width="180%" height="145%">
+      <feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#2a1e18" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <g transform="rotate(-8 120 190)" filter="url(#pdrop)">
+
+    <!-- ===== keychain ===== -->
+    <circle cx="133" cy="252" r="9" fill="none" stroke="url(#metal)" stroke-width="4.6"/>
+    <circle cx="133" cy="252" r="9" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.5"
+            stroke-dasharray="9 22" transform="rotate(-40 133 252)"/>
+    <circle cx="141" cy="272" r="8" fill="none" stroke="url(#metal)" stroke-width="4.2"/>
+    <circle cx="141" cy="272" r="8" fill="none" stroke="#ffffff" stroke-width="1.4" opacity="0.5"
+            stroke-dasharray="8 20" transform="rotate(-40 141 272)"/>
+
+    <!-- sparkle charm -->
+    <path d="M151 282C153.7 292.8 156.3 295.4 167 298C156.3 300.6 153.7 303.2 151 314C148.3 303.2 145.7 300.6 135 298C145.7 295.4 148.3 292.8 151 282Z"
+          fill="url(#charm2)" stroke="#6d2e42" stroke-width="6" stroke-linejoin="round"
+          paint-order="stroke"/>
+    <path d="M147.5 292.5C148.6 296 149.4 296.8 152 297.6C149 298.4 148.4 299.2 147.5 302C146.6 299.2 146 298.4 143 297.6C145.8 296.8 146.6 296 147.5 292.5Z"
+          fill="#ffffff" opacity="0.75"/>
+
+    <!-- ===== pointer ===== -->
+    <!-- paint-order draws the rim under the fill, so all 12 units of it sit
+         outside the shape and the pink stays full size -->
+    <path d="M44 38L44 218L89 173L116 236L143 227L116 164L170 164Z"
+          fill="url(#pink)" stroke="#6d2e42" stroke-width="12" stroke-linejoin="round"
+          paint-order="stroke"/>
+
+    <!-- gloss down the left edge -->
+    <path d="M52 58L52 196L74 174L58 140Z" fill="url(#pgloss)" opacity="0.85"/>
+    <path d="M124 176L136 176L128 214L120 196Z" fill="#ffffff" opacity="0.22"/>
+
+  </g>
+</svg>
