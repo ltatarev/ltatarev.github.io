@@ -119,6 +119,18 @@
   color: var(--ink);
   font-weight: 600;
 }
+.sub a {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  text-decoration-color: rgba(0, 0, 0, 0.3);
+  transition: text-decoration-color 0.2s var(--ease);
+}
+.sub a:hover {
+  text-decoration-color: currentColor;
+}
 
 @media (max-width: 520px) {
   .body ul {
