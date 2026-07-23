@@ -12,7 +12,6 @@ const TOOLBOX = [
   'React Navigation',
   'Reanimated',
   'Redux Toolkit',
-  'TanStack Query',
   'Jest',
   'Maestro',
   'Sentry',
