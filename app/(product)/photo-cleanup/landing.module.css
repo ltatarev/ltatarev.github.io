@@ -1,0 +1,1088 @@
+/* The Photo Cleanup landing page. Tokens, the reset and the base element styles
+   all come from app/(product)/product.css — this file only holds what's specific
+   to this page. */
+
+.wrap {
+  width: min(1080px, 100% - 48px);
+  margin-inline: auto;
+}
+.eyebrow {
+  font-size: var(--t-caption);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin: 0;
+}
+
+/* ============================================================
+   Scroll progress — drawn as the app's own StorageBar
+   ============================================================ */
+.progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--warm-200);
+  z-index: 60;
+}
+.progressFill {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--green-600), var(--green-550));
+}
+
+/* ============================================================
+   Nav
+   ============================================================ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: var(--s-2xl);
+  padding: var(--s-lg) 0;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease;
+}
+.isStuck {
+  border-bottom-color: var(--border);
+}
+.navInner {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2xl);
+  width: min(1080px, 100% - 48px);
+  margin-inline: auto;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--t-headline);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  margin-right: auto;
+}
+/* The app icon ships square and unrounded, so the corner goes on here. */
+.brandMark {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.brandMark img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.navLinks {
+  display: flex;
+  gap: var(--s-xl);
+}
+.navLinks a {
+  font-size: var(--t-sub);
+  color: var(--text-2);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.navLinks a:hover {
+  color: var(--text);
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  border-radius: var(--r-full);
+  background: var(--accent-subtle);
+  color: var(--green-700);
+  font-size: var(--t-caption);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.chipDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green-550);
+}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+.hero {
+  position: relative;
+  padding: clamp(32px, 4.5vw, 56px) 0 clamp(40px, 6vw, 72px);
+  text-align: center;
+  overflow: hidden;
+}
+.heroWash {
+  position: absolute;
+  left: 50%;
+  top: -18%;
+  translate: -50% 0;
+  width: min(900px, 120%);
+  aspect-ratio: 1;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(62, 142, 108, 0.13),
+    rgba(62, 142, 108, 0) 62%
+  );
+  pointer-events: none;
+}
+/* The wash is a 900px-square backdrop and the one child that must stay out of
+   flow. `.hero > *` matches it too and has the same specificity, so without the
+   :not() it wins on order and resets the wash to `relative` — which drops it back
+   into the layout and pushes every line of hero copy ~900px down the page. */
+.hero > *:not(.heroWash) {
+  position: relative;
+}
+.heroTitle {
+  font-size: var(--t-display);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.03;
+  margin: var(--s-lg) auto var(--s-xl);
+  max-width: 15ch;
+}
+.heroTitle em {
+  font-style: normal;
+  color: var(--accent);
+}
+.heroSub {
+  font-size: clamp(17px, 1.7vw, 21px);
+  color: var(--text-2);
+  line-height: 1.55;
+  max-width: 56ch;
+  margin: 0 auto var(--s-3xl);
+}
+.heroCta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-md);
+  justify-content: center;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px var(--s-2xl);
+  border-radius: var(--r-full);
+  font-size: var(--t-headline);
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    opacity 0.18s ease,
+    background-color 0.18s ease;
+}
+.btn:hover {
+  transform: translateY(-1px);
+}
+.btn:active {
+  transform: translateY(0);
+  opacity: 0.85;
+}
+.btnPrimary {
+  background: var(--accent);
+  color: var(--white);
+}
+.btnGhost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+.btnGhost:hover {
+  background: var(--bg-2);
+}
+.heroNote {
+  font-size: var(--t-foot);
+  color: var(--text-3);
+  margin: var(--s-lg) 0 0;
+}
+.heroChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-sm);
+  justify-content: center;
+  margin-top: var(--s-3xl);
+}
+.heroChips .chip {
+  background: var(--elevated);
+  color: var(--text-2);
+  border: 1px solid var(--border);
+  font-weight: 500;
+}
+
+/* ============================================================
+   Tour — sticky device, scroll-scrubbed screens
+   ============================================================ */
+.tour {
+  display: grid;
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  gap: clamp(32px, 6vw, 88px);
+  align-items: start;
+  padding-bottom: clamp(48px, 8vw, 96px);
+}
+.tourStage {
+  position: sticky;
+  top: 104px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-xl);
+}
+.tourDots {
+  display: flex;
+  gap: var(--s-sm);
+}
+.tourDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--warm-300);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    width 0.3s ease;
+}
+.tourDot.isActive {
+  background: var(--accent);
+  width: 22px;
+  border-radius: var(--r-full);
+}
+
+.tourSteps {
+  display: flex;
+  flex-direction: column;
+}
+.step {
+  min-height: 78vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--s-2xl) 0;
+  transition: opacity 0.45s ease;
+}
+.stepLabel {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: var(--r-full);
+  background: var(--bg-2);
+  color: var(--text-2);
+  font-size: var(--t-caption);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: var(--s-lg);
+}
+.step h2 {
+  font-size: var(--t-title1);
+  font-weight: 700;
+  letter-spacing: -0.028em;
+  line-height: 1.1;
+  margin: 0 0 var(--s-lg);
+  max-width: 18ch;
+}
+.step p {
+  font-size: clamp(16px, 1.4vw, 18px);
+  color: var(--text-2);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 46ch;
+}
+.stepMeta {
+  margin-top: var(--s-xl);
+  padding-top: var(--s-lg);
+  border-top: 1px solid var(--border);
+  font-size: var(--t-foot);
+  color: var(--text-3);
+  max-width: 46ch;
+}
+
+/* ============================================================
+   Device
+   ============================================================ */
+.device {
+  --dw: 300px;
+  width: var(--dw);
+  aspect-ratio: 300/620;
+  flex: none;
+  background: var(--warm-900);
+  border-radius: 56px;
+  padding: 11px;
+  box-shadow: var(--sh-device);
+  position: relative;
+}
+.device::after {
+  /* side button hint */
+  content: '';
+  position: absolute;
+  right: -2px;
+  top: 26%;
+  width: 2px;
+  height: 56px;
+  background: var(--warm-700);
+  border-radius: 2px;
+}
+.deviceScreen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--r-frame);
+  background: var(--bg);
+}
+.deviceNotch {
+  position: absolute;
+  left: 50%;
+  top: 9px;
+  translate: -50% 0;
+  width: 82px;
+  height: 22px;
+  border-radius: var(--r-full);
+  background: var(--warm-900);
+  z-index: 5;
+}
+.screen {
+  position: absolute;
+  inset: 0;
+  padding: 38px 14px 14px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease;
+  font-size: 10px;
+  line-height: 1.35;
+}
+.screen.isActive {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* device typography scale-down */
+.sEyebrow {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin: 0;
+}
+.sTitle {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 2px 0 0;
+}
+.sSection {
+  font-size: 11px;
+  font-weight: 600;
+  margin: 12px 0 7px;
+  letter-spacing: -0.01em;
+}
+.sRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.sAvatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--bg-2);
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+/* green hero card */
+.sHero {
+  background: var(--hero-gradient);
+  border-radius: var(--r-xl);
+  padding: 13px;
+  color: var(--white);
+  margin-top: 11px;
+  box-shadow: var(--sh-card);
+}
+.sHeroLabel {
+  font-size: 9px;
+  opacity: 0.85;
+  margin: 0;
+}
+.sHeroValue {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin: 1px 0 2px;
+  line-height: 1.05;
+}
+.sHeroNote {
+  font-size: 8px;
+  opacity: 0.78;
+  margin: 0 0 10px;
+}
+.sPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--white);
+  color: var(--green-700);
+  font-size: 9px;
+  font-weight: 600;
+  padding: 6px 13px;
+  border-radius: var(--r-full);
+}
+
+/* storage bar */
+.sStorage {
+  margin-top: 11px;
+}
+.sStorageLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 8px;
+  color: var(--text-3);
+  margin-bottom: 4px;
+}
+.sTrack {
+  height: 6px;
+  border-radius: var(--r-full);
+  background: var(--bg-2);
+  overflow: hidden;
+}
+.sTrackFill {
+  display: block;
+  height: 100%;
+  border-radius: var(--r-full);
+  background: var(--green-500);
+  width: 0;
+}
+.sTrackThin {
+  height: 3px;
+}
+
+/* category tiles */
+.sGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+.sTile {
+  background: var(--elevated);
+  border-radius: var(--r-xl);
+  padding: 9px;
+  box-shadow: var(--sh-card);
+  border: 1px solid var(--border);
+}
+.sTileTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 6px;
+}
+.sThumb {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--r-md);
+  flex: none;
+}
+.sBadge {
+  font-size: 8px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: var(--r-full);
+  background: var(--bg-2);
+  color: var(--text-2);
+}
+.sTileTitle {
+  font-size: 10px;
+  font-weight: 600;
+  margin: 8px 0 1px;
+  letter-spacing: -0.01em;
+}
+.sTileMeta {
+  font-size: 8px;
+  color: var(--text-3);
+  margin: 0;
+}
+
+/* dock */
+.sDock {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  translate: -50% 0;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: var(--warm-900);
+  border-radius: var(--r-full);
+  padding: 5px;
+  box-shadow: var(--sh-dock);
+}
+.sDockItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 9px;
+  border-radius: var(--r-full);
+  font-size: 8px;
+  font-weight: 600;
+  color: var(--warm-400);
+}
+.sDockItem.isActive {
+  background: var(--green-500);
+  color: var(--white);
+}
+
+/* swipe deck */
+.sCardStack {
+  position: relative;
+  margin-top: 11px;
+  height: 250px;
+}
+.sCard {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--sh-card);
+}
+.sCardBack {
+  inset: 10px 8px -10px;
+  background: var(--warm-200);
+  z-index: 0;
+}
+.sCardFront {
+  background: var(--ph-b);
+  z-index: 1;
+}
+.sTag {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  background: var(--white);
+  color: var(--green-700);
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 4px 8px;
+  border-radius: var(--r-full);
+}
+.sMetaChip {
+  position: absolute;
+  left: 9px;
+  bottom: 9px;
+  right: 9px;
+  background: rgba(28, 26, 24, 0.62);
+  backdrop-filter: blur(8px);
+  color: var(--white);
+  border-radius: var(--r-md);
+  padding: 6px 8px;
+  font-size: 8px;
+  line-height: 1.35;
+}
+.sMetaChip strong {
+  display: block;
+  font-weight: 600;
+  font-size: 9px;
+}
+.sActions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 14px;
+}
+.sCircle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  box-shadow: var(--sh-action);
+  color: var(--white);
+  flex: none;
+}
+.sCircleDelete {
+  background: var(--delete);
+}
+.sCircleKeep {
+  background: var(--keep);
+}
+.sCircleUndo {
+  width: 32px;
+  height: 32px;
+  background: var(--bg-2);
+  color: var(--text-2);
+}
+.sCaption {
+  text-align: center;
+  font-size: 8px;
+  color: var(--text-3);
+  margin: 9px 0 0;
+}
+
+/* review */
+.sPhotoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  margin-top: 11px;
+}
+.sPhoto {
+  aspect-ratio: 1;
+  border-radius: var(--r-md);
+  position: relative;
+}
+.sCheck {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--delete);
+  display: grid;
+  place-items: center;
+  color: var(--white);
+}
+.sSummary {
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 10px;
+  margin-top: 11px;
+  box-shadow: var(--sh-card);
+}
+.sSummaryRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 9px;
+  padding: 4px 0;
+}
+.sSummaryRow + .sSummaryRow {
+  border-top: 1px solid var(--border);
+}
+.sSummaryRow span:first-child {
+  color: var(--text-2);
+}
+.sSummaryRow span:last-child {
+  font-weight: 600;
+}
+.sCta {
+  display: block;
+  text-align: center;
+  border-radius: var(--r-full);
+  padding: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  margin-top: 11px;
+}
+.sCtaDanger {
+  background: var(--delete);
+  color: var(--white);
+}
+.sCtaQuiet {
+  background: transparent;
+  color: var(--text-2);
+  font-weight: 500;
+}
+
+/* organize */
+.sSegment {
+  display: flex;
+  gap: 2px;
+  background: var(--bg-2);
+  border-radius: var(--r-full);
+  padding: 3px;
+  margin-top: 11px;
+}
+.sSegmentItem {
+  flex: 1;
+  text-align: center;
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--text-2);
+  padding: 6px 0;
+  border-radius: var(--r-full);
+}
+.sSegmentItem.isActive {
+  background: var(--elevated);
+  color: var(--text);
+  box-shadow: var(--sh-card);
+}
+.sAlbumGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  margin-top: 8px;
+}
+.sAlbum {
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 9px;
+  box-shadow: var(--sh-card);
+}
+.sAlbumDot {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  margin-bottom: 7px;
+}
+.sAlbumName {
+  font-size: 9px;
+  font-weight: 600;
+  margin: 0;
+}
+.sAlbumCount {
+  font-size: 8px;
+  color: var(--text-3);
+  margin: 0;
+}
+
+/* ============================================================
+   Trust
+   ============================================================ */
+.section {
+  padding: clamp(56px, 8vw, 104px) 0;
+}
+.sectionHead {
+  max-width: 44ch;
+  margin-bottom: var(--s-4xl);
+}
+.sectionHead h2 {
+  font-size: var(--t-title1);
+  font-weight: 700;
+  letter-spacing: -0.028em;
+  line-height: 1.1;
+  margin: var(--s-md) 0 var(--s-md);
+}
+.sectionHead p {
+  color: var(--text-2);
+  margin: 0;
+  font-size: var(--t-callout);
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--s-lg);
+}
+.card {
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: var(--s-2xl);
+  box-shadow: var(--sh-card);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(28, 26, 24, 0.08);
+}
+.cardIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-md);
+  background: var(--accent-subtle);
+  color: var(--green-700);
+  display: grid;
+  place-items: center;
+  margin-bottom: var(--s-lg);
+}
+.card h3 {
+  font-size: var(--t-headline);
+  font-weight: 600;
+  margin: 0 0 var(--s-sm);
+  letter-spacing: -0.01em;
+}
+.card p {
+  margin: 0;
+  font-size: var(--t-sub);
+  color: var(--text-2);
+  line-height: 1.55;
+}
+
+/* ============================================================
+   Price
+   ============================================================ */
+.priceSection {
+  padding-top: 0;
+}
+.price {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
+  gap: clamp(24px, 5vw, 64px);
+  align-items: center;
+}
+.priceLead h2 {
+  font-size: var(--t-title1);
+  font-weight: 700;
+  letter-spacing: -0.028em;
+  line-height: 1.1;
+  margin: var(--s-md) 0 var(--s-2xl);
+}
+.priceCard {
+  background: var(--hero-gradient);
+  color: var(--white);
+  border-radius: 28px;
+  padding: var(--s-3xl);
+  text-align: center;
+  box-shadow: 0 20px 44px rgba(46, 122, 92, 0.28);
+}
+.priceBadge {
+  display: inline-block;
+  padding: 5px 13px;
+  border-radius: var(--r-full);
+  background: rgba(255, 255, 255, 0.18);
+  font-size: var(--t-caption);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.priceValue {
+  font-size: clamp(48px, 6vw, 62px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  margin: var(--s-lg) 0 2px;
+  line-height: 1;
+}
+.priceOnce {
+  font-size: var(--t-sub);
+  opacity: 0.85;
+  margin: 0 0 var(--s-2xl);
+}
+.priceBtn {
+  background: var(--white);
+  color: var(--green-700);
+  width: 100%;
+}
+.priceFoot {
+  font-size: var(--t-caption);
+  opacity: 0.8;
+  margin: var(--s-lg) 0 0;
+}
+.tiers {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-md);
+}
+.tiers li {
+  display: flex;
+  gap: var(--s-md);
+  align-items: flex-start;
+  font-size: var(--t-callout);
+  color: var(--text-2);
+}
+.tiers b {
+  color: var(--text);
+  font-weight: 600;
+}
+.tick {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  margin-top: 2px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--accent-subtle);
+  color: var(--green-700);
+}
+.tickStar {
+  background: var(--amber-100);
+  color: #8a6316;
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: var(--s-4xl) 0;
+}
+.footerInner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-lg) var(--s-2xl);
+  align-items: center;
+}
+.footerLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-xl);
+  margin-left: auto;
+}
+.footer a {
+  font-size: var(--t-sub);
+  color: var(--text-2);
+  text-decoration: none;
+}
+.footer a:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+.footerCopy {
+  font-size: var(--t-foot);
+  color: var(--text-3);
+}
+
+/* ============================================================
+   Reveal animation
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.2, 0.7, 0.3, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+.reveal.isIn {
+  opacity: 1;
+  transform: none;
+}
+.reveal[data-delay='1'] {
+  transition-delay: 0.07s;
+}
+.reveal[data-delay='2'] {
+  transition-delay: 0.14s;
+}
+.reveal[data-delay='3'] {
+  transition-delay: 0.21s;
+}
+.reveal[data-delay='4'] {
+  transition-delay: 0.28s;
+}
+.reveal[data-delay='5'] {
+  transition-delay: 0.35s;
+}
+
+/* The hero is already on screen at first paint, so it plays on load rather
+   than on intersection — an observer can legitimately report "not visible"
+   for above-the-fold content before layout settles, and then not fire again
+   until the first scroll. `animation-fill-mode: both` holds the end state,
+   so this works with JS disabled too. */
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.hero .reveal {
+  animation: riseIn 0.75s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+.hero .reveal[data-delay='1'] {
+  animation-delay: 0.08s;
+}
+.hero .reveal[data-delay='2'] {
+  animation-delay: 0.16s;
+}
+.hero .reveal[data-delay='3'] {
+  animation-delay: 0.24s;
+}
+.hero .reveal[data-delay='4'] {
+  animation-delay: 0.32s;
+}
+.hero .reveal[data-delay='5'] {
+  animation-delay: 0.4s;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 900px) {
+  .navLinks {
+    display: none;
+  }
+  .tour {
+    grid-template-columns: 1fr;
+    gap: var(--s-2xl);
+  }
+  .tourStage {
+    top: 76px;
+    z-index: 20;
+    padding: var(--s-md) 0 var(--s-lg);
+    background: linear-gradient(var(--bg) 78%, transparent);
+  }
+  .device {
+    --dw: 210px;
+    border-radius: 40px;
+    padding: 8px;
+  }
+  .deviceScreen {
+    border-radius: 32px;
+  }
+  .deviceNotch {
+    width: 60px;
+    height: 16px;
+    top: 7px;
+  }
+  .screen {
+    padding: 28px 10px 10px;
+    font-size: 9px;
+  }
+  .sHeroValue {
+    font-size: 24px;
+  }
+  .sCardStack {
+    height: 170px;
+  }
+  .step {
+    min-height: auto;
+    padding: var(--s-2xl) 0 var(--s-3xl);
+  }
+  .price {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 520px) {
+  .wrap,
+  .navInner {
+    width: calc(100% - 32px);
+  }
+  .heroCta .btn {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .screen {
+    transition: none;
+  }
+  .card:hover,
+  .btn:hover {
+    transform: none;
+  }
+}

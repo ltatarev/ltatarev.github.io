@@ -1,0 +1,247 @@
+.sub {
+  margin-top: 15px;
+  color: var(--ink-2);
+  font-size: 16px;
+  line-height: 1.5;
+}
+.sub b {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Generous top padding for the icons to grow into. Deliberately no overflow here:
+   setting one axis to auto/scroll makes the browser clip the other, which would
+   slice the tops off the magnified icons. */
+.dockwrap {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  padding: 50px 20px 26px;
+}
+
+.appdock {
+  --base: 84px; /* resting icon size — also the fixed slot width */
+  --bump: 28px; /* extra px at peak magnification (gentle, like real macOS) */
+  --reach: 170px; /* cursor influence radius — wider = more neighbours ease along */
+  --gap: 16px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: var(--gap);
+  /* base + vertical padding. This NEVER changes: icons scale out of the dock, so a
+     dock that grew with them would shove the whole page around on every hover. */
+  height: calc(var(--base) + 28px);
+  padding: 14px 18px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  backdrop-filter: saturate(180%) blur(24px);
+  box-shadow:
+    0 30px 60px -26px rgba(40, 30, 20, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+/* the hairline shelf the icons stand on */
+.appdock::after {
+  content: '';
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 11px;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.055);
+}
+
+/* Each slot is a fixed-size box that never grows, which is what keeps the dock's
+   size constant — if the icons were the flex items, magnifying one would inflate it. */
+.appItem {
+  position: relative;
+  width: var(--base);
+  height: var(--base);
+  flex: none;
+  display: block;
+}
+.appItem:focus-visible {
+  outline-offset: 4px;
+  border-radius: 16px;
+}
+
+/* the icon is taken out of flow so it can scale up past its slot */
+.appIc {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: bottom center;
+  will-change: transform;
+  /* no transition — it would restart on every pointer move and fight the rAF loop,
+     which is what actually smooths the magnification */
+}
+.appInner {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.appIc img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-mask-image: var(--squircle);
+  mask-image: var(--squircle);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  filter: drop-shadow(0 10px 14px rgba(40, 30, 20, 0.26));
+  -webkit-user-drag: none;
+  user-select: none;
+}
+/* hairline inside the squircle, so light icons don't float on the light dock */
+.appInner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: var(--squircle);
+  mask-image: var(--squircle);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* floats above the *scaled* icon — --grow is the icon's extra height, written by
+   the paint loop */
+.appName {
+  position: absolute;
+  bottom: calc(100% + 14px + var(--grow, 0px));
+  left: 50%;
+  transform: translateX(-50%) translateY(6px) scale(0.92);
+  font-family: var(--ui);
+  font-weight: 600;
+  font-size: 13.5px;
+  white-space: nowrap;
+  color: #fff;
+  padding: 7px 13px;
+  border-radius: 10px;
+  background: rgba(28, 26, 23, 0.9);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.18s var(--ease),
+    transform 0.28s var(--spring);
+  z-index: 5;
+  box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.5);
+}
+.appName::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: rgba(28, 26, 23, 0.9);
+}
+.appItem:hover .appName,
+.appItem.showName .appName {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.appBadge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  z-index: 3;
+  font-family: var(--pixel);
+  font-size: 8px;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--rose);
+  padding: 3px 6px;
+  border-radius: 999px;
+  box-shadow: 0 4px 10px -3px rgba(202, 113, 141, 0.9);
+  border: 1.5px solid #fff;
+}
+.appBadge.live {
+  background: var(--tl-green);
+  box-shadow: 0 4px 10px -3px rgba(40, 200, 64, 0.8);
+}
+
+/* The launch bounce lives on .appInner rather than .appIc so it never fights the
+   magnification transform the loop is writing to .appIc. */
+@keyframes appLaunch {
+  0% {
+    transform: translateY(0);
+  }
+  18% {
+    transform: translateY(-24px);
+  }
+  36% {
+    transform: translateY(0);
+  }
+  54% {
+    transform: translateY(-11px);
+  }
+  72% {
+    transform: translateY(0);
+  }
+  86% {
+    transform: translateY(-4px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.appInner.launch {
+  animation: appLaunch 0.6s var(--ease);
+}
+
+/* Touch: no fisheye to drive, so the shelf wraps into a grid and every name shows. */
+@media (hover: none) {
+  .dockwrap {
+    padding: 34px 12px 22px;
+  }
+  .appdock {
+    --base: 68px;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: auto;
+    max-width: 400px;
+    gap: 24px 18px;
+  }
+  .appItem {
+    width: var(--base);
+    height: auto;
+  }
+  .appIc {
+    position: relative;
+    height: var(--base);
+    transform: none !important;
+  }
+  .appName {
+    position: static;
+    transform: none;
+    opacity: 1;
+    background: none;
+    color: var(--ink-2);
+    padding: 8px 0 0;
+    box-shadow: none;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .appName::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .appInner.launch {
+    animation: none;
+  }
+  .appIc {
+    transform: none !important;
+  }
+}

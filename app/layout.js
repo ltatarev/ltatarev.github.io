@@ -1,12 +1,5 @@
 import { Archivo, Instrument_Serif, Silkscreen } from 'next/font/google';
 import Script from 'next/script';
-import { Dock } from '@/components/sections/Dock';
-import { Footer } from '@/components/sections/Footer';
-import { MenuBar } from '@/components/sections/MenuBar';
-import { Cursor } from '@/components/ui/Cursor';
-import { LinkPreview } from '@/components/ui/LinkPreview';
-import './globals.css';
-import styles from './layout.module.css';
 
 // Carried over from the Gatsby setup (gatsby-plugin-google-tagmanager), which also
 // loaded it in production only.
@@ -75,6 +68,9 @@ export const viewport = {
   themeColor: '#ca718d',
 };
 
+// Only the document: fonts, tag manager, and the metadata every route inherits.
+// The desktop chrome and its stylesheet belong to app/(site), so app/(product)
+// can render a page with a design system of its own on a clean surface.
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${archivo.variable} ${instrument.variable} ${silkscreen.variable}`}>
@@ -88,14 +84,7 @@ j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNo
 })(window,document,'script','dataLayer','${GTM_ID}');`}
           </Script>
         )}
-        <div className={styles.wallpaper} aria-hidden="true" />
-        <div className={styles.grain} aria-hidden="true" />
-        <MenuBar />
-        <main>{children}</main>
-        <Footer />
-        <Dock />
-        <Cursor />
-        <LinkPreview />
+        {children}
       </body>
     </html>
   );

@@ -11,6 +11,9 @@ export function MenuBar() {
     <div className={styles.menubar}>
       <span className={styles.logo}>l</span>
       <span className={styles.name}>lucija tatarevic</span>
+      <Link className={styles.item} href="/#apps">
+        Apps
+      </Link>
       <Link className={styles.item} href="/#featured">
         Work
       </Link>

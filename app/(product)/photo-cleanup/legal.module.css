@@ -1,0 +1,360 @@
+/* Styles for the Photo Cleanup legal documents. Tokens, the box-sizing reset,
+   the body/link defaults and the reduced-motion block all live in
+   app/(product)/product.css, so only the document-specific rules are here. */
+
+/* The documents set their own measure: product.css puts the body at 1.5, which is
+   tight for pages that are nothing but running prose. */
+.legal {
+  line-height: 1.6;
+}
+
+.wrap {
+  width: min(1080px, 100% - 48px);
+  margin-inline: auto;
+}
+
+.progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--warm-200);
+  z-index: 60;
+}
+.progressFill {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--green-600), var(--green-550));
+}
+
+/* nav */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: var(--s-lg) 0;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease;
+}
+.nav.isStuck {
+  border-bottom-color: var(--border);
+}
+.navInner {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2xl);
+  width: min(1080px, 100% - 48px);
+  margin-inline: auto;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--t-headline);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  color: var(--text);
+  margin-right: auto;
+}
+/* The app icon ships square and unrounded, so the corner goes on here. */
+.brandMark {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+.brandMark img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.navBack {
+  font-size: var(--t-sub);
+  color: var(--text-2);
+  text-decoration: none;
+}
+.navBack:hover {
+  color: var(--text);
+}
+
+/* header */
+.docHead {
+  padding: clamp(40px, 6vw, 80px) 0 var(--s-3xl);
+}
+.eyebrow {
+  font-size: var(--t-caption);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin: 0;
+}
+/* Larger than --t-title1: a legal document opens on its title and nothing else. */
+.docHead h1 {
+  font-size: clamp(30px, 4.4vw, 46px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin: var(--s-md) 0 var(--s-md);
+}
+.docHeadDate {
+  font-size: var(--t-foot);
+  color: var(--text-3);
+  margin: 0;
+}
+
+/* short version card */
+.tldr {
+  background: var(--accent-subtle);
+  border-radius: var(--r-xl);
+  padding: var(--s-2xl);
+  margin-top: var(--s-2xl);
+  max-width: 70ch;
+}
+.tldr h2 {
+  font-size: var(--t-headline);
+  font-weight: 600;
+  margin: 0 0 var(--s-sm);
+  color: var(--green-700);
+}
+.tldr p {
+  margin: 0;
+  font-size: var(--t-callout);
+  color: var(--warm-700);
+}
+.tldr ul {
+  margin: var(--s-md) 0 0;
+  padding-left: 1.1em;
+  font-size: var(--t-callout);
+  color: var(--warm-700);
+}
+.tldr li {
+  margin-bottom: var(--s-xs);
+}
+
+/* draft banner — DELETE THIS BLOCK BEFORE PUBLISHING */
+.draft {
+  background: var(--amber-100);
+  border: 1px solid #e8d19a;
+  border-radius: var(--r-lg);
+  padding: var(--s-lg) var(--s-xl);
+  margin-top: var(--s-2xl);
+  max-width: 70ch;
+  font-size: var(--t-sub);
+  color: #6b4e0f;
+}
+.draft strong {
+  display: block;
+  margin-bottom: var(--s-xs);
+}
+
+/* layout */
+.doc {
+  display: grid;
+  grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+  gap: clamp(32px, 6vw, 72px);
+  padding-bottom: clamp(56px, 8vw, 104px);
+}
+.toc {
+  position: sticky;
+  top: 96px;
+  align-self: start;
+}
+.toc p {
+  font-size: var(--t-caption);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin: 0 0 var(--s-md);
+}
+.toc ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: toc;
+}
+.toc li {
+  counter-increment: toc;
+}
+.toc a {
+  display: block;
+  padding: 6px 0 6px var(--s-md);
+  border-left: 2px solid var(--border);
+  font-size: var(--t-sub);
+  line-height: 1.35;
+  color: var(--text-2);
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+.toc a::before {
+  content: counter(toc) '. ';
+  color: var(--text-3);
+}
+.toc a:hover {
+  color: var(--text);
+}
+.toc a.isCurrent {
+  color: var(--accent);
+  border-left-color: var(--accent);
+  font-weight: 600;
+}
+
+.prose {
+  max-width: 68ch;
+}
+.prose section {
+  padding: var(--s-2xl) 0;
+  border-top: 1px solid var(--border);
+}
+.prose section:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+.prose h2 {
+  font-size: var(--t-title2);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--s-md);
+  line-height: 1.2;
+}
+.prose h3 {
+  font-size: var(--t-headline);
+  font-weight: 600;
+  margin: var(--s-xl) 0 var(--s-sm);
+}
+.prose p {
+  margin: 0 0 var(--s-md);
+  color: var(--text-2);
+}
+.prose ul {
+  margin: 0 0 var(--s-md);
+  padding-left: 1.2em;
+  color: var(--text-2);
+}
+.prose li {
+  margin-bottom: var(--s-sm);
+}
+.prose strong {
+  color: var(--text);
+  font-weight: 600;
+}
+/* product.css resets links to `inherit`, which would hide the few links in the body copy. */
+.prose a {
+  color: var(--accent);
+}
+.ph {
+  background: var(--amber-100);
+  color: #7a5a10;
+  border-radius: var(--r-sm);
+  padding: 1px 6px;
+  font-size: 0.94em;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* the one genuinely important clause gets its own treatment */
+.callout {
+  background: var(--coral-100);
+  border-radius: var(--r-xl);
+  padding: var(--s-xl) var(--s-2xl);
+  margin: 0 0 var(--s-lg);
+}
+.callout p {
+  color: var(--coral-700);
+  margin: 0;
+}
+.callout p strong {
+  color: var(--coral-700);
+}
+
+.footer {
+  border-top: 1px solid var(--border);
+  padding: var(--s-4xl) 0;
+}
+.footerInner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-lg) var(--s-2xl);
+  align-items: center;
+}
+.footerLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-xl);
+  margin-left: auto;
+}
+.footer a {
+  font-size: var(--t-sub);
+  color: var(--text-2);
+  text-decoration: none;
+}
+.footer a:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+.footerCopy {
+  font-size: var(--t-foot);
+  color: var(--text-3);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.6s cubic-bezier(0.2, 0.7, 0.3, 1),
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+.reveal.isIn {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 860px) {
+  .doc {
+    grid-template-columns: 1fr;
+    gap: var(--s-2xl);
+  }
+  .toc {
+    position: static;
+    padding-bottom: var(--s-lg);
+    border-bottom: 1px solid var(--border);
+  }
+  .toc ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-sm);
+  }
+  .toc a {
+    border-left: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--r-full);
+    padding: 5px 12px;
+  }
+  .toc a.isCurrent {
+    border-color: var(--accent);
+    background: var(--accent-subtle);
+  }
+}
+@media (max-width: 520px) {
+  .wrap,
+  .navInner {
+    width: calc(100% - 32px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

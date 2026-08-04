@@ -1,0 +1,142 @@
+/* Design tokens for the product pages, mirrored from the Photo Cleanup app's
+   src/theme/figma/design-tokens.json.
+
+   This is a second, self-contained design system living alongside the site's own
+   (app/globals.css) — warm neutrals and green rather than paper and rose, and the
+   iOS type ramp rather than Archivo. Next ships a route's CSS per segment, so
+   app/(site) pages get globals.css and app/(product) pages get this; that
+   separation is the whole reason for the route groups. It only holds per document
+   though — Next keeps a stylesheet around after you navigate away from the route
+   that pulled it in — so every link across the two loads a fresh page. See
+   lib/routes.js for what breaks when one doesn't. */
+
+:root {
+  /* primitives */
+  --warm-50: #faf9f7;
+  --warm-100: #f2f0ec;
+  --warm-200: #e7e4de;
+  --warm-300: #d3cfc7;
+  --warm-400: #a8a29a;
+  --warm-500: #7a756d;
+  --warm-600: #57534c;
+  --warm-700: #3e3a35;
+  --warm-800: #2a2724;
+  --warm-900: #1c1a18;
+  --white: #ffffff;
+  --green-100: #e3f0e9;
+  --green-300: #9cc9b4;
+  --green-500: #3e8e6c;
+  --green-550: #3d9e78;
+  --green-600: #2f7a5b;
+  --green-700: #256249;
+  --coral-100: #fbe9e5;
+  --coral-500: #e06a55;
+  --coral-600: #c9503c;
+  --coral-700: #a8412e;
+  --amber-100: #fbf3e0;
+  --amber-500: #d99a2b;
+
+  /* semantic */
+  --bg: var(--warm-50);
+  --bg-2: var(--warm-100);
+  --elevated: var(--white);
+  --text: var(--warm-900);
+  --text-2: var(--warm-600);
+  --text-3: var(--warm-400);
+  --border: var(--warm-200);
+  --accent: var(--green-600);
+  --accent-subtle: var(--green-100);
+  --keep: var(--green-500);
+  --delete: var(--coral-500);
+  --delete-subtle: var(--coral-100);
+
+  --hero-gradient: linear-gradient(135deg, #2e7a5c 0%, #3d9e78 100%);
+
+  /* spacing */
+  --s-xs: 4px;
+  --s-sm: 8px;
+  --s-md: 12px;
+  --s-lg: 16px;
+  --s-xl: 20px;
+  --s-2xl: 24px;
+  --s-3xl: 32px;
+  --s-4xl: 40px;
+
+  /* radii */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+  --r-full: 999px;
+  --r-frame: 44px;
+
+  /* shadows */
+  --sh-card: 0 4px 16px rgba(28, 26, 24, 0.05);
+  --sh-dock: 0 8px 24px rgba(28, 26, 24, 0.25);
+  --sh-action: 0 3px 10px rgba(28, 26, 24, 0.12);
+  --sh-device: 0 40px 80px rgba(28, 26, 24, 0.18), 0 8px 24px rgba(28, 26, 24, 0.1);
+
+  /* type — the iOS ramp, extended upward for display sizes on web */
+  --font:
+    -apple-system, 'SF Pro Display', 'SF Pro Text', BlinkMacSystemFont, 'Segoe UI', Inter,
+    system-ui, sans-serif;
+  --t-display: clamp(38px, 6.4vw, 68px);
+  --t-title1: clamp(26px, 3.2vw, 38px);
+  --t-title2: 22px;
+  --t-headline: 17px;
+  --t-body: 17px;
+  --t-callout: 16px;
+  --t-sub: 15px;
+  --t-foot: 13px;
+  --t-caption: 12px;
+
+  /* photo stand-ins — muted, never neon */
+  --ph-a: linear-gradient(135deg, #d3cfc7, #a8a29a);
+  --ph-b: linear-gradient(135deg, #9cc9b4, #3e8e6c);
+  --ph-c: linear-gradient(135deg, #fbf3e0, #d99a2b);
+  --ph-d: linear-gradient(135deg, #e7e4de, #7a756d);
+  --ph-e: linear-gradient(135deg, #fbe9e5, #e06a55);
+  --ph-f: linear-gradient(135deg, #e3f0e9, #9cc9b4);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: var(--t-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+a {
+  color: inherit;
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

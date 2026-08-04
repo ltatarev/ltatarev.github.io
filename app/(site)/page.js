@@ -1,3 +1,4 @@
+import { AppDock } from '@/components/sections/AppDock';
 import { Contact } from '@/components/sections/Contact';
 import { ControlCenter } from '@/components/sections/ControlCenter';
 import { Featured } from '@/components/sections/Featured';
@@ -13,6 +14,19 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+
+      <section className={styles.apps} id="apps">
+        <Reveal>
+          <div className={ui.eyebrow}>/ app store</div>
+          <h2 className={ui.hSec}>
+            apps i&apos;ve <span className={ui.it}>shipped</span>
+            <span className={ui.semi}>;</span>
+          </h2>
+        </Reveal>
+        <Reveal>
+          <AppDock />
+        </Reveal>
+      </section>
 
       <section className={styles.pinned} id="featured">
         <Reveal>

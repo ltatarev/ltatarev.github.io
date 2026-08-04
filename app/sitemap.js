@@ -8,5 +8,8 @@ export default function sitemap() {
     { url: `${SITE}/lumee/`, priority: 0.5 },
     { url: `${SITE}/lumee/privacy-policy/`, priority: 0.3 },
     { url: `${SITE}/lumee/terms-of-service/`, priority: 0.3 },
+    { url: `${SITE}/photo-cleanup/`, priority: 0.5 },
+    { url: `${SITE}/photo-cleanup/privacy-policy/`, priority: 0.3 },
+    { url: `${SITE}/photo-cleanup/terms-of-service/`, priority: 0.3 },
   ];
 }
