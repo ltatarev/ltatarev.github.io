@@ -1,14 +1,15 @@
-/* Design tokens for the product pages, mirrored from the Photo Cleanup app's
+/* Design tokens for the Photo Cleanup pages, mirrored from the app's
    src/theme/figma/design-tokens.json.
 
-   This is a second, self-contained design system living alongside the site's own
-   (app/globals.css) — warm neutrals and green rather than paper and rose, and the
-   iOS type ramp rather than Archivo. Next ships a route's CSS per segment, so
-   app/(site) pages get globals.css and app/(product) pages get this; that
-   separation is the whole reason for the route groups. It only holds per document
-   though — Next keeps a stylesheet around after you navigate away from the route
-   that pulled it in — so every link across the two loads a fresh page. See
-   lib/routes.js for what breaks when one doesn't. */
+   A self-contained design system living alongside the site's own (app/globals.css)
+   and Lumee's — warm neutrals and green rather than paper and rose, and the iOS
+   type ramp rather than Archivo. Next ships a route's CSS per segment, so app/(site)
+   pages get globals.css and this segment gets this; that separation is the whole
+   reason for the route groups. It only holds per document though — Next keeps a
+   stylesheet around after you navigate away from the route that pulled it in — so
+   every link out of here loads a fresh page. See lib/routes.js for what breaks when
+   one doesn't, and app/(product)/layout.js for why this sits in the segment rather
+   than in the group. */
 
 :root {
   /* primitives */
