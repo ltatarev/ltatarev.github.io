@@ -1,0 +1,114 @@
+/* Design tokens for the Keepsake pages, lifted from the app's src/theme/theme.ts —
+   Keepsake, light — and its palettes/keepsake.ts for the August pigments.
+
+   A self-contained design system living alongside the site's own (app/globals.css),
+   Photo Cleanup's, Lumee's and Moviest's — warm paper and seasonal pigment rather
+   than the paper desktop, warm neutrals, lilac or aubergine. Next ships a route's CSS
+   per segment, so app/(site) pages get globals.css and this segment gets this; that
+   separation is the whole reason for the route groups. It only holds per document
+   though — Next keeps a stylesheet around after you navigate away from the route that
+   pulled it in — so every link out of here loads a fresh page. See lib/routes.js for
+   what breaks when one doesn't, and app/(product)/layout.js for why this sits in the
+   segment rather than in the group.
+
+   The two typefaces come from next/font in this segment's layout, which exposes them
+   as custom properties on a wrapper element rather than on :root — a nested layout
+   can't put a class on <html>. So the stacks that depend on them are declared on
+   .root in shell.module.css instead of here, and inherit down from there. */
+
+:root {
+  --page: #efebe3;
+  --surface: #fbf9f4;
+  --card: #ffffff;
+  --hairline: #9c9588;
+  --hairline2: #a9a191;
+  --rule: rgba(156, 149, 136, 0.42);
+  --text: #2c2a26;
+  --text2: #60594c;
+  --muted: #645945;
+  --accent: #784c0a;
+  --socket: #8c784f;
+  --btn: #2c2a26;
+  --on-btn: #fbf9f4;
+  --seal: #d85a30;
+  --seal-inner: #f0997b;
+  /* the darker waxes the sealed glyphs are rimmed with */
+  --wax-rim: #8e2a3a;
+  --wax-rim-2: #8a4a2e;
+
+  --r-sm: 8px;
+  --r-ctrl: 13px;
+  --r-card: 20px;
+  --r-frame: 30px;
+  --r-chip: 999px;
+
+  --g-xs: 4px;
+  --g-sm: 8px;
+  --g-md: 16px;
+  --g-lg: 24px;
+  --g-xl: 32px;
+
+  /* August 2026, Keepsake light — palettes/keepsake.ts. The day numeral inks with
+     either the month's `deep` or its `mist`, as it does in the app, which is why the
+     ramp is weighted towards the pale end: that is the half of the palette a numeral
+     can actually be read on. */
+  --aug-deep: #b0662e;
+  --aug-mid: #d98e4a;
+  --aug-soft: #edbd85;
+  --aug-pale: #f9e8d2;
+  --aug-accent: #7fa8c9;
+  --aug-mist: #fbf3e9;
+
+  --ease: cubic-bezier(0.33, 1, 0.68, 1);
+  --maxw: 1120px;
+  --head-h: 60px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+/* Deliberately no `overflow-x: hidden` here, unlike the Moviest stylesheet. The hero
+   holds a tall scroll track with a `position: sticky` stage inside it, and an overflow
+   on <body> makes body a scroll container — which silently kills every sticky
+   descendant, so the board would sit at the top of the section instead of holding
+   still while the month fills in. Nothing on these pages bleeds sideways, so there is
+   nothing to clip. This is the same failure lib/routes.js describes from the other
+   direction. */
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+a {
+  color: inherit;
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

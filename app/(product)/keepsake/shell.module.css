@@ -1,0 +1,12 @@
+/* The wrapper the segment layout puts around every Keepsake page.
+
+   next/font exposes its faces as custom properties on whichever element carries the
+   generated class, and a nested layout can't reach <html> — so the two stacks that
+   depend on them are declared here rather than in keepsake.css :root, and inherit
+   down to the whole page from this one element. */
+.root {
+  --serif: var(--font-source-serif), 'Source Serif 4', Iowan Old Style, Georgia, serif;
+  --sans: var(--font-poppins), 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  font-family: var(--sans);
+}

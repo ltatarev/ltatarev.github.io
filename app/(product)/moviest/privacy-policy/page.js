@@ -158,7 +158,7 @@ const sections = [
         </ul>
         <p>
           The publisher is based in Germany, so the GDPR applies. The data controller is{' '}
-          <b>Lucija Tatarević</b>, <Fill>[postal address]</Fill>. If you’re in the EU or UK and want
+          <b>Lucija Tatarević</b>. If you’re in the EU or UK and want
           to make a request about the proxy’s server logs, write to the address below. If you
           believe personal data has been processed unlawfully, you may complain to a supervisory
           authority in your country of residence.

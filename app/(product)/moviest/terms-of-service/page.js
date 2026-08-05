@@ -122,8 +122,7 @@ const sections = [
     body: (
       <>
         <p>
-          These terms are governed by the laws of <b>Germany</b>, and disputes go to the courts of{' '}
-          <Fill>[city]</Fill>. If you’re a consumer in the EU, you keep the protections of the law
+          These terms are governed by the laws of <b>Germany</b>. If you’re a consumer in the EU, you keep the protections of the law
           where you live.
         </p>
         <p>
@@ -138,8 +137,7 @@ const sections = [
     title: 'Contact',
     body: (
       <p>
-        Write to <a href={`mailto:${EMAIL}`}>{EMAIL}</a>. Postal address:{' '}
-        <Fill>[required for an imprint under § 5 DDG]</Fill>.
+        Write to <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
       </p>
     ),
   },
