@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+  DRAFT — not legal advice. Every span.todo is a placeholder that needs a real value
+  (entity name, address, contact address, jurisdiction, analytics/crash SDK, dates).
+  Search the file for class="todo" and delete the class once the value is filled in.
+-->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy — Moviest</title>
+<meta name="description" content="What Moviest stores, what leaves your phone, and what it never collects.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --page:#0E0A16;--surface:#171123;--card:#1C1530;--hairline:#2A2140;--hairline2:#342A4E;--wash:#2A1B45;
+    --text:#FFFFFF;--text2:#9C93B8;--textMuted:#6E6488;--accent:#F4536E;--accentSoft:#FF8FA3;
+    --accentTint:rgba(244,83,110,.15);--accentBorder:rgba(244,83,110,.45);
+    --glass:rgba(255,255,255,.10);--glassBorder:rgba(255,255,255,.16);--info:#7C5CFF;--magenta:#C13BB0;
+    --success:#4FBF8B;--ease:cubic-bezier(.2,.7,.3,1);--maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+  body{background:var(--page);color:var(--text);font-family:"Plus Jakarta Sans",system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  svg{display:block}
+  :focus-visible{outline:2px solid var(--accentSoft);outline-offset:3px;border-radius:6px}
+
+  .field{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .blob{position:absolute;border-radius:50%;filter:blur(120px);will-change:transform}
+  .b1{width:760px;height:660px;left:-260px;top:-320px;background:var(--info);opacity:.26}
+  .b2{width:700px;height:600px;right:-220px;top:-260px;background:var(--magenta);opacity:.18}
+  .b3{width:640px;height:600px;right:-240px;top:1700px;background:var(--accent);opacity:.10}
+  .washtop{position:absolute;inset:0 0 auto;height:620px;z-index:0;pointer-events:none;
+    background:linear-gradient(to bottom,var(--wash),rgba(14,10,22,0))}
+  .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.03;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>")}
+  .prog{position:fixed;z-index:60;left:0;top:0;height:2px;width:100%;transform-origin:0 50%;transform:scaleX(0);
+    background:linear-gradient(90deg,var(--accent),var(--accentSoft))}
+
+  header.nav{position:fixed;z-index:50;left:0;right:0;top:0;transition:.3s var(--ease)}
+  .nav-in{max-width:var(--maxw);margin:0 auto;padding:20px 28px;display:flex;align-items:center;gap:20px}
+  .nav.stuck{background:rgba(14,10,22,.72);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);border-bottom:.5px solid var(--hairline)}
+  .nav.stuck .nav-in{padding-top:13px;padding-bottom:13px}
+  .mark{display:flex;align-items:center;gap:9px;font-family:Outfit;font-weight:700;font-size:20px;letter-spacing:-.03em}
+  .reel{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(244,83,110,.18)}
+  .pill{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 20px;border-radius:999px;font-size:14px;font-weight:600;margin-left:auto;transition:.22s var(--ease)}
+  .pill.ghost{background:var(--glass);border:.5px solid var(--glassBorder);color:var(--text)}
+  .pill.ghost:hover{background:rgba(255,255,255,.16)}
+
+  main{position:relative;z-index:2}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:Outfit;font-size:11px;font-weight:700;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--accentSoft)}
+  .eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(244,83,110,.16)}
+
+  .dochead{padding:160px 0 44px;border-bottom:.5px solid var(--hairline)}
+  .dochead h1{font-family:Outfit;font-size:clamp(38px,6vw,66px);font-weight:800;letter-spacing:-.045em;line-height:1.03;margin:20px 0 18px}
+  .dochead p{color:var(--text2);font-size:18px;max-width:56ch;line-height:1.65}
+  .stamp{display:inline-flex;align-items:center;height:30px;padding:0 14px;border-radius:999px;margin-top:24px;
+    background:var(--accentTint);border:.5px solid var(--accentBorder);color:var(--accentSoft);
+    font-size:12px;font-weight:700;letter-spacing:.1em;font-family:Outfit;text-transform:uppercase}
+
+  .cols{display:grid;grid-template-columns:220px 1fr;gap:64px;padding:56px 0 40px;align-items:start}
+  .toc{position:sticky;top:104px}
+  .toc div{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--textMuted);
+    font-family:Outfit;margin-bottom:14px}
+  .toc a{display:block;padding:7px 0 7px 14px;border-left:1.5px solid var(--hairline);font-size:14px;color:var(--text2);
+    transition:.2s var(--ease)}
+  .toc a:hover{color:var(--text)}
+  .toc a.on{border-left-color:var(--accent);color:var(--accentSoft);font-weight:600}
+
+  .prose{max-width:70ch}
+  .prose section{padding:0 0 46px}
+  .prose h2{font-family:Outfit;font-size:26px;font-weight:700;letter-spacing:-.03em;margin-bottom:14px;scroll-margin-top:110px}
+  .prose h3{font-family:Outfit;font-size:17px;font-weight:600;letter-spacing:-.01em;margin:26px 0 8px}
+  .prose p{color:var(--text2);font-size:15.5px;margin-bottom:14px}
+  .prose p b,.prose li b{color:var(--text);font-weight:600}
+  .prose a{color:var(--accentSoft);border-bottom:1px solid var(--accentBorder)}
+  .prose ul{list-style:none;margin:0 0 16px}
+  .prose li{position:relative;padding-left:20px;color:var(--text2);font-size:15.5px;margin-bottom:9px}
+  .prose li::before{content:"";position:absolute;left:2px;top:10px;width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.8}
+
+  .keybox{background:linear-gradient(180deg,var(--card),var(--surface));border:.5px solid var(--hairline);
+    border-radius:24px;padding:28px 30px;margin-bottom:44px}
+  .keybox h2{font-family:Outfit;font-size:20px;font-weight:700;letter-spacing:-.02em;margin-bottom:14px}
+  .keybox ul{margin-bottom:0}
+  .todo{color:var(--accentSoft);border-bottom:1.5px dotted var(--accentBorder);font-weight:600}
+
+  .tbl{width:100%;border-collapse:collapse;font-size:14.5px;margin:6px 0 16px}
+  .tbl th{text-align:left;font-family:Outfit;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--textMuted);font-weight:700;padding:0 16px 10px 0;border-bottom:.5px solid var(--hairline)}
+  .tbl td{padding:13px 16px 13px 0;border-bottom:.5px solid var(--hairline);color:var(--text2);vertical-align:top}
+  .tbl td:first-child{color:var(--text);font-weight:600;white-space:nowrap}
+
+  footer{margin-top:40px;border-top:.5px solid var(--hairline);position:relative;z-index:2}
+  .foot{max-width:var(--maxw);margin:0 auto;padding:36px 28px 56px;display:flex;flex-wrap:wrap;gap:22px;
+    align-items:center;justify-content:space-between;font-size:13.5px;color:var(--textMuted)}
+  .foot nav{display:flex;gap:20px}
+  .foot nav a:hover{color:var(--accentSoft)}
+
+  .rv{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease);transition-delay:var(--d,0ms)}
+  .rv.in{opacity:1;transform:none}
+
+  @media(max-width:900px){
+    .cols{grid-template-columns:1fr;gap:32px;padding-top:40px}
+    .toc{position:static;display:flex;flex-wrap:wrap;gap:8px}
+    .toc div{width:100%;margin-bottom:4px}
+    .toc a{border-left:0;padding:7px 14px;border-radius:999px;background:var(--glass);border:.5px solid var(--hairline2);font-size:13px}
+    .toc a.on{border-color:var(--accentBorder)}
+    .dochead{padding-top:126px}
+  }
+  @media(max-width:640px){ .wrap{padding:0 20px} }
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition-duration:.01ms!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="prog" id="prog"></div>
+<div class="field">
+  <div class="blob b1 par" data-par=".05"></div>
+  <div class="blob b2 par" data-par="-.04"></div>
+  <div class="blob b3 par" data-par=".06"></div>
+</div>
+<div class="washtop"></div>
+<div class="grain"></div>
+
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a class="mark" href="index.html"><span class="reel"></span>moviest</a>
+    <a class="pill ghost" href="index.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      Back to Moviest</a>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <div class="dochead">
+    <span class="eyebrow rv"><i></i>Privacy</span>
+    <h1 class="rv" style="--d:60ms">What stays on<br>your phone</h1>
+    <p class="rv" style="--d:110ms">Moviest has no accounts and no server holding your library. This page says exactly what the app stores, the few things that leave your phone, and what it never collects.</p>
+    <div class="rv" style="--d:160ms"><span class="stamp">Last updated <span class="todo">DD Month 2026</span></span></div>
+  </div>
+
+  <div class="cols">
+    <aside class="toc rv">
+      <div>On this page</div>
+      <a href="#short">The short version</a>
+      <a href="#device">What's on your device</a>
+      <a href="#leaves">What leaves your device</a>
+      <a href="#never">What we never collect</a>
+      <a href="#third">Third parties</a>
+      <a href="#import">Imports</a>
+      <a href="#rights">Your rights</a>
+      <a href="#children">Children</a>
+      <a href="#changes">Changes</a>
+      <a href="#contact">Contact</a>
+    </aside>
+
+    <div class="prose">
+
+      <div class="keybox rv" id="short">
+        <h2>The short version</h2>
+        <ul>
+          <li>There's <b>no account</b>, so there's nothing to sign up with and nothing to leak.</li>
+          <li>Your watchlist, ratings, reviews and lists are stored <b>on your device only</b>.</li>
+          <li>The app asks a catalogue server for film and show data. Those requests carry a title ID, not who you are.</li>
+          <li>Nothing is sold, shared or used for advertising. There are no ads.</li>
+          <li>Delete the app and the data goes with it.</li>
+        </ul>
+      </div>
+
+      <section class="rv" id="device">
+        <h2>What's on your device</h2>
+        <p>Everything you create in Moviest is written to a database on your phone and stays there. That includes:</p>
+        <ul>
+          <li>Your watchlist, watched history and per-episode progress</li>
+          <li>Ratings, reviews and any lists you make</li>
+          <li>App settings — region, streaming services you subscribe to, appearance</li>
+          <li>A cache of artwork and title details so screens open without a connection</li>
+        </ul>
+        <p>None of it is uploaded. It is included in your device's own backup (iCloud or an encrypted local backup) if you have backups turned on, because it's part of the app's storage — that backup is governed by Apple's terms, not ours.</p>
+      </section>
+
+      <section class="rv" id="leaves">
+        <h2>What leaves your device</h2>
+        <p>Three things, and they're worth being precise about.</p>
+
+        <h3>Catalogue requests</h3>
+        <p>To show you a poster, a cast list or a return date, the app requests it from our proxy, which passes it to <b>TMDB</b>. Each request carries the title or person being looked up and your chosen region. It does not carry your name, an account, an advertising identifier or your library. Our proxy keeps standard short-lived server logs — IP address, timestamp, path — used to keep the service running and stop abuse, and kept for <span class="todo">N days</span> before deletion.</p>
+
+        <h3>Crash and diagnostic reports</h3>
+        <p><span class="todo">[If you ship a crash SDK — name it here, say what it collects (device model, OS version, stack trace), and link its policy. If you rely only on Apple's opt-in crash sharing, say that instead and delete this paragraph.]</span></p>
+
+        <h3>App Store activity</h3>
+        <p>Downloads, updates and any App Store reviews are handled by Apple and covered by Apple's privacy policy. We see only the aggregate figures Apple shows every developer.</p>
+      </section>
+
+      <section class="rv" id="never">
+        <h2>What we never collect</h2>
+        <ul>
+          <li>Your name, email address or phone number</li>
+          <li>Contacts, photos, location, calendar or microphone</li>
+          <li>Advertising identifiers, and no cross-app or cross-site tracking</li>
+          <li>Anything sold or licensed to a data broker — this has never happened and is not a business we're in</li>
+        </ul>
+      </section>
+
+      <section class="rv" id="third">
+        <h2>Third parties</h2>
+        <table class="tbl">
+          <tr><th>Who</th><th>What for</th><th>What they receive</th></tr>
+          <tr><td>TMDB</td><td>Film and show catalogue, artwork</td><td>The title being looked up, region, and the proxy's IP</td></tr>
+          <tr><td>JustWatch</td><td>Streaming availability, via TMDB</td><td>The same catalogue request</td></tr>
+          <tr><td>Apple</td><td>Distribution and crash sharing</td><td>Whatever Apple's own terms cover</td></tr>
+          <tr><td><span class="todo">Host</span></td><td>Serving the API proxy</td><td>Request logs as described above</td></tr>
+        </table>
+        <p>This product uses the TMDB API but is not endorsed or certified by TMDB. Streaming availability is provided by JustWatch.</p>
+      </section>
+
+      <section class="rv" id="import">
+        <h2>Imports</h2>
+        <p>If you import an IMDb export, the CSV file is read <b>on your device</b> and matched against the catalogue there. The file is not uploaded, and only the titles you confirm are written into your library. Matching a title uses the same catalogue request as any other lookup.</p>
+      </section>
+
+      <section class="rv" id="rights">
+        <h2>Your rights</h2>
+        <p>Because we hold no personal data about you, most data-protection requests have a short answer: there's nothing on our side to access, correct or export. You can act on everything yourself:</p>
+        <ul>
+          <li><b>See it</b> — it's all in the app, on the Library and You tabs</li>
+          <li><b>Change it</b> — every rating, review and list is editable</li>
+          <li><b>Delete it</b> — clear the library in Settings, or delete the app</li>
+        </ul>
+        <p>If you're in the EU or UK and want to make a request about the proxy's server logs, write to us at the address below. The data controller is <span class="todo">[legal entity or your name, and postal address]</span>.</p>
+      </section>
+
+      <section class="rv" id="children">
+        <h2>Children</h2>
+        <p>Moviest isn't directed at children under <span class="todo">13 / 16 — match your App Store age rating</span> and we don't knowingly collect anything from them. Since the app collects no personal data from anyone, there's nothing on file to remove.</p>
+      </section>
+
+      <section class="rv" id="changes">
+        <h2>Changes to this policy</h2>
+        <p>If this policy changes in a way that affects what the app collects, the date at the top changes and the app shows a notice on next launch. Older versions stay available at <span class="todo">[link to a changelog or repo history, or delete this sentence]</span>.</p>
+      </section>
+
+      <section class="rv" id="contact">
+        <h2>Contact</h2>
+        <p>Questions about any of this go to <a href="mailto:hello@moviest.app"><span class="todo">hello@moviest.app</span></a> and get an answer from a person.</p>
+      </section>
+
+    </div>
+  </div>
+</div>
+</main>
+
+<footer>
+  <div class="foot">
+    <span>© 2026 Moviest — a hobby project.</span>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {rootMargin:'0px 0px -10% 0px', threshold:.12});
+  document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+  if(reduce){ document.querySelectorAll('.rv').forEach(function(el){ el.classList.add('in'); }); }
+
+  var nav = document.getElementById('nav'), prog = document.getElementById('prog'),
+      pars = [].slice.call(document.querySelectorAll('.par')),
+      links = [].slice.call(document.querySelectorAll('.toc a')),
+      heads = links.map(function(a){ return document.getElementById(a.getAttribute('href').slice(1)); }),
+      ticking = false;
+
+  function frame(){
+    ticking = false;
+    var y = scrollY, max = document.documentElement.scrollHeight - innerHeight;
+    prog.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
+    nav.classList.toggle('stuck', y > 24);
+    if(!reduce) pars.forEach(function(el){
+      el.style.transform = 'translate3d(0,' + (y * parseFloat(el.dataset.par)) + 'px,0)';
+    });
+    var active = 0;
+    heads.forEach(function(h, i){ if(h && h.getBoundingClientRect().top < innerHeight * 0.35) active = i; });
+    links.forEach(function(a, i){ a.classList.toggle('on', i === active); });
+  }
+  addEventListener('scroll', function(){ if(!ticking){ ticking = true; requestAnimationFrame(frame); } }, {passive:true});
+  addEventListener('resize', frame, {passive:true});
+  frame();
+})();
+</script>
+</body>
+</html>

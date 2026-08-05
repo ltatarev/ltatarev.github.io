@@ -520,6 +520,105 @@
 }
 
 /* ============================================================
+   Web app showcase
+   ============================================================ */
+/* Deliberately not a card. The closer directly below it is one — gradient, hairline
+   and a rose glow — and two boxes stacked would read as one long panel with a seam.
+   An open, centred section here lets the window carry the weight and gives the
+   closer its edge back. */
+.web {
+  padding: 96px 0 8px;
+  text-align: center;
+}
+.webCopy {
+  max-width: 58ch;
+  margin: 0 auto 46px;
+}
+.web h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+  font-size: clamp(30px, 4.4vw, 48px);
+  margin: 18px auto 16px;
+  max-width: 18ch;
+}
+.web p {
+  color: var(--text2);
+  font-size: 17px;
+  margin: 0 auto;
+}
+.web .ctas {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+/* ============================================================
+   Browser frame
+   ============================================================ */
+.browser {
+  border-radius: 15px;
+  overflow: hidden;
+  border: 0.5px solid var(--hairline2);
+  background: var(--surface);
+  box-shadow:
+    0 52px 90px -40px rgba(0, 0, 0, 0.95),
+    0 30px 90px -46px rgba(244, 83, 110, 0.45),
+    0 0 0 0.5px rgba(255, 255, 255, 0.05);
+}
+.chrome {
+  position: relative;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 14px;
+  background: linear-gradient(180deg, #241b3a, var(--card));
+  border-bottom: 0.5px solid var(--hairline);
+}
+.dots {
+  display: flex;
+  gap: 7px;
+  flex: none;
+}
+.dots i {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--hairline2);
+}
+/* Centred in the bar, not after the dots: the dots are absolutely positioned out of
+   flow so the pill sits on the window's midline the way a real one does, rather than
+   drifting right by half their width. */
+.urlbar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(300px, 46%);
+  height: 23px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 0.5px solid var(--hairline);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--text-muted);
+  user-select: none;
+}
+/* 16:10 is the capture's own ratio (1440×900), so `cover` on .shot has nothing to
+   crop and the screenshot lands pixel-for-pixel. */
+.viewport {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: var(--page);
+}
+
+/* ============================================================
    Closer
    ============================================================ */
 .closer {
@@ -713,6 +812,34 @@
   }
   .grid {
     grid-template-columns: 1fr;
+  }
+  .web {
+    padding-top: 72px;
+  }
+  .webCopy {
+    margin-bottom: 34px;
+  }
+  /* At this width the window is about 335px across, and a desktop screenshot inside
+     it is decorative rather than legible — so the chrome shrinks to stay in
+     proportion with it instead of the bar dominating the frame. */
+  .browser {
+    border-radius: 11px;
+  }
+  .chrome {
+    height: 30px;
+    padding: 0 10px;
+  }
+  .dots {
+    gap: 5px;
+  }
+  .dots i {
+    width: 7px;
+    height: 7px;
+  }
+  .urlbar {
+    height: 18px;
+    width: min(180px, 56%);
+    font-size: 9.5px;
   }
   .closer {
     padding: 56px 22px;

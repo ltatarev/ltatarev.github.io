@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moviest — one watchlist for films and shows</title>
+<meta name="description" content="Track films and shows in one watchlist. Tick off episodes, catch return dates, rate things while they're fresh. Yours, on your phone.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* straight from src/theme/theme.ts */
+    --page:#0E0A16;
+    --surface:#171123;
+    --card:#1C1530;
+    --hairline:#2A2140;
+    --hairline2:#342A4E;
+    --wash:#2A1B45;
+    --text:#FFFFFF;
+    --text2:#9C93B8;
+    --textMuted:#6E6488;
+    --accent:#F4536E;
+    --accentSoft:#FF8FA3;
+    --accentTint:rgba(244,83,110,.15);
+    --accentBorder:rgba(244,83,110,.45);
+    --glass:rgba(255,255,255,.10);
+    --glassBorder:rgba(255,255,255,.16);
+    --glassFallback:rgba(23,17,35,.92);
+    --grabber:rgba(255,255,255,.22);
+    --success:#4FBF8B;
+    --info:#7C5CFF;
+    --magenta:#C13BB0;
+    --skeleton:#221A33;
+    --ease:cubic-bezier(.2,.7,.3,1);
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+  body{background:var(--page);color:var(--text);font-family:"Plus Jakarta Sans",system-ui,sans-serif;
+    line-height:1.6;overflow-x:hidden}
+  svg{display:block}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;border:0;background:none;color:inherit;cursor:pointer}
+  :focus-visible{outline:2px solid var(--accentSoft);outline-offset:3px;border-radius:6px}
+
+  /* ================= ambient field ================= */
+  .field{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .blob{position:absolute;border-radius:50%;filter:blur(120px);will-change:transform}
+  .b1{width:820px;height:700px;left:-240px;top:-300px;background:var(--info);opacity:.30}
+  .b2{width:760px;height:640px;right:-200px;top:-240px;background:var(--magenta);opacity:.22}
+  .b3{width:700px;height:640px;right:-220px;top:1500px;background:var(--accent);opacity:.13}
+  .b4{width:740px;height:680px;left:-260px;top:2600px;background:var(--info);opacity:.16}
+  .washtop{position:absolute;inset:0 0 auto;height:760px;z-index:0;pointer-events:none;
+    background:linear-gradient(to bottom,var(--wash),rgba(14,10,22,0))}
+  .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.03;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>")}
+
+  /* scroll progress hairline */
+  .prog{position:fixed;z-index:60;left:0;top:0;height:2px;width:100%;transform-origin:0 50%;transform:scaleX(0);
+    background:linear-gradient(90deg,var(--accent),var(--accentSoft))}
+
+  /* ================= nav ================= */
+  header.nav{position:fixed;z-index:50;left:0;right:0;top:0;transition:.3s var(--ease)}
+  .nav-in{max-width:var(--maxw);margin:0 auto;padding:20px 28px;display:flex;align-items:center;gap:20px}
+  .nav.stuck{background:rgba(14,10,22,.72);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);
+    border-bottom:.5px solid var(--hairline)}
+  .nav.stuck .nav-in{padding-top:13px;padding-bottom:13px}
+  .mark{display:flex;align-items:center;gap:9px;font-family:Outfit;font-weight:700;font-size:20px;letter-spacing:-.03em}
+  .reel{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(244,83,110,.18)}
+  .nav nav{margin-left:auto;display:flex;align-items:center;gap:6px}
+  .nav nav a{padding:8px 14px;border-radius:999px;font-size:14px;font-weight:500;color:var(--text2);transition:.2s var(--ease)}
+  .nav nav a:hover{color:var(--text);background:rgba(255,255,255,.06)}
+  .pill{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 20px;border-radius:999px;
+    font-size:14px;font-weight:600;font-family:"Plus Jakarta Sans",sans-serif;transition:.22s var(--ease);white-space:nowrap}
+  .pill.primary{background:var(--accent);color:#fff;box-shadow:0 12px 26px -12px rgba(244,83,110,.75)}
+  .pill.primary:hover{transform:translateY(-2px);box-shadow:0 18px 34px -12px rgba(244,83,110,.85)}
+  .pill.ghost{background:var(--glass);border:.5px solid var(--glassBorder);color:var(--text)}
+  .pill.ghost:hover{background:rgba(255,255,255,.16)}
+  .pill.tint{background:var(--accentTint);border:.5px solid var(--accentBorder);color:var(--accentSoft)}
+
+  /* ================= layout ================= */
+  main{position:relative;z-index:2}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:Outfit;font-size:11px;font-weight:700;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--accentSoft)}
+  .eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--accent);
+    box-shadow:0 0 0 4px rgba(244,83,110,.16)}
+  h1,h2,h3,.display{font-family:Outfit;font-weight:700;letter-spacing:-.035em;line-height:1.04}
+  h1{font-size:clamp(44px,7.4vw,88px);font-weight:800;letter-spacing:-.045em}
+  h2{font-size:clamp(30px,4.4vw,48px)}
+  .lede{color:var(--text2);font-size:clamp(16px,1.7vw,19px);line-height:1.65;max-width:52ch}
+
+  /* ================= hero ================= */
+  .hero{padding:168px 0 40px;display:grid;grid-template-columns:1fr auto;gap:56px;align-items:center}
+  .hero-copy{max-width:600px}
+  .hero h1{margin:22px 0 20px}
+  .hero h1 em{font-style:normal;color:var(--accentSoft)}
+  .hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+  .hero .ctas .pill{height:52px;padding:0 26px;font-size:15px}
+  .heronote{margin-top:18px;font-size:13.5px;color:var(--textMuted)}
+  .heronote b{color:var(--text2);font-weight:600}
+
+  /* ================= device ================= */
+  .device{--sc:.7333;flex:none;position:relative}
+  .device .frame{width:calc(390px * var(--sc) + 14px);padding:7px;border-radius:calc(46px * var(--sc) + 8px);
+    background:linear-gradient(160deg,rgba(255,255,255,.20),rgba(255,255,255,.03));
+    box-shadow:0 52px 90px -40px rgba(0,0,0,.95),0 0 0 .5px rgba(255,255,255,.05)}
+  .device .holder{position:relative;width:calc(390px * var(--sc));height:calc(844px * var(--sc));
+    border-radius:calc(46px * var(--sc));overflow:hidden;background:var(--page)}
+  .screen{position:absolute;top:0;left:0;width:390px;height:844px;transform:scale(var(--sc));transform-origin:0 0;
+    background:var(--page);overflow:hidden;font-family:Outfit;font-size:15px;line-height:1.4}
+  .device.big{--sc:.78}
+  .device.glow .frame{box-shadow:0 52px 90px -40px rgba(0,0,0,.95),0 30px 90px -40px rgba(244,83,110,.55),0 0 0 .5px rgba(255,255,255,.06)}
+
+  /* --- in-screen chrome --- */
+  .s-wash{position:absolute;inset:0 0 auto;height:400px;background:linear-gradient(to bottom,#2A1B45,rgba(14,10,22,0))}
+  .s-blob{position:absolute;border-radius:50%;filter:blur(80px)}
+  .status{position:relative;z-index:5;height:54px;display:flex;align-items:center;justify-content:space-between;
+    padding:14px 26px 0;font-size:15px;font-weight:600}
+  .sigs{display:flex;align-items:center;gap:6px;opacity:.95}
+  .batt{width:25px;height:12px;border:1.6px solid currentColor;border-radius:4px;position:relative;opacity:.9}
+  .batt::after{content:"";position:absolute;left:2px;top:2px;bottom:2px;width:14px;background:currentColor;border-radius:1.5px}
+  .stack{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column}
+  .content{flex:1;padding:0 16px;position:relative;overflow:hidden}
+  .home-ind{position:absolute;z-index:30;bottom:9px;left:50%;transform:translateX(-50%);width:140px;height:5px;
+    border-radius:99px;background:rgba(255,255,255,.32)}
+  .pagetitle{font-size:30px;font-weight:700;letter-spacing:-.8px;padding:6px 0 12px}
+  .topbar{position:relative;z-index:6;height:52px;display:flex;align-items:center;gap:12px;padding:0 12px;flex:none}
+  .iconbtn{width:38px;height:38px;border-radius:999px;display:grid;place-items:center;flex:none;color:var(--text);
+    background:var(--glass);border:.5px solid var(--glassBorder)}
+  .sechead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 0 10px}
+  .sechead h4{font-size:20px;font-weight:700;letter-spacing:-.4px}
+  .sechead span{font-size:14px;font-weight:600;color:var(--accent)}
+  .rail{display:flex;gap:11px}
+  .tabs{position:absolute;z-index:20;left:16px;right:16px;bottom:26px;height:60px;border-radius:999px;display:flex;
+    align-items:center;background:var(--glassFallback);border:.5px solid var(--glassBorder);
+    -webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);box-shadow:0 8px 20px rgba(0,0,0,.35)}
+  .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--textMuted);font-size:11px;font-weight:600}
+  .tab.on{color:var(--accent)}
+  .pst{position:relative;border-radius:12px;overflow:hidden;flex:none;background:var(--skeleton);
+    border:.5px solid rgba(255,255,255,.07)}
+  .pst .ttl{position:absolute;left:0;right:0;bottom:0;padding:18px 8px 7px;font-size:11px;font-weight:600;line-height:1.25;
+    background:linear-gradient(to bottom,rgba(14,10,22,0),rgba(14,10,22,.92))}
+  .seg{display:flex;height:36px;padding:3px;border-radius:999px;background:var(--glass);border:.5px solid var(--hairline2);gap:2px}
+  .seg b{flex:1;height:30px;border-radius:999px;display:grid;place-items:center;font-size:12.5px;font-weight:600;color:var(--text2)}
+  .seg b.on{background:var(--accentTint);color:var(--accentSoft);box-shadow:inset 0 0 0 .5px var(--accentBorder)}
+  .lrow{display:flex;align-items:center;gap:12px;padding:9px 0}
+  .lrow .meta{flex:1;min-width:0}
+  .lrow .meta b{display:block;font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .lrow .meta span{display:block;font-size:12.5px;color:var(--text2);margin-top:2px}
+  .bar{height:4px;border-radius:99px;background:rgba(255,255,255,.10);margin-top:8px;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:99px;background:var(--accent)}
+  .sep{height:.5px;background:var(--hairline)}
+  .g1{background:linear-gradient(150deg,#3A1436,#7E2440 55%,#C9553F)}
+  .g2{background:linear-gradient(150deg,#0F2038,#254B7A 55%,#5E9AC4)}
+  .g3{background:linear-gradient(150deg,#1B1233,#4A2A6B 55%,#8E5BB0)}
+  .g4{background:linear-gradient(150deg,#2A1A12,#6B3A22 55%,#C08347)}
+  .g5{background:linear-gradient(150deg,#0F2A24,#1F5B48 55%,#4FBF8B)}
+  .g6{background:linear-gradient(150deg,#301022,#75204A 55%,#C1497F)}
+  .g7{background:linear-gradient(150deg,#221A33,#3C3060 55%,#7C5CFF)}
+  .g8{background:linear-gradient(150deg,#33190F,#8C3A22 55%,#E2B44F)}
+  .g9{background:linear-gradient(150deg,#101A2E,#2E3F6B 55%,#7E8FD0)}
+
+  /* ================= poster ribbon ================= */
+  .ribbon{margin:72px 0 0;padding:26px 0;overflow:hidden;
+    border-top:.5px solid var(--hairline);border-bottom:.5px solid var(--hairline);
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+  .ribbon-track{display:flex;gap:14px;width:max-content;will-change:transform}
+  .ribbon .tile{width:96px;height:144px;border-radius:12px;flex:none;border:.5px solid rgba(255,255,255,.07)}
+
+  /* ================= features ================= */
+  .feature{padding:104px 0;display:grid;grid-template-columns:1fr auto;gap:64px;align-items:center}
+  .feature.flip .fcopy{order:2}
+  .feature h2{margin:20px 0 16px}
+  .feature p{color:var(--text2);font-size:17px;max-width:44ch}
+  .fmeta{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+  .fmeta span{height:32px;padding:0 14px;border-radius:999px;background:var(--glass);border:.5px solid var(--hairline2);
+    display:inline-flex;align-items:center;font-size:13px;font-weight:500;color:var(--text2)}
+
+  /* signature: scroll-driven score ring */
+  .ringwrap{display:flex;align-items:center;gap:18px;margin-top:30px}
+  .ring{position:relative;width:78px;height:78px;flex:none}
+  .ring svg{transform:rotate(-90deg)}
+  .ring circle{fill:none;stroke-linecap:round}
+  .ring .track{stroke:rgba(255,255,255,.10);stroke-width:6}
+  .ring .fill{stroke:var(--accent);stroke-width:6;stroke-dasharray:207.3;stroke-dashoffset:207.3}
+  .ring .dot{position:absolute;inset:0}
+  .ring b{position:absolute;inset:0;display:grid;place-items:center;font-family:Outfit;font-size:23px;font-weight:700;
+    font-variant-numeric:tabular-nums}
+  .ringcap{font-size:13.5px;color:var(--textMuted);line-height:1.6;max-width:26ch}
+  .ringcap b{display:block;color:var(--text2);font-weight:600;font-size:14px}
+
+  /* ================= small features grid ================= */
+  .more{padding:96px 0 40px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:44px}
+  .cell{background:linear-gradient(180deg,var(--card),var(--surface));border:.5px solid var(--hairline);
+    border-radius:22px;padding:26px 24px 28px;transition:.3s var(--ease)}
+  .cell:hover{border-color:var(--hairline2);transform:translateY(-3px)}
+  .cell .ic{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;color:var(--accentSoft);
+    background:var(--accentTint);border:.5px solid var(--accentBorder);margin-bottom:18px}
+  .cell h3{font-size:19px;margin-bottom:8px;letter-spacing:-.02em}
+  .cell p{font-size:14.5px;color:var(--text2);line-height:1.6}
+
+  /* ================= closer ================= */
+  .closer{margin:80px 0 0;padding:76px 34px;border-radius:34px;text-align:center;position:relative;overflow:hidden;
+    background:linear-gradient(180deg,var(--card),var(--surface));border:.5px solid var(--hairline)}
+  .closer::after{content:"";position:absolute;left:50%;top:-160px;width:520px;height:340px;transform:translateX(-50%);
+    background:var(--accent);filter:blur(120px);opacity:.22;pointer-events:none}
+  .closer > *{position:relative;z-index:2}
+  .closer h2{margin:18px auto 16px;max-width:15ch}
+  .closer p{color:var(--text2);max-width:46ch;margin:0 auto}
+  .closer .ctas{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:30px}
+  .closer .ctas .pill{height:52px;padding:0 26px;font-size:15px}
+
+  /* ================= footer ================= */
+  footer{margin-top:96px;border-top:.5px solid var(--hairline)}
+  .foot{max-width:var(--maxw);margin:0 auto;padding:40px 28px 56px;display:flex;flex-wrap:wrap;gap:26px;
+    align-items:center;justify-content:space-between;font-size:13.5px;color:var(--textMuted)}
+  .foot nav{display:flex;gap:20px}
+  .foot nav a:hover{color:var(--accentSoft)}
+  .attrib{display:flex;flex-wrap:wrap;gap:10px;align-items:center;max-width:64ch;line-height:1.6}
+  .badge{display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:7px;font-size:10.5px;
+    font-weight:700;letter-spacing:.08em}
+  .badge.tmdb{border:1px solid rgba(1,180,228,.4);color:#01B4E4}
+  .badge.jw{border:1px solid rgba(255,255,255,.2);color:var(--text2)}
+
+  /* ================= scroll animation ================= */
+  .rv{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease);
+    transition-delay:var(--d,0ms)}
+  .rv.in{opacity:1;transform:none}
+  .rv-dev{opacity:0;transform:translateY(46px) scale(.965);
+    transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .rv-dev.in{opacity:1;transform:none}
+  .par{will-change:transform}
+
+  @media(max-width:1000px){
+    .hero,.feature{grid-template-columns:1fr;gap:40px;justify-items:start}
+    .feature.flip .fcopy{order:0}
+    .hero{padding-top:132px}
+    .grid{grid-template-columns:1fr 1fr}
+    .nav nav a{display:none}
+  }
+  @media(max-width:640px){
+    .wrap{padding:0 20px}
+    .device,.device.big{--sc:.60}
+    .hero{padding-top:118px}
+    .feature{padding:72px 0}
+    .grid{grid-template-columns:1fr}
+    .closer{padding:56px 22px;border-radius:26px}
+    .foot{flex-direction:column;align-items:flex-start}
+  }
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{transition-duration:.01ms!important;animation-duration:.01ms!important}
+    .rv,.rv-dev{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="prog" id="prog"></div>
+<div class="field">
+  <div class="blob b1 par" data-par=".06"></div>
+  <div class="blob b2 par" data-par="-.05"></div>
+  <div class="blob b3 par" data-par=".08"></div>
+  <div class="blob b4 par" data-par="-.06"></div>
+</div>
+<div class="washtop"></div>
+<div class="grain"></div>
+
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a class="mark" href="#top"><span class="reel"></span>moviest</a>
+    <nav>
+      <a href="#watchlist">Watchlist</a>
+      <a href="#episodes">Episodes</a>
+      <a href="#rate">Rating</a>
+      <a href="#more">More</a>
+    </nav>
+    <a class="pill primary" href="#get">Get it on iOS</a>
+  </div>
+</header>
+
+<main id="top">
+<div class="wrap">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow rv"><i></i>Coming to iPhone</span>
+      <h1 class="rv" style="--d:60ms">Films and shows.<br><em>One watchlist.</em></h1>
+      <p class="lede rv" style="--d:120ms">Moviest keeps the whole queue in one place — the film you keep meaning to watch and the show you're seven episodes into. Everything lives on your phone, and it opens instantly.</p>
+      <div class="ctas rv" style="--d:180ms">
+        <a class="pill primary" href="#get">Get it on iOS</a>
+        <a class="pill ghost" href="#watchlist">See what it does</a>
+      </div>
+      <p class="heronote rv" style="--d:240ms">Free, no account, <b>no ads</b>. Data from TMDB.</p>
+    </div>
+
+    <div class="device big glow rv-dev" id="heroDevice">
+      <div class="frame"><div class="holder"><div class="screen">
+        <div class="s-wash"></div>
+        <div class="s-blob" style="width:300px;height:260px;right:-90px;top:-80px;background:var(--magenta);opacity:.24"></div>
+        <div class="s-blob" style="width:300px;height:260px;left:-110px;top:-70px;background:var(--info);opacity:.28"></div>
+        <div class="stack">
+          <div class="status"><span>9:41</span><span class="sigs">
+            <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" width="3" height="12" rx="1" opacity=".4"/></svg>
+            <span class="batt"></span></span></div>
+          <div class="content">
+            <div class="pagetitle">Discover</div>
+            <div class="pst g1" style="height:196px;border-radius:18px">
+              <div style="position:absolute;inset:auto 0 0;padding:60px 14px 14px;background:linear-gradient(to bottom,rgba(14,10,22,0),rgba(14,10,22,.94))">
+                <div style="font-size:11px;font-weight:700;letter-spacing:1.4px;color:#FF8FA3">OUT THIS WEEK</div>
+                <div style="font-size:22px;font-weight:700;letter-spacing:-.5px;margin-top:3px">The Odyssey</div>
+                <div style="font-size:12px;color:#9C93B8">2026 · Adventure · 2h 41m</div>
+              </div>
+            </div>
+            <div class="sechead"><h4>Trending now</h4><span>All</span></div>
+            <div class="rail">
+              <div class="pst g2" style="width:106px;height:159px"><div class="ttl">Sinners</div></div>
+              <div class="pst g6" style="width:106px;height:159px"><div class="ttl">Nosferatu</div></div>
+              <div class="pst g8" style="width:106px;height:159px"><div class="ttl">Aftersun</div></div>
+            </div>
+            <div class="sechead"><h4>Landing soon</h4><span>All</span></div>
+            <div class="rail">
+              <div class="pst g3" style="width:106px;height:159px"><div class="ttl">Past Lives</div></div>
+              <div class="pst g5" style="width:106px;height:159px"><div class="ttl">Whiplash</div></div>
+              <div class="pst g9" style="width:106px;height:159px"><div class="ttl">Paddington 2</div></div>
+            </div>
+          </div>
+          <div class="tabs">
+            <div class="tab on"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.2"/><path d="M15.8 8.2l-2 5.6-5.6 2 2-5.6z"/></svg><span>Discover</span></div>
+            <div class="tab"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="10.8" cy="10.8" r="6.8"/><path d="M20 20l-4.4-4.4"/></svg><span>Search</span></div>
+            <div class="tab"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="4" width="5" height="16" rx="1.6"/><rect x="10" y="4" width="5" height="16" rx="1.6"/><path d="M18.4 5.2l3 14.2"/></svg><span>Library</span></div>
+            <div class="tab"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></svg><span>You</span></div>
+          </div>
+          <div class="home-ind"></div>
+        </div>
+      </div></div></div>
+    </div>
+  </section>
+
+  <!-- ============ RIBBON ============ -->
+  <div class="ribbon rv">
+    <div class="ribbon-track" id="ribbon">
+      <div class="tile g1"></div><div class="tile g2"></div><div class="tile g3"></div><div class="tile g4"></div>
+      <div class="tile g5"></div><div class="tile g6"></div><div class="tile g7"></div><div class="tile g8"></div>
+      <div class="tile g9"></div><div class="tile g2"></div><div class="tile g6"></div><div class="tile g4"></div>
+      <div class="tile g1"></div><div class="tile g3"></div><div class="tile g5"></div><div class="tile g8"></div>
+      <div class="tile g7"></div><div class="tile g9"></div><div class="tile g6"></div><div class="tile g2"></div>
+    </div>
+  </div>
+
+  <!-- ============ F1 · WATCHLIST ============ -->
+  <section class="feature" id="watchlist">
+    <div class="fcopy">
+      <span class="eyebrow rv"><i></i>Library</span>
+      <h2 class="rv" style="--d:60ms">Stop juggling two apps</h2>
+      <p class="rv" style="--d:110ms">Films and series sit in the same watchlist, sorted and filtered together. Pick a night, pick a genre, pick a runtime — the answer doesn't depend on which app you happened to open.</p>
+      <div class="fmeta rv" style="--d:160ms">
+        <span>Grid or rows</span><span>Sort &amp; filter in one sheet</span><span>Long press to act</span>
+      </div>
+    </div>
+    <div class="device rv-dev">
+      <div class="frame"><div class="holder"><div class="screen">
+        <div class="s-wash"></div>
+        <div class="s-blob" style="width:300px;height:260px;right:-100px;top:-90px;background:var(--accent);opacity:.18"></div>
+        <div class="stack">
+          <div class="status"><span>9:41</span><span class="sigs"><span class="batt"></span></span></div>
+          <div class="content">
+            <div class="pagetitle">Library</div>
+            <div class="seg"><b class="on">Watchlist</b><b>Watching</b><b>Upcoming</b><b>Rated</b></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0 12px">
+              <span style="font-size:13px;color:var(--text2)">64 titles</span>
+              <span style="font-size:13px;font-weight:600;color:var(--accent)">Sort &amp; filter</span>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:12px">
+              <div class="pst g6" style="width:167px;height:250px"><div class="ttl">Nosferatu</div></div>
+              <div class="pst g5" style="width:167px;height:250px"><div class="ttl">The Substance</div></div>
+              <div class="pst g2" style="width:167px;height:250px"><div class="ttl">Sinners</div></div>
+              <div class="pst g4" style="width:167px;height:250px"><div class="ttl">Aftersun</div></div>
+            </div>
+          </div>
+          <div class="tabs">
+            <div class="tab"><span style="font-size:11px">Discover</span></div>
+            <div class="tab"><span style="font-size:11px">Search</span></div>
+            <div class="tab on"><span style="font-size:11px">Library</span></div>
+            <div class="tab"><span style="font-size:11px">You</span></div>
+          </div>
+          <div class="home-ind"></div>
+        </div>
+      </div></div></div>
+    </div>
+  </section>
+
+  <!-- ============ F2 · EPISODES ============ -->
+  <section class="feature flip" id="episodes">
+    <div class="fcopy">
+      <span class="eyebrow rv"><i></i>Watching</span>
+      <h2 class="rv" style="--d:60ms">Always know where you left off</h2>
+      <p class="rv" style="--d:110ms">Tick off episodes as you go. Shows with something new waiting sit above the ones you're caught up on, and return dates for the rest turn up before you'd have thought to look.</p>
+      <div class="fmeta rv" style="--d:160ms">
+        <span>Per-episode ticks</span><span>Ready to watch first</span><span>Return dates</span>
+      </div>
+    </div>
+    <div class="device rv-dev">
+      <div class="frame"><div class="holder"><div class="screen">
+        <div class="s-wash"></div>
+        <div class="s-blob" style="width:300px;height:260px;left:-100px;top:-90px;background:var(--info);opacity:.26"></div>
+        <div class="stack">
+          <div class="status"><span>9:41</span><span class="sigs"><span class="batt"></span></span></div>
+          <div class="content">
+            <div class="pagetitle">Library</div>
+            <div class="seg"><b>Watchlist</b><b class="on">Watching</b><b>Upcoming</b><b>Rated</b></div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--accentSoft);padding:18px 0 4px">READY TO WATCH</div>
+            <div class="lrow">
+              <div class="pst g3" style="width:48px;height:72px"></div>
+              <div class="meta"><b>Severance</b><span>S2 E7 of 10 · new episode Friday</span><div class="bar"><i style="width:62%"></i></div></div>
+            </div>
+            <div class="sep" style="margin-left:60px"></div>
+            <div class="lrow">
+              <div class="pst g7" style="width:48px;height:72px"></div>
+              <div class="meta"><b>The Bear</b><span>S3 E4 of 10 · 6 to go</span><div class="bar"><i style="width:38%"></i></div></div>
+            </div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--textMuted);padding:20px 0 4px">CAUGHT UP</div>
+            <div class="lrow">
+              <div class="pst g9" style="width:48px;height:72px"></div>
+              <div class="meta"><b>Andor</b><span>Season 2 returns 12 Sep</span><div class="bar"><i style="width:100%;background:var(--success)"></i></div></div>
+            </div>
+            <div class="sep" style="margin-left:60px"></div>
+            <div class="lrow">
+              <div class="pst g8" style="width:48px;height:72px"></div>
+              <div class="meta"><b>Shrinking</b><span>All 12 episodes watched</span><div class="bar"><i style="width:100%;background:var(--success)"></i></div></div>
+            </div>
+          </div>
+          <div class="tabs">
+            <div class="tab"><span style="font-size:11px">Discover</span></div>
+            <div class="tab"><span style="font-size:11px">Search</span></div>
+            <div class="tab on"><span style="font-size:11px">Library</span></div>
+            <div class="tab"><span style="font-size:11px">You</span></div>
+          </div>
+          <div class="home-ind"></div>
+        </div>
+      </div></div></div>
+    </div>
+  </section>
+
+  <!-- ============ F3 · RATE (signature ring) ============ -->
+  <section class="feature" id="rate">
+    <div class="fcopy">
+      <span class="eyebrow rv"><i></i>Your record</span>
+      <h2 class="rv" style="--d:60ms">Rate it while it's fresh</h2>
+      <p class="rv" style="--d:110ms">A score, a few lines, done before the credits finish. Everything you rate builds a record you actually own — kept on the phone, readable with no signal, never traded to anyone.</p>
+      <div class="ringwrap rv" style="--d:160ms">
+        <div class="ring" id="ring">
+          <svg width="78" height="78" viewBox="0 0 78 78">
+            <circle class="track" cx="39" cy="39" r="33"/>
+            <circle class="fill" id="ringFill" cx="39" cy="39" r="33"/>
+          </svg>
+          <svg class="dot" width="78" height="78" viewBox="0 0 78 78" id="ringDot">
+            <circle cx="39" cy="6" r="4.5" fill="var(--accentSoft)"/>
+          </svg>
+          <b id="ringNum">0</b>
+        </div>
+        <div class="ringcap"><b>Drag to score</b>The ring is the same one you'll see on every title in the app.</div>
+      </div>
+    </div>
+    <div class="device rv-dev">
+      <div class="frame"><div class="holder"><div class="screen">
+        <div class="pst g1" style="position:absolute;inset:0 0 auto;height:330px;border-radius:0;border:0"></div>
+        <div style="position:absolute;inset:0 0 auto;height:330px;background:linear-gradient(to bottom,rgba(14,10,22,.5),rgba(14,10,22,0) 32%,rgba(14,10,22,.96))"></div>
+        <div class="stack">
+          <div class="status"><span>9:41</span><span class="sigs"><span class="batt"></span></span></div>
+          <div class="topbar"><span class="iconbtn">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg></span></div>
+          <div class="content" style="margin-top:150px">
+            <div style="font-size:29px;font-weight:700;letter-spacing:-.8px;line-height:1.12">The Odyssey</div>
+            <div style="font-size:13px;color:var(--text2);margin-top:5px">2026 · Adventure · 2h 41m</div>
+          </div>
+          <div style="position:absolute;z-index:26;left:0;right:0;bottom:0;background:var(--surface);
+            border-top:.5px solid var(--hairline2);border-radius:26px 26px 0 0;padding:10px 16px 30px">
+            <div style="width:36px;height:4px;border-radius:99px;background:var(--grabber);margin:0 auto 14px"></div>
+            <div style="font-size:21px;font-weight:700;letter-spacing:-.4px">Your rating</div>
+            <div style="font-size:13px;color:var(--text2);margin-top:3px">The Odyssey</div>
+            <div style="display:grid;place-items:center;padding:22px 0 18px">
+              <div style="position:relative;width:132px;height:132px">
+                <svg width="132" height="132" viewBox="0 0 132 132" style="transform:rotate(-90deg)">
+                  <circle cx="66" cy="66" r="57" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="9"/>
+                  <circle cx="66" cy="66" r="57" fill="none" stroke="#F4536E" stroke-width="9" stroke-linecap="round"
+                          stroke-dasharray="358" stroke-dashoffset="79"/>
+                </svg>
+                <div style="position:absolute;inset:0;display:grid;place-items:center;font-size:42px;font-weight:700;letter-spacing:-1.5px">8.2</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px">
+              <div style="flex:1;height:48px;border-radius:999px;background:var(--glass);border:.5px solid var(--glassBorder);display:grid;place-items:center;font-size:15px;font-weight:600">Write a review</div>
+              <div style="flex:1;height:48px;border-radius:999px;background:var(--accent);display:grid;place-items:center;font-size:15px;font-weight:600;box-shadow:0 10px 18px -10px rgba(244,83,110,.55)">Save</div>
+            </div>
+          </div>
+          <div class="home-ind"></div>
+        </div>
+      </div></div></div>
+    </div>
+  </section>
+
+  <!-- ============ MORE ============ -->
+  <section class="more" id="more">
+    <span class="eyebrow rv"><i></i>Also in the box</span>
+    <h2 class="rv" style="--d:60ms;margin-top:18px;max-width:16ch">Small things that add up</h2>
+    <div class="grid">
+      <div class="cell rv" style="--d:80ms">
+        <div class="ic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16.5" rx="3"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg></div>
+        <h3>Return dates</h3>
+        <p>Upcoming episodes and releases, grouped by month, so a season you forgot about turns up on its own.</p>
+      </div>
+      <div class="cell rv" style="--d:140ms">
+        <div class="ic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.8" cy="10.8" r="6.8"/><path d="M20 20l-4.4-4.4"/></svg></div>
+        <h3>Search by mood</h3>
+        <p>By title, by person, or by the feeling you're after when you don't have a title in mind.</p>
+      </div>
+      <div class="cell rv" style="--d:200ms">
+        <div class="ic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 12H3M16 6H3M11 18H3"/><path d="M18 9v6M21 12h-6"/></svg></div>
+        <h3>Lists you make yourself</h3>
+        <p>Name it, fill it, keep it in the order you built. The ten you'd hand someone. The ones for October.</p>
+      </div>
+      <div class="cell rv" style="--d:80ms">
+        <div class="ic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="12.5" rx="2.5"/><path d="M8 20.5h8"/></svg></div>
+        <h3>Where to watch</h3>
+        <p>Streaming, rent and buy for your country, with your own subscriptions marked.</p>
+      </div>
+      <div class="cell rv" style="--d:140ms">
+        <div class="ic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M7 10l5 5 5-5M12 15V3"/></svg></div>
+        <h3>Bring your history</h3>
+        <p>Import your IMDb ratings and watchlist export, review whatever doesn't match, and carry on.</p>
+      </div>
+      <div class="cell rv" style="--d:200ms">
+        <div class="ic"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7.5-4 7.5-10V5.2L12 2.5 4.5 5.2V12c0 6 7.5 10 7.5 10z"/></svg></div>
+        <h3>Yours, offline</h3>
+        <p>No account, no sync, no ads. Your library is a file on your phone and it opens in airplane mode.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CLOSER ============ -->
+  <section class="closer rv" id="get">
+    <span class="eyebrow"><i></i>TestFlight opens soon</span>
+    <h2>Put the whole queue in one place</h2>
+    <p>Moviest is a hobby project built in the open. Free on the App Store, iPhone first, Android when it's ready.</p>
+    <div class="ctas">
+      <a class="pill primary" href="#">Get it on iOS</a>
+      <a class="pill ghost" href="#">Join the TestFlight</a>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer>
+  <div class="foot">
+    <div>
+      <div class="mark" style="margin-bottom:12px;font-size:17px"><span class="reel"></span>moviest</div>
+      <div class="attrib">
+        <span class="badge tmdb">TMDB</span>
+        <span class="badge jw">JUSTWATCH</span>
+        <span>This product uses the TMDB API but is not endorsed or certified by TMDB. Streaming availability provided by JustWatch.</span>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;align-items:flex-start">
+      <nav>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="mailto:hello@moviest.app">Contact</a>
+      </nav>
+      <span>© 2026 Moviest</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- reveal on scroll ---- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {rootMargin:'0px 0px -12% 0px', threshold:.15});
+  document.querySelectorAll('.rv,.rv-dev').forEach(function(el){ io.observe(el); });
+
+  if(reduce){
+    document.querySelectorAll('.rv,.rv-dev').forEach(function(el){ el.classList.add('in'); });
+    document.getElementById('ringFill').style.strokeDashoffset = 207.3 * (1 - .82);
+    document.getElementById('ringDot').style.transform = 'rotate(295.2deg)';
+    document.getElementById('ringNum').textContent = '8.2';
+  }
+
+  /* ---- scroll-linked work, one rAF pass ---- */
+  var nav = document.getElementById('nav'),
+      prog = document.getElementById('prog'),
+      ribbon = document.getElementById('ribbon'),
+      ribbonBox = ribbon.parentElement,
+      ring = document.getElementById('ring'),
+      ringFill = document.getElementById('ringFill'),
+      ringDot = document.getElementById('ringDot'),
+      ringNum = document.getElementById('ringNum'),
+      hero = document.getElementById('heroDevice'),
+      pars = [].slice.call(document.querySelectorAll('.par')),
+      C = 207.3, ticking = false;
+
+  function clamp(n){ return n < 0 ? 0 : n > 1 ? 1 : n; }
+
+  function frame(){
+    ticking = false;
+    var y = window.scrollY, vh = innerHeight;
+
+    /* page progress + nav */
+    var max = document.documentElement.scrollHeight - vh;
+    prog.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
+    nav.classList.toggle('stuck', y > 24);
+
+    if(reduce) return;
+
+    /* ambient parallax */
+    pars.forEach(function(el){
+      el.style.transform = 'translate3d(0,' + (y * parseFloat(el.dataset.par)) + 'px,0)';
+    });
+
+    /* hero device drifts up slightly slower than the page */
+    if(y < vh * 1.4) hero.style.transform = 'translate3d(0,' + (y * -0.055) + 'px,0)';
+
+    /* poster ribbon slides horizontally with scroll position */
+    var rb = ribbonBox.getBoundingClientRect();
+    if(rb.bottom > 0 && rb.top < vh){
+      var p = clamp((vh - rb.top) / (vh + rb.height));
+      ribbon.style.transform = 'translate3d(' + (-p * 420 - 120) + 'px,0,0)';
+    }
+
+    /* signature: the score ring fills as the section crosses the viewport */
+    var rr = ring.getBoundingClientRect();
+    if(rr.bottom > 0 && rr.top < vh){
+      var t = clamp((vh * 0.9 - rr.top) / (vh * 0.55)),
+          score = t * 8.2;
+      ringFill.style.strokeDashoffset = C * (1 - score / 10);
+      ringDot.style.transform = 'rotate(' + (score / 10 * 360) + 'deg)';
+      ringDot.style.opacity = score > 0.15 ? 1 : 0;
+      ringNum.textContent = score.toFixed(1);
+    }
+  }
+
+  addEventListener('scroll', function(){
+    if(!ticking){ ticking = true; requestAnimationFrame(frame); }
+  }, {passive:true});
+  addEventListener('resize', frame, {passive:true});
+  frame();
+})();
+</script>
+</body>
+</html>

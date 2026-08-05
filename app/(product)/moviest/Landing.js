@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
+import { Browser } from './Browser';
 import { Device } from './Device';
 import { POSTERS, posterSrc } from './posters';
 import styles from './landing.module.css';
@@ -11,6 +12,11 @@ import styles from './landing.module.css';
 const EMAIL = 'rushed-marble-3q@icloud.com';
 const MAILTO = `mailto:${EMAIL}?subject=Tell%20me%20when%20Moviest%20launches`;
 const TESTFLIGHT = `mailto:${EMAIL}?subject=Moviest%20TestFlight`;
+
+// The browsing half of Moviest, live on the web today. Split into host and href so
+// the URL pill drawn in the window frame and the link under it can't disagree.
+const WEBAPP_HOST = 'the-moviest.vercel.app';
+const WEBAPP = `https://${WEBAPP_HOST}/`;
 
 // Circumference of the 78px ring's r=33 circle, which is also the dasharray the
 // stylesheet seeds it with. The scrub below drives the offset between C and 0.
@@ -98,6 +104,24 @@ const CellIcon = ({ children }) => (
       {children}
     </svg>
   </span>
+);
+
+// The corner arrow that marks a link leaving the page. Decorative — the label beside
+// it already says "web app", and the new tab is announced by the text in the link.
+const ExtIcon = () => (
+  <svg
+    width="13"
+    height="13"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.4"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M8 5h11v11M19 5L5 19" />
+  </svg>
 );
 
 const Mark = ({ className }) => (
@@ -295,6 +319,7 @@ export function Landing() {
             <a href="#episodes">Episodes</a>
             <a href="#rate">Rating</a>
             <a href="#more">More</a>
+            <a href="#web">Web app</a>
           </nav>
           <a className={`${styles.pill} ${styles.primary}`} href={MAILTO}>
             Email me when it’s out
@@ -495,6 +520,51 @@ export function Landing() {
             </div>
           </section>
 
+          {/* ============ WEB APP ============ */}
+          {/* Placed after the feature tour rather than up in the hero: sending someone
+              off-site from above the fold loses them before they've seen a screenshot.
+              By here they know what it does and have nothing to do about it, which is
+              the moment a thing they can actually open lands hardest — and it hands
+              off into the closer as "you've had a look, now put it on your phone".
+
+              The copy has to be straight about the split. "Web app available now"
+              next to a hero reading "Coming to iPhone" reads as a contradiction
+              unless it's clear this is the browsing half and not the whole thing. */}
+          <section className={styles.web} id="web">
+            <div className={styles.webCopy}>
+              <span className={`${styles.eyebrow} ${styles.reveal}`} data-reveal>
+                <i />
+                Live in your browser
+              </span>
+              <h2 className={styles.reveal} data-reveal data-d="1">
+                Have a look before it ships
+              </h2>
+              <p className={styles.reveal} data-reveal data-d="2">
+                There’s a web version doing the browsing half already — search, film and show pages,
+                cast, trailers and where to watch. The watchlist, the episode ticks and the scores
+                you keep are what the app adds.
+              </p>
+              <p className={`${styles.ctas} ${styles.reveal}`} data-reveal data-d="3">
+                <a
+                  className={`${styles.pill} ${styles.primary}`}
+                  href={WEBAPP}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Browse web
+                  <ExtIcon />
+                </a>
+              </p>
+            </div>
+            <div className={styles.revealDev} data-reveal>
+              <Browser
+                url={WEBAPP_HOST}
+                src="/moviest/web.webp"
+                alt="The Moviest web app in a browser window, showing a wall of film and show posters under a search bar."
+              />
+            </div>
+          </section>
+
           {/* ============ CLOSER ============ */}
           <section className={`${styles.closer} ${styles.reveal}`} data-reveal id="get">
             <span className={styles.eyebrow}>
@@ -535,6 +605,9 @@ export function Landing() {
           </div>
           <div className={styles.footRight}>
             <nav className={styles.footLinks} aria-label="Legal">
+              <a href={WEBAPP} target="_blank" rel="noopener noreferrer">
+                Check out web
+              </a>
               <Link href="/moviest/privacy-policy/">Privacy</Link>
               <Link href="/moviest/terms-of-service/">Terms</Link>
               {/* a plain anchor, not next/link: the desktop is the other design

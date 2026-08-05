@@ -57,3 +57,22 @@ image goes in which frame is set in `app/(product)/moviest/Landing.js`.
 
 If you change a screenshot, re-read its `alt` text in `Landing.js` — it describes
 what's actually on screen, down to the titles and the score.
+
+## Web app screenshot — `web.webp`
+
+The one landscape image, shown inside the browser frame in the "Have a look before it
+ships" section. It's a capture of the live web app at
+[the-moviest.vercel.app](https://the-moviest.vercel.app/), not of the iOS app.
+
+Take it in a real browser at a **1440×900 viewport** — Vercel's bot check refuses
+headless Chrome, so `--screenshot` from the command line comes back as a "Failed to
+verify your browser" page. In Chrome: DevTools → device toolbar → Responsive at
+1440×900 → ⌘⇧P → "Capture screenshot". Then resize to **1600px wide** and save as
+WebP at quality 82.
+
+The frame's viewport is `aspect-ratio: 16 / 10`, which is 1440×900 exactly, so a
+capture at that size lands uncropped. Anything else gets centre-cropped by `cover`.
+
+This is a live capture of a site that keeps changing, so it goes stale the same way
+`../moviest-home.jpg` does — worth a fresh one whenever the web app is redesigned.
+The `alt` text in `Landing.js` describes what's on screen, so re-read it too.
