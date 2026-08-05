@@ -1,0 +1,12 @@
+/* The wrapper the segment layout puts around every Moviest page.
+
+   next/font exposes its faces as custom properties on whichever element carries the
+   generated class, and a nested layout can't reach <html> — so the two stacks that
+   depend on them are declared here rather than in moviest.css :root, and inherit
+   down to the whole page from this one element. */
+.root {
+  --font: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-outfit), 'Outfit', system-ui, -apple-system, sans-serif;
+
+  font-family: var(--font);
+}

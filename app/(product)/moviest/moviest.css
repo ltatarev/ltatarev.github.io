@@ -1,0 +1,94 @@
+/* Design tokens for the Moviest pages, lifted from the app's src/theme/theme.ts.
+
+   A self-contained design system living alongside the site's own (app/globals.css),
+   Photo Cleanup's and Lumee's — a dark aubergine surface with a rose accent, rather
+   than paper, warm neutrals or lilac. Next ships a route's CSS per segment, so
+   app/(site) pages get globals.css and this segment gets this; that separation is
+   the whole reason for the route groups. It only holds per document though — Next
+   keeps a stylesheet around after you navigate away from the route that pulled it
+   in — so every link out of here loads a fresh page. See lib/routes.js for what
+   breaks when one doesn't, and app/(product)/layout.js for why this sits in the
+   segment rather than in the group.
+
+   The two typefaces come from next/font in this segment's layout, which exposes
+   them as --font-outfit and --font-jakarta on a wrapper element rather than on
+   :root — a nested layout can't put a class on <html>. So the two stacks that
+   depend on them, --font and --font-display, are declared on .root below instead
+   of here, and inherit down from there. Everything that renders lives inside it. */
+
+:root {
+  --page: #0e0a16;
+  --surface: #171123;
+  --card: #1c1530;
+  --hairline: #2a2140;
+  --hairline2: #342a4e;
+  --wash: #2a1b45;
+  --text: #ffffff;
+  --text2: #9c93b8;
+  --text-muted: #6e6488;
+  --accent: #f4536e;
+  --accent-soft: #ff8fa3;
+  --accent-tint: rgba(244, 83, 110, 0.15);
+  --accent-border: rgba(244, 83, 110, 0.45);
+  --glass: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass-fallback: rgba(23, 17, 35, 0.92);
+  --grabber: rgba(255, 255, 255, 0.22);
+  --success: #4fbf8b;
+  --info: #7c5cff;
+  --magenta: #c13bb0;
+  --skeleton: #221a33;
+
+  --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --maxw: 1180px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  font-family: inherit;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+:focus-visible {
+  outline: 2px solid var(--accent-soft);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

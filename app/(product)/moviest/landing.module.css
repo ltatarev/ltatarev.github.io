@@ -1,0 +1,736 @@
+/* The Moviest landing page. Tokens, the reset and the base element styles all come
+   from moviest.css — this file only holds what's specific to this page. */
+
+.page {
+  position: relative;
+}
+
+/* ============================================================
+   Ambient field — fixed blobs, top wash, grain
+   ============================================================ */
+.field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  will-change: transform;
+}
+.b1 {
+  width: 820px;
+  height: 700px;
+  left: -240px;
+  top: -300px;
+  background: var(--info);
+  opacity: 0.3;
+}
+.b2 {
+  width: 760px;
+  height: 640px;
+  right: -200px;
+  top: -240px;
+  background: var(--magenta);
+  opacity: 0.22;
+}
+.b3 {
+  width: 700px;
+  height: 640px;
+  right: -220px;
+  top: 1500px;
+  background: var(--accent);
+  opacity: 0.13;
+}
+.b4 {
+  width: 740px;
+  height: 680px;
+  left: -260px;
+  top: 2600px;
+  background: var(--info);
+  opacity: 0.16;
+}
+.washtop {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 760px;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, var(--wash), rgba(14, 10, 22, 0));
+}
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>");
+}
+
+/* ============================================================
+   Scroll progress hairline
+   ============================================================ */
+.prog {
+  position: fixed;
+  z-index: 60;
+  left: 0;
+  top: 0;
+  height: 2px;
+  width: 100%;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+}
+
+/* ============================================================
+   Nav
+   ============================================================ */
+.nav {
+  position: fixed;
+  z-index: 50;
+  left: 0;
+  right: 0;
+  top: 0;
+  transition: 0.3s var(--ease);
+}
+.navIn {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.nav.isStuck {
+  background: rgba(14, 10, 22, 0.72);
+  -webkit-backdrop-filter: blur(22px);
+  backdrop-filter: blur(22px);
+  border-bottom: 0.5px solid var(--hairline);
+}
+.nav.isStuck .navIn {
+  padding-top: 13px;
+  padding-bottom: 13px;
+}
+.mark {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.03em;
+}
+/* The app icon, masked to the same squircle the desktop dock uses so the mark reads
+   as the same object in both places. */
+.markIcon {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.12);
+}
+.markIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+.navLinks {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.navLinks a {
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text2);
+  transition: 0.2s var(--ease);
+}
+.navLinks a:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font);
+  transition: 0.22s var(--ease);
+  white-space: nowrap;
+}
+.primary {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 12px 26px -12px rgba(244, 83, 110, 0.75);
+}
+.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px -12px rgba(244, 83, 110, 0.85);
+}
+.ghost {
+  background: var(--glass);
+  border: 0.5px solid var(--glass-border);
+  color: var(--text);
+}
+.ghost:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+/* ============================================================
+   Layout primitives
+   ============================================================ */
+.main {
+  position: relative;
+  z-index: 2;
+}
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-soft);
+  margin: 0;
+}
+.eyebrow i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(244, 83, 110, 0.16);
+}
+.lede {
+  color: var(--text2);
+  font-size: clamp(16px, 1.7vw, 19px);
+  line-height: 1.65;
+  max-width: 52ch;
+  margin: 0;
+}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+.hero {
+  padding: 168px 0 40px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 56px;
+  align-items: center;
+}
+.heroCopy {
+  max-width: 600px;
+}
+.heroCopy h1 {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 7.4vw, 88px);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1.04;
+  margin: 22px 0 20px;
+}
+.heroCopy h1 em {
+  font-style: normal;
+  color: var(--accent-soft);
+}
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 32px 0 0;
+}
+.ctas .pill {
+  height: 52px;
+  padding: 0 26px;
+  font-size: 15px;
+}
+.heronote {
+  margin: 18px 0 0;
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+.heronote b {
+  color: var(--text2);
+  font-weight: 600;
+}
+
+/* ============================================================
+   Device frame
+   ============================================================ */
+.device {
+  --sc: 0.7333;
+  flex: none;
+  position: relative;
+}
+.frame {
+  width: calc(390px * var(--sc) + 14px);
+  padding: 7px;
+  border-radius: calc(46px * var(--sc) + 8px);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.03));
+  box-shadow:
+    0 52px 90px -40px rgba(0, 0, 0, 0.95),
+    0 0 0 0.5px rgba(255, 255, 255, 0.05);
+}
+.holder {
+  position: relative;
+  width: calc(390px * var(--sc));
+  height: calc(844px * var(--sc));
+  border-radius: calc(46px * var(--sc));
+  overflow: hidden;
+  background: var(--page);
+}
+/* The screenshots are 440x956 captures and the holder is drawn at 390x844, so the
+   two aspect ratios differ by about half a percent. `cover` spends that on the very
+   top and bottom of the shot rather than letterboxing a phone. */
+.shot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+}
+.big {
+  --sc: 0.78;
+}
+.glow .frame {
+  box-shadow:
+    0 52px 90px -40px rgba(0, 0, 0, 0.95),
+    0 30px 90px -40px rgba(244, 83, 110, 0.55),
+    0 0 0 0.5px rgba(255, 255, 255, 0.06);
+}
+
+/* ============================================================
+   Poster ribbon
+   ============================================================ */
+.ribbon {
+  margin: 72px 0 0;
+  padding: 26px 0;
+  overflow: hidden;
+  border-top: 0.5px solid var(--hairline);
+  border-bottom: 0.5px solid var(--hairline);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.ribbonTrack {
+  display: flex;
+  gap: 14px;
+  width: max-content;
+  will-change: transform;
+}
+/* Posters are 2:3 and so is the tile, but a TMDB one-sheet is occasionally a few
+   pixels off — `cover` keeps the row of edges straight either way. */
+.tile {
+  width: 96px;
+  height: 144px;
+  border-radius: 12px;
+  flex: none;
+  border: 0.5px solid rgba(255, 255, 255, 0.07);
+  object-fit: cover;
+  display: block;
+  user-select: none;
+}
+
+/* ============================================================
+   Feature rows
+   ============================================================ */
+.feature {
+  padding: 104px 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 64px;
+  align-items: center;
+}
+.feature.flip .fcopy {
+  order: 2;
+}
+.fcopy h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+  font-size: clamp(30px, 4.4vw, 48px);
+  margin: 20px 0 16px;
+}
+.fcopy p {
+  color: var(--text2);
+  font-size: 17px;
+  max-width: 44ch;
+  margin: 0;
+}
+.fmeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 26px;
+}
+.fmeta span {
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: var(--glass);
+  border: 0.5px solid var(--hairline2);
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text2);
+}
+
+/* ============================================================
+   Signature: the scroll-scrubbed score ring
+   ============================================================ */
+.ringwrap {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 30px;
+}
+.ring {
+  position: relative;
+  width: 78px;
+  height: 78px;
+  flex: none;
+}
+.ring svg {
+  transform: rotate(-90deg);
+}
+.ring circle {
+  fill: none;
+  stroke-linecap: round;
+}
+.ringTrack {
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 6;
+}
+.ringFill {
+  stroke: var(--accent);
+  stroke-width: 6;
+  stroke-dasharray: 207.3;
+  stroke-dashoffset: 207.3;
+}
+.ringDot {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.ringNum {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 23px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.ringcap {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 26ch;
+}
+.ringcap b {
+  display: block;
+  color: var(--text2);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* ============================================================
+   Small features grid
+   ============================================================ */
+.more {
+  padding: 96px 0 40px;
+}
+.more h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+  font-size: clamp(30px, 4.4vw, 48px);
+  margin: 18px 0 0;
+  max-width: 16ch;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 44px;
+}
+.cell {
+  background: linear-gradient(180deg, var(--card), var(--surface));
+  border: 0.5px solid var(--hairline);
+  border-radius: 22px;
+  padding: 26px 24px 28px;
+  transition: 0.3s var(--ease);
+}
+.cell:hover {
+  border-color: var(--hairline2);
+  transform: translateY(-3px);
+}
+.cellIcon {
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  color: var(--accent-soft);
+  background: var(--accent-tint);
+  border: 0.5px solid var(--accent-border);
+  margin-bottom: 18px;
+}
+.cell h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 19px;
+  margin: 0 0 8px;
+  letter-spacing: -0.02em;
+}
+.cell p {
+  font-size: 14.5px;
+  color: var(--text2);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ============================================================
+   Closer
+   ============================================================ */
+.closer {
+  margin: 80px 0 0;
+  padding: 76px 34px;
+  border-radius: 34px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--card), var(--surface));
+  border: 0.5px solid var(--hairline);
+}
+.closer::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -160px;
+  width: 520px;
+  height: 340px;
+  transform: translateX(-50%);
+  background: var(--accent);
+  filter: blur(120px);
+  opacity: 0.22;
+  pointer-events: none;
+}
+.closer > * {
+  position: relative;
+  z-index: 2;
+}
+.closer h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+  font-size: clamp(30px, 4.4vw, 48px);
+  margin: 18px auto 16px;
+  max-width: 15ch;
+}
+.closer p {
+  color: var(--text2);
+  max-width: 46ch;
+  margin: 0 auto;
+}
+.closer .ctas {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.footer {
+  margin-top: 96px;
+  border-top: 0.5px solid var(--hairline);
+  position: relative;
+  z-index: 2;
+}
+.foot {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 40px 28px 56px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 26px;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13.5px;
+  color: var(--text-muted);
+}
+.footMark {
+  margin-bottom: 12px;
+  font-size: 17px;
+}
+.footLinks {
+  display: flex;
+  gap: 20px;
+}
+.footLinks a:hover {
+  color: var(--accent-soft);
+}
+.footRight {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: flex-start;
+}
+.attrib {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  max-width: 64ch;
+  line-height: 1.6;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 7px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.tmdb {
+  border: 1px solid rgba(1, 180, 228, 0.4);
+  color: #01b4e4;
+}
+.jw {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text2);
+}
+
+/* ============================================================
+   Reveal on scroll
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.7s var(--ease),
+    transform 0.7s var(--ease);
+}
+.reveal.isIn {
+  opacity: 1;
+  transform: none;
+}
+.reveal[data-d='1'] {
+  transition-delay: 60ms;
+}
+.reveal[data-d='2'] {
+  transition-delay: 120ms;
+}
+.reveal[data-d='3'] {
+  transition-delay: 180ms;
+}
+.reveal[data-d='4'] {
+  transition-delay: 240ms;
+}
+.revealDev {
+  opacity: 0;
+  transform: translateY(46px) scale(0.965);
+  transition:
+    opacity 0.9s var(--ease),
+    transform 0.9s var(--ease);
+}
+.revealDev.isIn {
+  opacity: 1;
+  transform: none;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 1000px) {
+  .hero,
+  .feature {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    justify-items: start;
+  }
+  .feature.flip .fcopy {
+    order: 0;
+  }
+  .hero {
+    padding-top: 132px;
+  }
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .navLinks a {
+    display: none;
+  }
+}
+@media (max-width: 640px) {
+  .wrap {
+    padding: 0 20px;
+  }
+  .device,
+  .big {
+    --sc: 0.6;
+  }
+  .hero {
+    padding-top: 118px;
+  }
+  .feature {
+    padding: 72px 0;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .closer {
+    padding: 56px 22px;
+    border-radius: 26px;
+  }
+  .foot {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* The scroll-driven transforms are written straight to style attributes by the
+   component, so the component checks this query itself and skips them — see
+   Landing.js. This only has to catch the reveals. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .revealDev {
+    opacity: 1;
+    transform: none;
+  }
+}
