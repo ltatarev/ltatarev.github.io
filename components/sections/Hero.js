@@ -26,7 +26,7 @@ export function Hero() {
           software developer based in Germany 🇩🇪. i love building <b>mobile apps</b> and experiences
           — mostly with <b>React Native</b> and a whole lot of <b>JavaScript</b>.
         </p>
-        <a className={styles.scrollCue} href="#work">
+        <a className={styles.scrollCue} href="#apps">
           <svg className={styles.arrow} width="14" height="14" viewBox="0 0 24 24" fill="none">
             <path
               d="M6 9l6 6 6-6"
