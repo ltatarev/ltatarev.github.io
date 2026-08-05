@@ -1,0 +1,99 @@
+/* Design tokens for the Lumee pages, lifted from the app theme
+   (amethyst / hot-pink / woodsmoke).
+
+   A self-contained design system living alongside the site's own (app/globals.css)
+   and Photo Cleanup's — lilac and Satoshi rather than paper and Archivo. It is
+   loaded from app/(product)/lumee/layout.js rather than from the route group,
+   because both products write the same token names and neither palette may leak
+   onto the other's page. See app/(product)/layout.js and lib/routes.js.
+
+   Satoshi itself is served from Fontshare and requested by the layout, so the
+   stack below degrades to Nunito Sans / Avenir Next / the system UI font if that
+   request never lands. */
+
+:root {
+  --ink: #222222;
+  --ink-soft: #6e6478;
+  --lilac-50: #fbf7fe;
+  --lilac-100: #f7f0fd;
+  --lilac-200: #efe2f9;
+  --lilac-300: #e3d2f3;
+  --amethyst: #9469ba;
+  --amethyst-deep: #462862;
+  --amethyst-soft: #d4bce9;
+  --blush: #f293bf;
+  --paper: #ffffff;
+
+  /* the faint line the guides and the section rules are drawn in */
+  --rule: rgba(148, 105, 186, 0.22);
+  --rule-soft: rgba(148, 105, 186, 0.13);
+
+  --r-md: 15px;
+  --r-lg: 20px;
+  --r-xl: 25px;
+  --r-xxl: 30px;
+
+  --shadow-soft: 0 3px 10px rgba(34, 34, 34, 0.1);
+  --shadow-lift: 0 24px 60px -18px rgba(74, 52, 93, 0.38);
+
+  --font: 'Satoshi', 'Nunito Sans', 'Avenir Next', system-ui, -apple-system, sans-serif;
+  --gutter: clamp(20px, 5vw, 40px);
+
+  /* the two easings the whole page shares: the reveal's settle and the button's
+     slight overshoot on hover */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.5, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--lilac-200);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
+a {
+  color: inherit;
+}
+:focus-visible {
+  outline: 3px solid var(--amethyst);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* The page-long wash. Fixed rather than on <body> so it doesn't stretch with the
+   document — the gradient should read the same on the landing page and on a short
+   legal document. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    178deg,
+    var(--lilac-100) 0%,
+    var(--lilac-200) 55%,
+    var(--lilac-300) 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

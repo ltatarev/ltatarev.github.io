@@ -1,0 +1,239 @@
+/* Styles for the Lumee legal documents. The tokens, the reset, the body paint and
+   the fixed lilac wash live in app/(product)/lumee/lumee.css, so only the
+   document-specific rules are here.
+
+   Element selectors are always scoped under a local class — a bare `h2 {}` in a CSS
+   module is emitted unscoped and would reach across the whole document. */
+
+/* A legal page is nothing but running prose, so it sets a looser measure than the
+   landing page does. */
+.legal {
+  line-height: 1.65;
+}
+
+.wrap {
+  width: min(760px, 100% - var(--gutter) * 2);
+  margin-inline: auto;
+}
+
+/* ---------- nav ---------- */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26px 0 0;
+}
+.mark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 900;
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  color: var(--ink);
+}
+/* Same app icon as the landing page's brand mark, one size down. It ships square
+   and unrounded, so the corner goes on here. */
+.icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  flex: none;
+}
+.icon img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.back {
+  font-weight: 700;
+  font-size: 0.93rem;
+  text-decoration: none;
+  color: var(--ink-soft);
+}
+.back:hover {
+  color: var(--amethyst-deep);
+}
+
+/* ---------- header ---------- */
+.docHead {
+  padding: clamp(40px, 8vw, 80px) 0 clamp(24px, 4vw, 36px);
+}
+.eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--amethyst);
+  margin: 0 0 14px;
+}
+.docHead h1 {
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  font-size: clamp(2.4rem, 6vw, 3.4rem);
+  margin: 0 0 14px;
+}
+.updated {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+/* ---------- the short version ---------- */
+.summary {
+  background: var(--paper);
+  border-radius: var(--r-xl);
+  padding: clamp(22px, 4vw, 32px);
+  box-shadow: 0 18px 44px -26px rgba(74, 52, 93, 0.4);
+  margin-bottom: clamp(30px, 5vw, 48px);
+}
+.summary p {
+  margin: 0;
+  font-size: 1.06rem;
+}
+.summary p + p {
+  margin-top: 12px;
+}
+.summary strong {
+  font-weight: 900;
+}
+
+/* Pre-launch banner for the fields still to be filled in. Deliberately loud —
+   a placeholder that looks like finished copy is how a "[legal name]" ships. */
+.draft {
+  background: #fbf3e0;
+  border: 1px solid #e8d19a;
+  border-radius: var(--r-md);
+  padding: 16px 20px;
+  margin-bottom: clamp(24px, 4vw, 32px);
+  font-size: 0.95rem;
+  color: #6b4e0f;
+}
+.draft strong {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 900;
+}
+
+/* ---------- prose ---------- */
+.doc {
+  padding-bottom: clamp(50px, 8vw, 90px);
+}
+.doc section {
+  padding: clamp(20px, 3vw, 28px) 0;
+  border-top: 1px solid var(--rule);
+}
+.doc h2 {
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  font-size: 1.3rem;
+  margin: 0 0 12px;
+  line-height: 1.2;
+}
+/* The terms number their clauses so they can be cited; the privacy policy doesn't.
+   Counted in CSS rather than written into each heading, so inserting a clause
+   can't leave the numbering out of step with the document. */
+.numbered {
+  counter-reset: clause;
+}
+.numbered section {
+  counter-increment: clause;
+}
+.numbered h2::before {
+  content: counter(clause) '. ';
+}
+.doc h3 {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin: 20px 0 8px;
+}
+.doc p,
+.doc li {
+  color: var(--ink-soft);
+  font-size: 1.02rem;
+  margin: 0 0 14px;
+}
+.doc li {
+  margin-bottom: 9px;
+}
+.doc ul {
+  padding-left: 1.15em;
+  margin: 0 0 14px;
+}
+.doc li::marker {
+  color: var(--amethyst-soft);
+}
+.doc p:last-child,
+.doc ul:last-child {
+  margin-bottom: 0;
+}
+.doc strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+/* lumee.css resets links to `inherit`, which would hide the few links in the body copy. */
+.doc a {
+  color: var(--amethyst-deep);
+  font-weight: 700;
+}
+
+/* A field still to be filled in before launch. */
+.fill {
+  background: rgba(242, 147, 191, 0.22);
+  padding: 1px 5px;
+  border-radius: 5px;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* ---------- footer ---------- */
+.footer {
+  border-top: 1px solid var(--rule);
+  padding: 26px 0 44px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+  font-size: 0.92rem;
+}
+.footLinks {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-weight: 700;
+}
+.footLinks a {
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+.footLinks a:hover {
+  color: var(--amethyst-deep);
+}
+.copy {
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* The document fades up as a whole rather than section by section — the landing
+   page is the one that performs, and a legal page a reader came to on purpose
+   should just be there. */
+.legal {
+  opacity: 0;
+  animation: fade 0.5s ease forwards;
+}
+@keyframes fade {
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .legal {
+    opacity: 1;
+    animation: none;
+  }
+}
