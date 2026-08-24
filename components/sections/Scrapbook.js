@@ -347,6 +347,17 @@ export function Scrapbook() {
           <div className={styles.washi} />
         </div>
 
+        {/* a secret tucked under the egg — static, not a .tk, so dragging other
+            trinkets never exposes it. only moving the egg itself does. */}
+        <a
+          className={styles.tkFact}
+          href="https://ltatarev.github.io/funfacts/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span className={styles.fact}>a random fact, if you dare →</span>
+        </a>
+
         {/* virtual-pet egg */}
         <div className={`${styles.tk} ${styles.tkPet} ${styles.shadow}`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
