@@ -1,4 +1,5 @@
 import { Outfit, Plus_Jakarta_Sans } from 'next/font/google';
+import { SMART_BANNER } from './appstore';
 import './moviest.css';
 import styles from './shell.module.css';
 
@@ -22,6 +23,14 @@ const jakarta = Plus_Jakarta_Sans({
   variable: '--font-jakarta',
   display: 'swap',
 });
+
+// The Smart App Banner Safari draws on iOS. It sits on the layout rather than on
+// page.js so the legal pages carry it too — someone who lands on the privacy policy
+// from the App Store listing gets the same way back. Next merges `other` from here
+// with each page's own title and description, which none of them redefine.
+export const metadata = {
+  other: { 'apple-itunes-app': SMART_BANNER },
+};
 
 // Pinned to this segment rather than the (product) group so the aubergine palette
 // never shares a document with Photo Cleanup's warm/green one or Lumee's lilac.

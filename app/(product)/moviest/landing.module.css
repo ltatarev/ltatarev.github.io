@@ -193,6 +193,29 @@
   background: rgba(255, 255, 255, 0.16);
 }
 
+/* Apple's "Download on the App Store" lockup. It is supplied artwork, so the page
+   sets its height and nothing else: no background, no radius of its own, no recolour.
+   The height comes from the component as an inline style, because the nav wants a
+   shorter badge than the hero does — see StoreBadge in Landing.js. The 12px gaps
+   around it are already wider than the clear space Apple asks for, which is a tenth
+   of the badge's height. */
+.storeBadge {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  transition: transform 0.22s var(--ease);
+}
+.storeBadge img {
+  height: 100%;
+  width: auto;
+  display: block;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+.storeBadge:hover {
+  transform: translateY(-2px);
+}
+
 /* ============================================================
    Layout primitives
    ============================================================ */

@@ -60,8 +60,8 @@ what's actually on screen, down to the titles and the score.
 
 ## Web app screenshot — `web.webp`
 
-The one landscape image, shown inside the browser frame in the "Have a look before it
-ships" section. It's a capture of the live web app at
+The one landscape image, shown inside the browser frame in the "Or have a look in your
+browser" section. It's a capture of the live web app at
 [the-moviest.vercel.app](https://the-moviest.vercel.app/), not of the iOS app.
 
 Take it in a real browser at a **1440×900 viewport** — Vercel's bot check refuses
@@ -76,3 +76,22 @@ capture at that size lands uncropped. Anything else gets centre-cropped by `cove
 This is a live capture of a site that keeps changing, so it goes stale the same way
 `../moviest-home.jpg` does — worth a fresh one whenever the web app is redesigned.
 The `alt` text in `Landing.js` describes what's on screen, so re-read it too.
+
+## App Store badge — `app-store-badge.svg`
+
+Apple's own "Download on the App Store" lockup, US/UK English, white variant, taken
+unchanged from Apple's marketing tools:
+
+```sh
+curl -o public/moviest/app-store-badge.svg \
+  https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/white/en-us
+```
+
+Apple's [marketing guidelines](https://developer.apple.com/app-store/marketing/guidelines/)
+say the badge is supplied artwork: do not redraw it, recolour it, change its
+proportions, or add effects to it. The page only sets its height — see `.storeBadge` in
+`landing.module.css`. The white variant is the one for a dark background; swap to
+`/black/en-us` if this page ever goes light.
+
+The App Store id it links to, and the Smart App Banner tag in the document head, both
+come from `app/(product)/moviest/appstore.js`.
