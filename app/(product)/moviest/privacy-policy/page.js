@@ -67,7 +67,7 @@ const sections = [
     title: 'What leaves your device',
     body: (
       <>
-        <p>Three things, and they’re worth being precise about.</p>
+        <p>Four things, and they’re worth being precise about.</p>
 
         <h3>Catalogue requests</h3>
         <p>
@@ -88,6 +88,16 @@ const sections = [
           <b>Settings → Privacy &amp; Security → Analytics &amp; Improvements</b>.
         </p>
 
+        <h3>Bug reports</h3>
+        <p>
+          If you tap <b>Report a Bug</b>, the app opens an email draft in your own mail app. It
+          sends nothing itself. If you send the email, we receive your email address, what you
+          wrote, and the details in the draft: app version, device model, iOS version, language,
+          region, whether you have Plus, whether iCloud is available, and how many titles your
+          library holds. It contains no titles, names or reviews. We use it only to answer you and
+          fix the bug, and we delete it when you ask.
+        </p>
+
         <h3>App Store activity</h3>
         <p>
           Downloads, updates and any App Store reviews are handled by Apple and covered by Apple’s
@@ -101,7 +111,7 @@ const sections = [
     title: 'What we never collect',
     body: (
       <ul>
-        <li>Your name, email address or phone number</li>
+        <li>Your name, email address or phone number, unless you email us yourself</li>
         <li>Contacts, photos, location, calendar or microphone</li>
         <li>Advertising identifiers, and no cross-app or cross-site tracking</li>
         <li>
@@ -211,7 +221,7 @@ export default function PrivacyPolicyPage() {
         </>
       }
       lede="Moviest has no accounts and no server holding your library. This page says exactly what the app stores, the few things that leave your phone, and what it never collects."
-      lastUpdated="5 August 2026"
+      lastUpdated="28 October 2026"
       shortVersion={
         <ul>
           <li>
