@@ -1,0 +1,160 @@
+/* Paper theme — tokens and document reset.
+
+   A self-contained design system, like each product under app/(product): it only
+   ever shares a document with itself, because every link into or out of /paper/ is
+   a full page load (lib/routes.js). So it is safe to set tokens on :root and paint
+   <body> here.
+
+   Palette: paper + ink neutrals, two brand surfaces (butter = soft sand cream,
+   blush = pink) and their deep versions for text. Pastels are SURFACES only —
+   text on them is ink, or the deep shade of the same colour.
+
+   Fonts come from next/font in layout.js as --font-outfit / --font-isans /
+   --font-dmmono on the wrapper, so the stacks that use them are declared on
+   .root in paper.module.css. */
+
+:root {
+  color-scheme: light;
+
+  --ground: #fffcf6;
+  --ground-2: #f6f1e7;
+  --card: #ffffff;
+
+  --ink: #1c1a1f;
+  --ink-2: #4d4852;
+  --ink-3: #6f6a72;
+  --edge: #1c1a1f;
+
+  --butter-soft: #f8f2e4;
+  --butter: #f0e6cf;
+  --butter-pop: #e8d8b2;
+  --butter-deep: #6e5a40;
+
+  --blush-soft: #ffeef5;
+  --blush: #ffd8ea;
+  --blush-pop: #ffb8d9;
+  --blush-deep: #9e2a5e;
+
+  --folder: #f8f2e4;
+  --folder-top: #fbf7ee;
+  --folder-tab: #f1e8d4;
+  --folder-tab-2: #e8dcc2;
+  --folder-edge: #d8c7a4;
+
+  /* brand cards look the same in light and dark mode */
+  --brand-ink: #1c1a1f;
+  --brand-ink-2: #4d4852;
+  --brand-ink-3: #6f6a72;
+  --brand-hairline: rgba(28, 26, 31, 0.12);
+
+  --hairline: rgba(28, 26, 31, 0.12);
+  --hairline-2: rgba(28, 26, 31, 0.07);
+  --shadow: 0 18px 40px -28px rgba(28, 26, 31, 0.5);
+  --shadow-lift: 0 28px 60px -30px rgba(28, 26, 31, 0.45);
+  --cutout-shadow: rgba(28, 26, 31, 0.22);
+
+  --ok: #1e7a52;
+  --clip: #a7abb5;
+  --clip-hi: #f4f5f8;
+  --tape: rgba(255, 216, 234, 0.82);
+  --foot-name: #ffd8ea;
+
+  --t-display: clamp(3rem, 8.4vw, 5.6rem);
+  --t-h2: clamp(1.8rem, 3.4vw, 2.6rem);
+  --t-h3: clamp(1.3rem, 2.4vw, 1.6rem);
+  --t-stat: clamp(2.8rem, 6vw, 3.8rem);
+  --t-lead: clamp(1.0625rem, 1.55vw, 1.2rem);
+
+  --max: 1280px;
+  --gutter: clamp(1rem, 4.5vw, 2.75rem);
+  --section-y: clamp(3.75rem, 8.5vw, 7rem);
+  --inset: clamp(0.5rem, 2vw, 1.5rem);
+  --card-gap: clamp(0.9rem, 2vw, 1.25rem);
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-xl: 30px;
+  --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --ground: #141216;
+    --ground-2: #1e1b21;
+    --card: #1e1b21;
+    --ink: #f7f2ec;
+    --ink-2: #c2bac0;
+    --ink-3: #9a9298;
+    --edge: #f7f2ec;
+    --hairline: rgba(247, 242, 236, 0.16);
+    --hairline-2: rgba(247, 242, 236, 0.08);
+    --shadow: 0 18px 40px -28px rgba(0, 0, 0, 0.9);
+    --shadow-lift: 0 28px 60px -30px rgba(0, 0, 0, 0.85);
+    --cutout-shadow: rgba(0, 0, 0, 0.55);
+    --ok: #5bd79b;
+    --clip: #8e929c;
+    --clip-hi: #dde0e6;
+    --foot-name: #1c1a1f;
+  }
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --ground: #141216;
+  --ground-2: #1e1b21;
+  --card: #1e1b21;
+  --ink: #f7f2ec;
+  --ink-2: #c2bac0;
+  --ink-3: #9a9298;
+  --edge: #f7f2ec;
+  --hairline: rgba(247, 242, 236, 0.16);
+  --hairline-2: rgba(247, 242, 236, 0.08);
+  --shadow: 0 18px 40px -28px rgba(0, 0, 0, 0.9);
+  --shadow-lift: 0 28px 60px -30px rgba(0, 0, 0, 0.85);
+  --cutout-shadow: rgba(0, 0, 0, 0.55);
+  --ok: #5bd79b;
+  --clip: #8e929c;
+  --clip-hi: #dde0e6;
+  --foot-name: #1c1a1f;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  scroll-padding-top: 84px;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  line-height: 1.55;
+}
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  font: inherit;
+  color: inherit;
+}
+::selection {
+  background: var(--blush-pop);
+  color: var(--brand-ink);
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

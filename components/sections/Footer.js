@@ -18,6 +18,10 @@ export function Footer() {
         </span>
         <span className={styles.right}>
           <span>made with ♥ & javascript</span>
+          {/* plain <a>: /paper/ runs on its own stylesheet, see lib/routes.js */}
+          <a className={styles.toTop} href="/paper/">
+            ◐ paper theme
+          </a>
           <Link className={styles.toTop} href="/#home">
             back to top
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
