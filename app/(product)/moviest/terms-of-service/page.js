@@ -26,7 +26,12 @@ const sections = [
           ratings, reviews and lists, stored on your own device. It’s published by{' '}
           <b>Lucija Tatarević</b> (“we”, “us”) and distributed through the App Store.
         </p>
-        <p>It’s free. There’s no account, no subscription and no advertising.</p>
+        <p>It’s free to download and use. There’s no account and no advertising.</p>
+        <p>
+          Moviest Plus is optional. It is an in-app purchase: a monthly or yearly subscription, or a
+          one-time Lifetime purchase. Apple sells and bills it under the App Store’s terms, and you
+          manage or cancel a subscription in your Apple ID settings.
+        </p>
       </>
     ),
   },
@@ -122,8 +127,8 @@ const sections = [
     body: (
       <>
         <p>
-          These terms are governed by the laws of <b>Germany</b>. If you’re a consumer in the EU, you keep the protections of the law
-          where you live.
+          These terms are governed by the laws of <b>Germany</b>. If you’re a consumer in the EU,
+          you keep the protections of the law where you live.
         </p>
         <p>
           Apple is not a party to these terms and has no obligation to support the app. Apple and
@@ -156,7 +161,7 @@ export default function TermsOfServicePage() {
         </>
       }
       lede="Moviest is a small app made by one person. These are the terms you agree to by using it — short, because there isn’t much to it."
-      lastUpdated="5 August 2026"
+      lastUpdated="4 November 2026"
       shortVersion={
         <ul>
           <li>Use Moviest for what it’s for. Don’t attack it or abuse the API behind it.</li>

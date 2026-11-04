@@ -62,14 +62,26 @@ export function Table({ head, rows }) {
 //   shortVersion — body of the "short version" card
 //   sections     — [{ id, title, body }], body is JSX
 //   alt          — swap the ambient field to the terms' arrangement
-export function LegalDoc({ title, lede, lastUpdated, shortVersion, sections, alt }) {
+//   keyTitle     — the heading of the short-version card
+//
+// The features, import, compare and facts pages use the same chrome, so every
+// document page on the site has one layout and one footer.
+export function LegalDoc({
+  title,
+  lede,
+  lastUpdated,
+  shortVersion,
+  sections,
+  alt,
+  keyTitle = 'The short version',
+}) {
   const rootRef = useRef(null);
   const navRef = useRef(null);
   const progRef = useRef(null);
   const [current, setCurrent] = useState(0);
 
   // "The short version" is a real destination, so it leads the contents list.
-  const entries = [{ id: 'short', title: 'The short version' }, ...sections];
+  const entries = [{ id: 'short', title: keyTitle }, ...sections];
 
   useEffect(() => {
     const root = rootRef.current;
@@ -78,7 +90,8 @@ export function LegalDoc({ title, lede, lastUpdated, shortVersion, sections, alt
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const pending = Array.from(root.querySelectorAll('[data-reveal]'));
 
-    if (reduced || !('IntersectionObserver' in window)) {
+    // Automated browsers get everything at once — see the same check in Landing.js.
+    if (reduced || navigator.webdriver || !('IntersectionObserver' in window)) {
       pending.forEach((el) => el.classList.add(styles.isIn));
       return undefined;
     }
@@ -217,10 +230,6 @@ export function LegalDoc({ title, lede, lastUpdated, shortVersion, sections, alt
       <main className={styles.main}>
         <div className={styles.wrap}>
           <div className={styles.dochead}>
-            <span className={`${styles.eyebrow} ${styles.reveal}`} data-reveal>
-              <i />
-              Legal
-            </span>
             <h1 className={styles.reveal} data-reveal data-d="1">
               {title}
             </h1>
@@ -253,7 +262,7 @@ export function LegalDoc({ title, lede, lastUpdated, shortVersion, sections, alt
                 data-reveal
                 data-section
               >
-                <h2>The short version</h2>
+                <h2>{keyTitle}</h2>
                 {keyed(shortVersion)}
               </div>
 
@@ -277,8 +286,12 @@ export function LegalDoc({ title, lede, lastUpdated, shortVersion, sections, alt
       <footer className={styles.footer}>
         <div className={styles.foot}>
           <span>© 2026 Moviest — a hobby project.</span>
-          <nav className={styles.footLinks} aria-label="Legal">
+          <nav className={styles.footLinks} aria-label="Moviest pages">
             <Link href="/moviest/">Home</Link>
+            <Link href="/moviest/features/">Features</Link>
+            <Link href="/moviest/import/">Import</Link>
+            <Link href="/moviest/compare/">Compare</Link>
+            <Link href="/moviest/facts/">Facts</Link>
             <Link href="/moviest/privacy-policy/">Privacy</Link>
             <Link href="/moviest/terms-of-service/">Terms</Link>
             {/* a plain anchor, not next/link: the desktop is the other design

@@ -58,6 +58,29 @@ image goes in which frame is set in `app/(product)/moviest/Landing.js`.
 If you change a screenshot, re-read its `alt` text in `Landing.js` — it describes
 what's actually on screen, down to the titles and the score.
 
+## Features page screenshots — `airings.webp`, `providers.webp`, `search.webp`, `discover.webp`, `ipad.webp`
+
+Shown on `/moviest/features/`, together with the four landing screenshots. They come
+from the App Store set in the app repo, `Moviest/screenshots/appstore/`:
+
+| File | Source |
+| --- | --- |
+| `airings.webp` | `iphone-6.9/03-airings.png` |
+| `providers.webp` | `iphone-6.9/04b-detail-providers-cast.png` |
+| `search.webp` | `iphone-6.9/06-search.png` |
+| `discover.webp` | `iphone-6.3-2026-10-31/01-discover.png` |
+| `ipad.webp` | `ipad-13-2026-10-31/01-watchlist.png`, 1400px wide |
+
+The iPhone files are 912px wide, WebP at quality 82, the same as the landing ones.
+When you replace one, re-read its `alt` text in `app/(product)/moviest/features/page.js`.
+
+## Share image — `og.png`
+
+The 1200×630 Open Graph and Twitter card image for every Moviest page. It shows the
+icon, the brand line, and `hero.webp` and `episodes.webp` in rounded frames. Make it
+again when those screenshots or the brand line change, and keep the text the same as
+the facts in `app/(product)/moviest/facts.js`.
+
 ## Web app screenshot — `web.webp`
 
 The one landscape image, shown inside the browser frame in the "Or have a look in your

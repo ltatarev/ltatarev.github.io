@@ -175,25 +175,6 @@
   margin: 0 auto;
   padding: 0 28px;
 }
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  font-family: var(--font-display);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent-soft);
-  margin: 0;
-}
-.eyebrow i {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 4px rgba(244, 83, 110, 0.16);
-}
 .dochead {
   padding: 160px 0 44px;
   border-bottom: 0.5px solid var(--hairline);
@@ -202,9 +183,9 @@
   font-family: var(--font-display);
   font-size: clamp(38px, 6vw, 66px);
   font-weight: 800;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.04em;
   line-height: 1.03;
-  margin: 20px 0 18px;
+  margin: 0 0 18px;
 }
 .dochead p {
   color: var(--text2);
@@ -275,6 +256,9 @@
    ============================================================ */
 .prose {
   max-width: 70ch;
+  /* A grid item defaults to min-width: auto, so a wide table would stretch the
+     column past the screen. With 0 the table scrolls in .tblScroll instead. */
+  min-width: 0;
 }
 .prose section {
   padding: 0 0 46px;
@@ -361,6 +345,80 @@
 .fill {
   color: var(--accent-soft);
   border-bottom: 1.5px dotted var(--accent-border);
+  font-weight: 600;
+}
+
+/* ============================================================
+   Screenshots and tags (features page)
+   ============================================================ */
+.shot {
+  margin: 22px 0 10px;
+}
+.shot img {
+  display: block;
+  width: min(100%, 290px);
+  height: auto;
+  border-radius: 30px;
+  border: 0.5px solid var(--hairline2);
+  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.7);
+}
+.shot.wide img {
+  width: 100%;
+  border-radius: 18px;
+}
+.shot figcaption {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+/* Free or Plus, beside a feature heading. */
+.tag {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text2);
+  border: 0.5px solid var(--hairline2);
+}
+.tag.plus {
+  color: var(--accent-soft);
+  border-color: var(--accent-border);
+  background: var(--accent-tint);
+}
+/* Numbered steps (import guide). */
+.steps {
+  margin: 0 0 18px;
+  padding-left: 22px;
+  color: var(--text2);
+  font-size: 15.5px;
+}
+.steps li {
+  padding-left: 6px;
+  margin-bottom: 9px;
+}
+.steps li::before {
+  content: none;
+}
+.steps li::marker {
+  color: var(--accent-soft);
+  font-weight: 700;
+}
+/* An App Store link in the prose, as a button. */
+.prose a.cta {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 0;
+  background: var(--accent);
+  /* Page-coloured text on the accent is 5.9:1. White on the accent is only 3.3:1. */
+  color: var(--page);
   font-weight: 600;
 }
 
@@ -496,6 +554,14 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* With scripting off nothing adds .isIn, so the reveals must not start hidden. */
+@media (scripting: none) {
   .reveal {
     opacity: 1;
     transform: none;

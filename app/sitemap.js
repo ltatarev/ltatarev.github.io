@@ -16,6 +16,10 @@ export default function sitemap() {
     { url: `${SITE}/keepsake/privacy-policy/`, priority: 0.3 },
     { url: `${SITE}/keepsake/terms-of-service/`, priority: 0.3 },
     { url: `${SITE}/moviest/`, priority: 0.5 },
+    { url: `${SITE}/moviest/features/`, priority: 0.5 },
+    { url: `${SITE}/moviest/import/`, priority: 0.4 },
+    { url: `${SITE}/moviest/compare/`, priority: 0.4 },
+    { url: `${SITE}/moviest/facts/`, priority: 0.4 },
     { url: `${SITE}/moviest/privacy-policy/`, priority: 0.3 },
     { url: `${SITE}/moviest/terms-of-service/`, priority: 0.3 },
   ];

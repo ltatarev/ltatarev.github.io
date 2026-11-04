@@ -1,10 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { APP_STORE } from './appstore';
 import { Browser } from './Browser';
 import { Device } from './Device';
+import { FAQ } from './facts';
 import { POSTERS, posterSrc } from './posters';
 import styles from './landing.module.css';
 
@@ -18,11 +19,34 @@ const FEEDBACK = `mailto:${EMAIL}?subject=Moviest%20feedback`;
 const WEBAPP_HOST = 'the-moviest.vercel.app';
 const WEBAPP = `https://${WEBAPP_HOST}/`;
 
-// Circumference of the 78px ring's r=33 circle, which is also the dasharray the
-// stylesheet seeds it with. The scrub below drives the offset between C and 0.
+// Circumference of the ring's r=33 circle in its 78-unit viewBox, which is also the
+// dasharray the stylesheet seeds it with. The fill is the offset between C and 0.
 const RING_C = 207.3;
 // The score the ring settles on — the same figure the phone beside it is showing.
 const RING_SCORE = 8.5;
+// The visitor scores in half points, the same step as the stars in the app.
+const RING_STEP = 0.5;
+
+// Draw a score on the ring: the arc, the dot at its end, the number and the slider
+// value. The scroll scrub and the visitor's drag both come through here.
+function paintRing(refs, score) {
+  if (refs.fill.current) {
+    refs.fill.current.style.strokeDashoffset = String(RING_C * (1 - score / 10));
+  }
+  if (refs.dot.current) {
+    refs.dot.current.style.transform = `rotate(${(score / 10) * 360}deg)`;
+    refs.dot.current.style.opacity = score > 0.15 ? '1' : '0';
+  }
+  if (refs.num.current) refs.num.current.textContent = score.toFixed(1);
+  if (refs.ring.current) {
+    refs.ring.current.setAttribute('aria-valuenow', String(score));
+    refs.ring.current.setAttribute('aria-valuetext', `${score.toFixed(1)} out of 10`);
+  }
+}
+
+// The FAQ answers that stay open on a phone. The rest sit behind one button there;
+// on wider screens all of them are open.
+const FAQ_OPEN_ON_PHONE = 4;
 
 // The ribbon has to be wider than the viewport plus the 420px it slides, which at
 // 96px a tile and a 14px gap means about twenty of them. The pick list in
@@ -31,17 +55,9 @@ const RING_SCORE = 8.5;
 const RIBBON_TILES = 20;
 const RIBBON = Array.from({ length: RIBBON_TILES }, (_, i) => POSTERS[i % POSTERS.length]);
 
+// Four cells, not six: return dates and offline use already have their own
+// sections and lines above, so the grid only holds what the page has not said.
 const MORE = [
-  {
-    title: 'Return dates',
-    body: 'Upcoming episodes and releases, grouped by month, so a season you forgot about turns up on its own.',
-    icon: (
-      <>
-        <rect x="3" y="4.5" width="18" height="16.5" rx="3" />
-        <path d="M3 9.5h18M8 2.5v4M16 2.5v4" />
-      </>
-    ),
-  },
   {
     title: 'Search by mood',
     body: 'By title, by person, or by the feeling you’re after when you don’t have a title in mind.',
@@ -74,18 +90,13 @@ const MORE = [
   },
   {
     title: 'Bring your history',
-    body: 'Import your IMDb ratings and watchlist export, review whatever doesn’t match, and carry on.',
+    body: 'Import your ratings and watchlist from IMDb or Trakt, review whatever doesn’t match, and carry on.',
     icon: (
       <>
         <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
         <path d="M7 10l5 5 5-5M12 15V3" />
       </>
     ),
-  },
-  {
-    title: 'Yours, offline',
-    body: 'No account, no sync, no ads. Your library is a file on your phone and it opens in airplane mode.',
-    icon: <path d="M12 22s7.5-4 7.5-10V5.2L12 2.5 4.5 5.2V12c0 6 7.5 10 7.5 10z" />,
   },
 ];
 
@@ -106,8 +117,8 @@ const CellIcon = ({ children }) => (
   </span>
 );
 
-// The corner arrow that marks a link leaving the page. Decorative — the label beside
-// it already says "web app", and the new tab is announced by the text in the link.
+// The corner arrow that marks a link leaving the page. It is decorative: the label
+// names the web version, and hidden text in the link announces the new tab.
 const ExtIcon = () => (
   <svg
     width="13"
@@ -164,6 +175,11 @@ export function Landing() {
   const ringFillRef = useRef(null);
   const ringDotRef = useRef(null);
   const ringNumRef = useRef(null);
+  // Set once the visitor drags the ring or uses the keys, so the scroll stops
+  // driving it and their own score stays.
+  const ringTouchedRef = useRef(false);
+  const ringScoreRef = useRef(0);
+  const [faqOpen, setFaqOpen] = useState(false);
 
   // Reveal-on-enter. An observer handles the smooth case, but anything already in
   // the viewport is swept in by rect on load, resize and scroll too: the observer's
@@ -177,7 +193,10 @@ export function Landing() {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const pending = Array.from(root.querySelectorAll('[data-reveal]'));
 
-    if (reduced || !('IntersectionObserver' in window)) {
+    // Automated browsers (navigator.webdriver) get everything at once: an AI agent
+    // or a preview service that reads the page from screenshots must not catch the
+    // sections mid-fade or still at opacity 0.
+    if (reduced || navigator.webdriver || !('IntersectionObserver' in window)) {
       pending.forEach((el) => el.classList.add(styles.isIn));
       return undefined;
     }
@@ -235,15 +254,10 @@ export function Landing() {
 
     // With motion off the ring still has to arrive at its value — it carries the
     // number the caption is talking about, so it can't sit at zero.
+    const ringRefs = { ring: ringRef, fill: ringFillRef, dot: ringDotRef, num: ringNumRef };
     if (reduced) {
-      if (ringFillRef.current) {
-        ringFillRef.current.style.strokeDashoffset = String(RING_C * (1 - RING_SCORE / 10));
-      }
-      if (ringDotRef.current) {
-        ringDotRef.current.style.transform = `rotate(${(RING_SCORE / 10) * 360}deg)`;
-        ringDotRef.current.style.opacity = '1';
-      }
-      if (ringNumRef.current) ringNumRef.current.textContent = RING_SCORE.toFixed(1);
+      ringScoreRef.current = RING_SCORE;
+      paintRing(ringRefs, RING_SCORE);
     }
 
     let ticking = false;
@@ -282,20 +296,15 @@ export function Landing() {
       }
 
       // The signature: the score ring fills as its section crosses the viewport.
+      // After the visitor scores it themselves, the scroll leaves it alone.
       const ring = ringRef.current;
-      if (ring) {
+      if (ring && !ringTouchedRef.current) {
         const rr = ring.getBoundingClientRect();
         if (rr.bottom > 0 && rr.top < vh) {
           const t = clamp((vh * 0.9 - rr.top) / (vh * 0.55));
-          const score = t * RING_SCORE;
-          if (ringFillRef.current) {
-            ringFillRef.current.style.strokeDashoffset = String(RING_C * (1 - score / 10));
-          }
-          if (ringDotRef.current) {
-            ringDotRef.current.style.transform = `rotate(${(score / 10) * 360}deg)`;
-            ringDotRef.current.style.opacity = score > 0.15 ? '1' : '0';
-          }
-          if (ringNumRef.current) ringNumRef.current.textContent = score.toFixed(1);
+          const score = Math.round(t * RING_SCORE * 10) / 10;
+          ringScoreRef.current = score;
+          paintRing(ringRefs, score);
         }
       }
     };
@@ -315,6 +324,46 @@ export function Landing() {
       window.removeEventListener('resize', onScroll);
     };
   }, []);
+
+  // The visitor's own score. A press or a drag sets the score from the angle of the
+  // pointer around the centre, in half points. A press can land anywhere. During a
+  // drag, a jump of more than half the scale is the pointer crossing the top of
+  // the ring, so the score holds at 0 or 10 there and does not wrap.
+  const ringRefs = { ring: ringRef, fill: ringFillRef, dot: ringDotRef, num: ringNumRef };
+  const setRing = (next) => {
+    const score = Math.min(10, Math.max(0, Math.round(next / RING_STEP) * RING_STEP));
+    ringTouchedRef.current = true;
+    ringScoreRef.current = score;
+    paintRing(ringRefs, score);
+  };
+  const scoreAt = (e, dragging) => {
+    const r = ringRef.current.getBoundingClientRect();
+    const dx = e.clientX - (r.left + r.width / 2);
+    const dy = e.clientY - (r.top + r.height / 2);
+    const turn = (Math.atan2(dx, -dy) / (2 * Math.PI) + 1) % 1;
+    const next = turn * 10;
+    const prev = ringScoreRef.current;
+    if (dragging && Math.abs(next - prev) > 5) return prev > 5 ? 10 : 0;
+    return next;
+  };
+  const onRingDown = (e) => {
+    e.preventDefault();
+    e.currentTarget.setPointerCapture(e.pointerId);
+    e.currentTarget.focus({ preventScroll: true });
+    setRing(scoreAt(e, false));
+  };
+  const onRingMove = (e) => {
+    if (!e.currentTarget.hasPointerCapture(e.pointerId)) return;
+    setRing(scoreAt(e, true));
+  };
+  const onRingKey = (e) => {
+    const step = { ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1 }[e.key];
+    if (step) setRing(ringScoreRef.current + step * RING_STEP);
+    else if (e.key === 'Home') setRing(0);
+    else if (e.key === 'End') setRing(10);
+    else return;
+    e.preventDefault();
+  };
 
   return (
     <div className={styles.page} ref={rootRef}>
@@ -337,9 +386,10 @@ export function Landing() {
           <nav className={styles.navLinks} aria-label="Sections">
             <a href="#watchlist">Watchlist</a>
             <a href="#episodes">Episodes</a>
-            <a href="#rate">Rating</a>
+            <a href="#rate">Ratings</a>
             <a href="#more">More</a>
-            <a href="#web">Web experience</a>
+            <a href="#web">Web version</a>
+            <a href="#faq">FAQ</a>
           </nav>
           <StoreBadge size={42} />
         </div>
@@ -348,34 +398,34 @@ export function Landing() {
       <main className={styles.main} id="top">
         <div className={styles.wrap}>
           {/* ============ HERO ============ */}
+          {/* The hero runs a CSS entrance on first paint and does not wait for the
+              JS reveal. On a slow phone the reveal can arrive late, and the first
+              screen would stay empty until then. */}
           <section className={styles.hero}>
             <div className={styles.heroCopy}>
-              <span className={`${styles.eyebrow} ${styles.reveal}`} data-reveal>
-                <i />
-                Out now on iPhone
-              </span>
-              <h1 className={styles.reveal} data-reveal data-d="1">
+              <h1 className={styles.heroIn}>
                 Films and shows.
                 <br />
                 <em>One watchlist.</em>
               </h1>
-              <p className={`${styles.lede} ${styles.reveal}`} data-reveal data-d="2">
+              <p className={`${styles.lede} ${styles.heroIn}`} data-d="2">
                 Moviest keeps the whole queue in one place — the film you keep meaning to watch and
-                the show you’re seven episodes into. Everything lives on your phone, and it opens
+                the show you’re seven episodes into. Everything lives on your device, and it opens
                 instantly.
               </p>
-              <p className={`${styles.ctas} ${styles.reveal}`} data-reveal data-d="3">
+              <p className={`${styles.ctas} ${styles.heroIn}`} data-d="3">
                 <StoreBadge />
                 <a className={`${styles.pill} ${styles.ghost}`} href="#watchlist">
                   See what it does
                 </a>
               </p>
-              <p className={`${styles.heronote} ${styles.reveal}`} data-reveal data-d="4">
-                Free, no account, <b>no ads</b>. Data from TMDB.
+              <p className={`${styles.heronote} ${styles.heroIn}`} data-d="4">
+                Free on iPhone and iPad. No account, <b>no ads</b>. Moviest Plus adds smart lists
+                and more widgets.
               </p>
             </div>
 
-            <div className={styles.revealDev} data-reveal>
+            <div className={styles.heroDev}>
               <Device
                 big
                 glow
@@ -408,10 +458,6 @@ export function Landing() {
           {/* ============ F1 · WATCHLIST ============ */}
           <section className={styles.feature} id="watchlist">
             <div className={styles.fcopy}>
-              <span className={`${styles.eyebrow} ${styles.reveal}`} data-reveal>
-                <i />
-                Library
-              </span>
               <h2 className={styles.reveal} data-reveal data-d="1">
                 Stop juggling two apps
               </h2>
@@ -421,9 +467,9 @@ export function Landing() {
                 happened to open.
               </p>
               <p className={`${styles.fmeta} ${styles.reveal}`} data-reveal data-d="3">
-                <span>Grid or rows</span>
-                <span>Sort &amp; filter in one sheet</span>
-                <span>Long press to act</span>
+                <span>Posters or a tidy list</span>
+                <span>Filter by genre or runtime</span>
+                <span>Hold a poster for quick actions</span>
               </p>
             </div>
             <div className={styles.revealDev} data-reveal>
@@ -437,10 +483,6 @@ export function Landing() {
           {/* ============ F2 · EPISODES ============ */}
           <section className={`${styles.feature} ${styles.flip}`} id="episodes">
             <div className={styles.fcopy}>
-              <span className={`${styles.eyebrow} ${styles.reveal}`} data-reveal>
-                <i />
-                Watching
-              </span>
               <h2 className={styles.reveal} data-reveal data-d="1">
                 Always know where you left off
               </h2>
@@ -450,9 +492,9 @@ export function Landing() {
                 to look.
               </p>
               <p className={`${styles.fmeta} ${styles.reveal}`} data-reveal data-d="3">
-                <span>Per-episode ticks</span>
-                <span>Ready to watch first</span>
-                <span>Return dates</span>
+                <span>Tick off each episode</span>
+                <span>New episodes float to the top</span>
+                <span>Know when a show comes back</span>
               </p>
             </div>
             <div className={styles.revealDev} data-reveal>
@@ -466,10 +508,6 @@ export function Landing() {
           {/* ============ F3 · RATE ============ */}
           <section className={styles.feature} id="rate">
             <div className={styles.fcopy}>
-              <span className={`${styles.eyebrow} ${styles.reveal}`} data-reveal>
-                <i />
-                Your record
-              </span>
               <h2 className={styles.reveal} data-reveal data-d="1">
                 Rate it while it’s fresh
               </h2>
@@ -479,27 +517,40 @@ export function Landing() {
                 to anyone.
               </p>
               <div className={`${styles.ringwrap} ${styles.reveal}`} data-reveal data-d="3">
-                <div className={styles.ring} ref={ringRef} aria-hidden="true">
-                  <svg width="78" height="78" viewBox="0 0 78 78">
+                <div
+                  className={styles.ring}
+                  ref={ringRef}
+                  role="slider"
+                  tabIndex={0}
+                  aria-label="Your score"
+                  aria-valuemin={0}
+                  aria-valuemax={10}
+                  aria-valuenow={0}
+                  aria-valuetext="0.0 out of 10"
+                  onPointerDown={onRingDown}
+                  onPointerMove={onRingMove}
+                  onKeyDown={onRingKey}
+                >
+                  <svg viewBox="0 0 78 78" aria-hidden="true">
                     <circle className={styles.ringTrack} cx="39" cy="39" r="33" />
                     <circle className={styles.ringFill} ref={ringFillRef} cx="39" cy="39" r="33" />
                   </svg>
                   <svg
                     className={styles.ringDot}
                     ref={ringDotRef}
-                    width="78"
-                    height="78"
                     viewBox="0 0 78 78"
+                    aria-hidden="true"
                   >
-                    <circle cx="39" cy="6" r="4.5" fill="var(--accent-soft)" />
+                    <circle cx="39" cy="6" r="3.6" fill="var(--accent-soft)" />
                   </svg>
-                  <b className={styles.ringNum} ref={ringNumRef}>
-                    0
+                  <b className={styles.ringNum} ref={ringNumRef} aria-hidden="true">
+                    0.0
                   </b>
                 </div>
                 <p className={styles.ringcap}>
-                  <b>Scroll to score</b>
-                  The same ring the app fills in when you rate something.
+                  <b>Now give it your own score</b>
+                  The same ring the app fills in when you rate something. Drag it round, or use the
+                  arrow keys.
                 </p>
               </div>
             </div>
@@ -513,10 +564,6 @@ export function Landing() {
 
           {/* ============ MORE ============ */}
           <section className={styles.more} id="more">
-            <span className={`${styles.eyebrow} ${styles.reveal}`} data-reveal>
-              <i />
-              Also in the box
-            </span>
             <h2 className={styles.reveal} data-reveal data-d="1">
               Small things that add up
             </h2>
@@ -524,12 +571,14 @@ export function Landing() {
               {MORE.map((cell, i) => (
                 <article
                   key={cell.title}
-                  className={`${styles.cell} ${styles.reveal}`}
+                  className={`${styles.feat} ${styles.reveal}`}
                   data-reveal
-                  data-d={String((i % 3) + 1)}
+                  data-d={String((i % 2) + 1)}
                 >
-                  <CellIcon>{cell.icon}</CellIcon>
-                  <h3>{cell.title}</h3>
+                  <h3>
+                    <CellIcon>{cell.icon}</CellIcon>
+                    {cell.title}
+                  </h3>
                   <p>{cell.body}</p>
                 </article>
               ))}
@@ -548,10 +597,6 @@ export function Landing() {
               half only: the watchlist and the scores live in the app. */}
           <section className={styles.web} id="web">
             <div className={styles.webCopy}>
-              <span className={`${styles.eyebrow} ${styles.reveal}`} data-reveal>
-                <i />
-                Live in your browser
-              </span>
               <h2 className={styles.reveal} data-reveal data-d="1">
                 Or have a look in your browser
               </h2>
@@ -562,12 +607,13 @@ export function Landing() {
               </p>
               <p className={`${styles.ctas} ${styles.reveal}`} data-reveal data-d="3">
                 <a
-                  className={`${styles.pill} ${styles.primary}`}
+                  className={`${styles.pill} ${styles.ghost}`}
                   href={WEBAPP}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Browse web
+                  Open the web version
+                  <span className={styles.srOnly}> (opens in a new tab)</span>
                   <ExtIcon />
                 </a>
               </p>
@@ -581,23 +627,66 @@ export function Landing() {
             </div>
           </section>
 
+          {/* ============ FAQ ============ */}
+          {/* Plain questions with the answers always open. Search engines and AI
+              assistants quote short answers like these, and an agent that reads the
+              page from screenshots cannot open a collapsed one. The words come from
+              facts.js, which also feeds the FAQPage JSON-LD in page.js. */}
+          <section className={styles.faq} id="faq">
+            <h2 className={styles.reveal} data-reveal data-d="1">
+              The short answers
+            </h2>
+            {/* On a phone the first four answers stay open and the rest wait behind
+                one button, so the page is not 2,000px of cards. The text of every
+                answer is still in the markup and in the FAQPage JSON-LD. */}
+            <div className={styles.faqGrid} data-open={faqOpen || undefined}>
+              {FAQ.map((item, i) => (
+                <article
+                  key={item.q}
+                  id={`faq-${i + 1}`}
+                  className={`${styles.cell} ${styles.reveal} ${
+                    i >= FAQ_OPEN_ON_PHONE ? styles.faqExtra : ''
+                  }`}
+                  data-reveal
+                  data-d={String((i % 2) + 1)}
+                >
+                  <h3>{item.q}</h3>
+                  <p>{item.a}</p>
+                </article>
+              ))}
+            </div>
+            <button
+              type="button"
+              className={`${styles.pill} ${styles.ghost} ${styles.faqToggle}`}
+              aria-expanded={faqOpen}
+              aria-controls={FAQ.slice(FAQ_OPEN_ON_PHONE)
+                .map((_, i) => `faq-${i + FAQ_OPEN_ON_PHONE + 1}`)
+                .join(' ')}
+              onClick={() => setFaqOpen((open) => !open)}
+            >
+              {faqOpen
+                ? 'Show fewer questions'
+                : `Show ${FAQ.length - FAQ_OPEN_ON_PHONE} more questions`}
+            </button>
+            <p className={`${styles.faqMore} ${styles.reveal}`} data-reveal>
+              <Link href="/moviest/features/">All features</Link>
+              <Link href="/moviest/import/">Import from IMDb or Trakt</Link>
+              <Link href="/moviest/compare/">Moviest compared</Link>
+              <Link href="/moviest/facts/">Product facts</Link>
+            </p>
+          </section>
+
           {/* ============ CLOSER ============ */}
           <section className={`${styles.closer} ${styles.reveal}`} data-reveal id="get">
-            <span className={styles.eyebrow}>
-              <i />
-              On iPhone today
-            </span>
             <h2>Put the whole queue in one place</h2>
             <p>
-              Moviest is a hobby project built in the open. Free on the App Store, iPhone first,
-              Android when it’s ready.
+              Films, shows, episodes and scores in one app for iPhone and iPad, with layouts for
+              both displays of iPhone Duo.
             </p>
             <p className={styles.ctas}>
               <StoreBadge />
-              <a className={`${styles.pill} ${styles.ghost}`} href={FEEDBACK}>
-                Send feedback
-              </a>
             </p>
+            <p className={styles.closeNote}>Free · No account · No ads · iOS 17 or later</p>
           </section>
         </div>
       </main>
@@ -618,20 +707,24 @@ export function Landing() {
             </div>
           </div>
           <div className={styles.footRight}>
-            <nav className={styles.footLinks} aria-label="Legal">
+            <nav className={styles.footLinks} aria-label="Moviest">
               <a href={APP_STORE} target="_blank" rel="noopener noreferrer">
                 App Store
               </a>
               <a href={WEBAPP} target="_blank" rel="noopener noreferrer">
-                Check out web
+                Web version
               </a>
+              <Link href="/moviest/features/">Features</Link>
+              <Link href="/moviest/import/">Import</Link>
+              <Link href="/moviest/compare/">Compare</Link>
+              <Link href="/moviest/facts/">Facts</Link>
               <Link href="/moviest/privacy-policy/">Privacy</Link>
               <Link href="/moviest/terms-of-service/">Terms</Link>
               {/* a plain anchor, not next/link: the desktop is the other design
                   system and crossing to it needs a fresh document — lib/routes.js */}
               {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
               <a href="/">← Back to ltatarev.github.io</a>
-              <a href={`mailto:${EMAIL}`}>Contact</a>
+              <a href={FEEDBACK}>Send feedback</a>
             </nav>
             <span>© 2026 Moviest</span>
           </div>
