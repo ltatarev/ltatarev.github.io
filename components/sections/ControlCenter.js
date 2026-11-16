@@ -1,14 +1,11 @@
 import ui from '@/styles/shared.module.css';
 import styles from './ControlCenter.module.css';
 
-const SKILLS = [
-  { name: 'React Native', level: 100 },
-  { name: 'TypeScript', level: 90 },
-  { name: 'Node / APIs', level: 80 },
-  { name: 'Expo', level: 74 },
-];
-
 const TOOLBOX = [
+  'React Native',
+  'TypeScript',
+  'Node / APIs',
+  'Expo',
   'React Navigation',
   'Reanimated',
   'Redux Toolkit',
@@ -35,21 +32,7 @@ export function ControlCenter() {
         </p>
       </div>
 
-      <div className={`${styles.tile} ${styles.h2}`}>
-        <div className={styles.head}>Top skills</div>
-        <div className={styles.skills}>
-          {SKILLS.map((s) => (
-            <div key={s.name} className={styles.skill}>
-              <span>{s.name}</span>
-              <span className={styles.track}>
-                <span className={styles.fill} style={{ width: `${s.level}%` }} />
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className={`${styles.tile} ${styles.h2}`}>
+      <div className={`${styles.tile} ${styles.w2} ${styles.h2}`}>
         <div className={styles.head}>Toolbox</div>
         <div className={styles.chips}>
           {TOOLBOX.map((t) => (

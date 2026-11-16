@@ -76,12 +76,12 @@
   cursor: pointer;
   transition:
     background 0.2s,
-    transform 0.5s var(--spring);
+    transform 0.5s var(--ease-out);
 }
 /* the --folder-* properties drive FolderIcon; see the note in its module */
 .folderBtn:hover {
   background: rgba(47, 123, 246, 0.08);
-  --folder-transform: translateY(-5px) scale(1.05);
+  --folder-transform: translateY(-3px) scale(1.03);
   --folder-front-transform: translateY(2px) rotate(-1.5deg);
 }
 .folderBtn:active {

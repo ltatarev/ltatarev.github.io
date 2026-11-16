@@ -6,7 +6,7 @@
   height: var(--folder-h, 60px);
   position: relative;
   transform: var(--folder-transform, none);
-  transition: transform 0.5s var(--spring);
+  transition: transform 0.5s var(--ease-out);
   will-change: transform;
 }
 .folder svg {
@@ -19,7 +19,7 @@
 .front {
   transform: var(--folder-front-transform, none);
   transform-origin: bottom center;
-  transition: transform 0.45s var(--spring);
+  transition: transform 0.45s var(--ease-out);
 }
 .emoji {
   position: absolute;

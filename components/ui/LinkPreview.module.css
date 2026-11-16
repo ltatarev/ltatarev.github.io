@@ -22,7 +22,7 @@
   position: relative;
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: 18px;
+  border-radius: 14px;
   padding: 15px 17px 16px;
   text-align: center;
   box-shadow:
@@ -98,7 +98,7 @@
 /* enter animation lives on .inner so it doesn't fight the wrap's placement
    transform; globals.css already disables it under prefers-reduced-motion */
 .inner {
-  animation: lp-pop 0.28s var(--spring) both;
+  animation: lp-pop 0.28s var(--ease-out) both;
 }
 .above .inner {
   transform-origin: center bottom;

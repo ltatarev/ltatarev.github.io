@@ -2,6 +2,9 @@ import ui from '@/styles/shared.module.css';
 import { HeroClock } from '@/components/ui/HeroClock';
 import styles from './Hero.module.css';
 import { Scrapbook } from './Scrapbook';
+import { experience } from '@/lib/experience';
+
+const [now, before] = experience;
 
 export function Hero() {
   return (
@@ -26,6 +29,21 @@ export function Hero() {
           software developer based in Germany 🇩🇪. i love building <b>mobile apps</b> and experiences
           — mostly with <b>React Native</b> and a whole lot of <b>JavaScript</b>.
         </p>
+        {/* currently / previously come from lib/experience, so a job change updates the hero too */}
+        <dl className={styles.status}>
+          <div>
+            <dt>currently</dt>
+            <dd>
+              {now.role} @ {now.co}
+            </dd>
+          </div>
+          <div>
+            <dt>previously</dt>
+            <dd>
+              {before.role} @ {before.co}
+            </dd>
+          </div>
+        </dl>
         <a className={styles.scrollCue} href="#apps">
           <svg className={styles.arrow} width="14" height="14" viewBox="0 0 24 24" fill="none">
             <path

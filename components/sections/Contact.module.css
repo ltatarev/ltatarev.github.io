@@ -141,7 +141,7 @@
   border-radius: 9px;
   box-shadow: 0 9px 18px -8px rgba(47, 123, 246, 0.95);
   transition:
-    transform 0.35s var(--spring),
+    transform 0.35s var(--ease-out),
     filter 0.2s var(--ease);
 }
 .send:hover {

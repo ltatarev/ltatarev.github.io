@@ -60,6 +60,28 @@
   color: var(--ink);
   font-weight: 700;
 }
+.status {
+  margin: 18px 0 0;
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.status div {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+.status dt {
+  min-width: 82px;
+  font-family: var(--pixel);
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.status dd {
+  margin: 0;
+}
 .scrollCue {
   margin-top: 34px;
   display: inline-flex;

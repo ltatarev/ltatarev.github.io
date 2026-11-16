@@ -64,7 +64,7 @@
   color: var(--ink-3);
   margin-top: 4px;
   flex: none;
-  transition: transform 0.4s var(--spring);
+  transition: transform 0.4s var(--ease-out);
 }
 .item.open .chev {
   transform: rotate(90deg);

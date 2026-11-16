@@ -5,9 +5,9 @@ import { PhoneClock } from '@/components/ui/HeroClock';
 import styles from './Scrapbook.module.css';
 
 const TASKS = [
-  { id: 'build', label: 'ship a new build', emoji: '🚀', color: 'var(--rose)', done: true },
-  { id: 'pr', label: 'review a PR', emoji: '👀', color: '#7fb2ef', done: true },
-  { id: 'plants', label: 'water the plants', emoji: '🌱', color: '#9ed8b6', done: false },
+  { id: 'moviest', label: 'ship moviest 1.0', done: true },
+  { id: 'plants', label: 'water the plants', done: true },
+  { id: 'redesign', label: 'stop redesigning ui', done: false },
 ];
 
 const CONFETTI_COLORS = ['var(--rose)', '#7fb2ef', '#9ed8b6', '#f2c14e', '#c79ae0', '#f28f7a'];
@@ -396,9 +396,7 @@ export function Scrapbook() {
                 </span>
               </div>
               <div className={styles.head}>
-                <div className={styles.greet}>
-                  hey, <b>lucija</b> ✿
-                </div>
+                <div className={styles.greet}>hey, lucija</div>
                 <div className={styles.sub}>
                   {doneCount} of {tasks.length} done today
                 </div>
@@ -415,15 +413,23 @@ export function Scrapbook() {
                     tabIndex={-1}
                     onClick={() => toggleTask(t.id)}
                   >
-                    <span className={styles.taskBar} style={{ background: t.color }} />
                     <span
                       className={`${styles.taskCheck} ${t.done ? '' : styles.open}`.trim()}
-                      style={t.done ? { background: t.color } : undefined}
+                      aria-hidden="true"
                     >
-                      {t.done ? '✓' : ''}
+                      {t.done && (
+                        <svg viewBox="0 0 12 12" fill="none">
+                          <path
+                            d="M2.5 6.2l2.3 2.3 4.7-5"
+                            stroke="currentColor"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      )}
                     </span>
                     <span className={styles.taskLabel}>{t.label}</span>
-                    <span className={styles.taskEmoji}>{t.emoji}</span>
                   </button>
                 ))}
               </div>

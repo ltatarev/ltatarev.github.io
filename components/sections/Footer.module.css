@@ -59,10 +59,10 @@
   gap: 6px;
 }
 .toTop svg {
-  transition: transform 0.35s var(--spring);
+  transition: transform 0.35s var(--ease-out);
 }
 .toTop:hover svg {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
 @media (max-width: 600px) {
   /* one centered column — every line stacks under the last */

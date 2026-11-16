@@ -3,6 +3,16 @@ import { featured } from '@/lib/featured';
 import { projects } from '@/lib/projects';
 import styles from './Footer.module.css';
 
+// The site is a static export, so this date is the build date: each deploy refreshes it.
+const UPDATED = new Date()
+  .toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'Europe/Berlin',
+  })
+  .toLowerCase();
+
 export function Footer() {
   return (
     <footer className={styles.footer}>
@@ -14,10 +24,10 @@ export function Footer() {
           lucija tatarevic © {new Date().getFullYear()}
         </span>
         <span className={styles.mid}>
-          {`${projects.length} items · ${featured.length} pinned · 0 bugs (allegedly)`}
+          {`${projects.length} items · ${featured.length} pinned · last updated ${UPDATED}`}
         </span>
         <span className={styles.right}>
-          <span>made with ♥ & javascript</span>
+          <span>made with ♥ & javascript · 0 bugs (allegedly)</span>
           {/* plain <a>: /paper/ runs on its own stylesheet, see lib/routes.js */}
           <a className={styles.toTop} href="/paper/">
             ◐ paper theme

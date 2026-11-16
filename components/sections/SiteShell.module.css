@@ -1,12 +1,15 @@
-/* wallpaper: clean cream + faint pastel wash + grain */
+/* wallpaper: cream + faint 24px grid + pastel wash + grain */
 .wallpaper {
   position: fixed;
   inset: 0;
   z-index: -2;
   background:
+    linear-gradient(rgba(28, 26, 23, 0.035) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, rgba(28, 26, 23, 0.035) 1px, transparent 1px) 0 0 / 24px 24px,
     radial-gradient(80vw 60vh at 12% -8%, rgba(201, 201, 246, 0.3), transparent 60%),
     radial-gradient(70vw 55vh at 100% 0%, rgba(246, 194, 212, 0.28), transparent 55%),
-    radial-gradient(80vw 60vh at 90% 108%, rgba(168, 214, 190, 0.26), transparent 60%), var(--paper);
+    radial-gradient(80vw 60vh at 90% 108%, rgba(168, 214, 190, 0.26), transparent 60%),
+    var(--paper);
 }
 .grain {
   position: fixed;
