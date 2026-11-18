@@ -7,7 +7,7 @@ import styles from './Scrapbook.module.css';
 const TASKS = [
   { id: 'moviest', label: 'ship moviest 1.0', done: true },
   { id: 'plants', label: 'water the plants', done: true },
-  { id: 'redesign', label: 'stop redesigning ui', done: false },
+  { id: 'redesign', label: 'play with tamagotchi', done: false },
 ];
 
 const CONFETTI_COLORS = ['var(--rose)', '#7fb2ef', '#9ed8b6', '#f2c14e', '#c79ae0', '#f28f7a'];
@@ -334,12 +334,10 @@ export function Scrapbook() {
   return (
     <>
       <div className={styles.scrapbook} ref={boardRef} aria-hidden="true">
-        {/* polaroid (behind) */}
+        {/* book (behind) */}
         <div className={`${styles.tk} ${styles.tkPolaroid}`}>
-          <div className={styles.polaroid}>
-            <div className={styles.pic} />
-            <div className={styles.cap}>hello :)</div>
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className={styles.book} src="/book.png" alt="Dungeon Crawler Carl paperback" />
         </div>
 
         {/* washi tape */}
@@ -511,44 +509,14 @@ export function Scrapbook() {
 
         {/* film canister */}
         <div className={`${styles.tk} ${styles.tkFilm} ${styles.shadow}`}>
-          <svg width="60" height="80" viewBox="0 0 60 80">
-            <path d="M8 40h30l14-8v34l-14-6H8z" fill="#efe7d6" />
-            <g fill="#141210">
-              <rect x="38" y="30" width="1.5" height="3" />
-              <rect x="42" y="28" width="1.5" height="3" />
-              <rect x="46" y="26" width="1.5" height="3" />
-              <rect x="38" y="59" width="1.5" height="3" />
-              <rect x="42" y="61" width="1.5" height="3" />
-              <rect x="46" y="63" width="1.5" height="3" />
-            </g>
-            <rect x="10" y="20" width="26" height="52" rx="5" fill="#2a2622" />
-            <rect x="10" y="34" width="26" height="24" rx="2" fill="#efe7d6" />
-            <rect x="14" y="40" width="18" height="3" rx="1.5" fill="#ca718d" />
-            <rect x="14" y="46" width="12" height="2.4" rx="1.2" fill="#7fb2ef" />
-            <rect x="14" y="14" width="18" height="8" rx="3" fill="#3a352e" />
-          </svg>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/film.png" alt="roll of colour film" />
         </div>
 
         {/* cassette */}
         <div className={`${styles.tk} ${styles.tkTape} ${styles.shadow}`}>
-          <svg width="104" height="66" viewBox="0 0 104 66">
-            <rect x="1" y="1" width="102" height="64" rx="8" fill="#f0b9cf" />
-            <rect x="1" y="1" width="102" height="64" rx="8" fill="url(#casG)" opacity=".4" />
-            <rect x="12" y="12" width="80" height="26" rx="5" fill="#fbf6ec" />
-            <rect x="20" y="18" width="64" height="3" rx="1.5" fill="#ca718d" />
-            <rect x="20" y="25" width="44" height="2.6" rx="1.3" fill="#8f8a7e" />
-            <rect x="16" y="44" width="72" height="16" rx="4" fill="#2a2622" />
-            <circle cx="34" cy="52" r="6" fill="#fbf6ec" />
-            <circle cx="70" cy="52" r="6" fill="#fbf6ec" />
-            <circle cx="34" cy="52" r="2.4" fill="#2a2622" />
-            <circle cx="70" cy="52" r="2.4" fill="#2a2622" />
-            <defs>
-              <linearGradient id="casG" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stopColor="#fff" stopOpacity=".6" />
-                <stop offset="1" stopColor="#fff" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-          </svg>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/cassette.png" alt="pink and black audio cassette" />
         </div>
 
         {/* paperclip */}

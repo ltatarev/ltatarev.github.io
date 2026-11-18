@@ -13,7 +13,7 @@ export function Hero() {
         <div className={styles.hi}>
           <div className={styles.memoji}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/memoji.png" alt="Lucija's memoji" />
+            <img src="/memoji.png" alt="" />
           </div>
           <HeroClock />
         </div>
@@ -54,7 +54,7 @@ export function Hero() {
               strokeLinejoin="round"
             />
           </svg>
-          open the finder below
+          see what i&apos;ve shipped
         </a>
       </div>
 

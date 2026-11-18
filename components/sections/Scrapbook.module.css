@@ -333,7 +333,7 @@
   transition: width 0.45s var(--ease-out);
 }
 
-/* ---------- polaroid ---------- */
+/* ---------- book ---------- */
 .tkPolaroid {
   top: 2%;
   right: 1%;
@@ -342,36 +342,13 @@
   --dl: -1s;
   z-index: 4;
 }
-.polaroid {
-  width: 132px;
-  background: #fff;
-  padding: 9px 9px 32px;
-  border-radius: 3px;
-  box-shadow: 0 20px 34px -18px rgba(40, 30, 20, 0.5);
-}
-.polaroid .pic {
-  height: 108px;
-  border-radius: 2px;
-  background: linear-gradient(150deg, #ffd1a8, var(--rose) 60%, #8f4d7a);
-  position: relative;
-  overflow: hidden;
-}
-.polaroid .pic::after {
-  content: '✿';
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  font-size: 34px;
-  color: rgba(255, 255, 255, 0.85);
-}
-.polaroid .cap {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 15px;
-  text-align: center;
-  margin-top: 9px;
-  color: #3a352e;
+.book {
+  display: block;
+  width: 124px;
+  height: auto;
+  filter: drop-shadow(0 14px 14px rgba(40, 30, 20, 0.3));
+  pointer-events: none;
+  -webkit-user-drag: none;
 }
 
 /* ---------- figurine ---------- */
@@ -455,6 +432,19 @@
   --d: 8.5s;
   --dl: -3s;
   z-index: 6;
+}
+.tkFilm img,
+.tkTape img {
+  display: block;
+  height: auto;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+.tkFilm img {
+  width: 46px;
+}
+.tkTape img {
+  width: 116px;
 }
 
 /* ---------- washi + paperclip + stickers ---------- */

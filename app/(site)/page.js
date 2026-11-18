@@ -17,7 +17,6 @@ export default function HomePage() {
 
       <section className={styles.apps} id="apps">
         <Reveal>
-          <div className={ui.eyebrow}>/ app store</div>
           <h2 className={ui.hSec}>
             apps i&apos;ve <span className={ui.it}>shipped</span>
             <span className={ui.semi}>;</span>
@@ -30,7 +29,6 @@ export default function HomePage() {
 
       <section className={styles.pinned} id="featured">
         <Reveal>
-          <div className={ui.eyebrow}>/ pinned</div>
           <h2 className={ui.hSec}>
             featured <span className={ui.it}>projects</span>
             <span className={ui.semi}>;</span>
@@ -43,7 +41,6 @@ export default function HomePage() {
 
       <section className={styles.work} id="work">
         <Reveal className={styles.workHead}>
-          <div className={ui.eyebrow}>/ projects</div>
           <h2 className={ui.hSec}>
             all <span className={ui.it}>projects</span>
             <span className={ui.semi}>;</span>
@@ -56,7 +53,6 @@ export default function HomePage() {
 
       <section className={styles.about} id="about">
         <Reveal>
-          <div className={ui.eyebrow}>/ control center</div>
           <h2 className={ui.hSec}>
             a bit <span className={ui.it}>about me</span>
             <span className={ui.semi}>;</span>
@@ -69,7 +65,6 @@ export default function HomePage() {
 
       <section className={styles.exp} id="experience">
         <Reveal>
-          <div className={ui.eyebrow}>/ reminders</div>
           <h2 className={ui.hSec}>
             where i&apos;ve <span className={ui.it}>worked</span>
             <span className={ui.semi}>;</span>

@@ -8,7 +8,7 @@ export function MenuBar() {
   const { time, dayShort } = useClock();
 
   return (
-    <div className={styles.menubar}>
+    <nav className={styles.menubar} aria-label="Sections">
       <span className={styles.logo}>l</span>
       <span className={styles.name}>lucija tatarevic</span>
       <Link className={styles.item} href="/#apps">
@@ -51,6 +51,6 @@ export function MenuBar() {
         </span>
         <span className={styles.clock}>{`${dayShort} ${time}`}</span>
       </div>
-    </div>
+    </nav>
   );
 }

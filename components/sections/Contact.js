@@ -75,7 +75,7 @@ export function Contact() {
         <div className={styles.row}>
           <span className={styles.label}>To:</span>
           <span className={styles.token}>
-            <span className={styles.avatar}>l</span>Lucija tatarevic
+            <span className={styles.avatar}>l</span>Lucija Tatarević
           </span>
         </div>
         <div className={styles.row}>
@@ -91,7 +91,7 @@ export function Contact() {
         </div>
         <div className={styles.foot}>
           <a className={styles.send} href={SEND_URL} target="_blank" rel="noopener noreferrer">
-            Send
+            Say hi on GitHub
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
               <path
                 d="M21 3L3 10.5l7.5 3 3 7.5L21 3z"

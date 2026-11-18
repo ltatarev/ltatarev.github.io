@@ -8,7 +8,7 @@
   --bar: #f4f2ee;
   --ink: #1c1a17;
   --ink-2: #6c665b;
-  --ink-3: #9a9488;
+  --ink-3: #706a5e; /* 4.6:1 on --paper: the floor for small text */
   --line: rgba(0, 0, 0, 0.1);
   --line-2: rgba(0, 0, 0, 0.06);
   --sel: #d6b9fa85; /* text-selection highlight */
@@ -65,14 +65,7 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   min-height: 100vh;
-  user-select: none;
-  -webkit-user-select: none;
   cursor: var(--charm), auto;
-}
-input,
-textarea {
-  user-select: text;
-  -webkit-user-select: text;
 }
 ::selection {
   background: var(--sel);

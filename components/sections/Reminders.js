@@ -32,7 +32,7 @@ function ReminderItem({ entry, open, onToggle }) {
       </button>
       {/* grid 0fr -> 1fr animates to the real content height, so the easing curve
           maps onto what's actually visible instead of a padded max-height */}
-      <div className={styles.body} aria-hidden={!open}>
+      <div className={styles.body} inert={!open}>
         <div className={styles.bodyInner}>
           <ul>
             {entry.items.map((item, i) => (

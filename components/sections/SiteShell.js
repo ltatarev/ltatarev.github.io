@@ -12,6 +12,9 @@ import styles from './SiteShell.module.css';
 export function SiteShell({ children }) {
   return (
     <>
+      <a className={styles.skip} href="#apps">
+        Skip to content
+      </a>
       <div className={styles.wallpaper} aria-hidden="true" />
       <div className={styles.grain} aria-hidden="true" />
       <MenuBar />

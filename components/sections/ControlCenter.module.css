@@ -111,4 +111,8 @@
   .lg {
     grid-column: span 2;
   }
+  /* stacked under the big tile, Toolbox has no neighbour to match in height */
+  .h2 {
+    grid-row: auto;
+  }
 }

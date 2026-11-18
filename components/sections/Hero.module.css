@@ -73,9 +73,9 @@
   align-items: baseline;
 }
 .status dt {
-  min-width: 82px;
+  min-width: 92px;
   font-family: var(--pixel);
-  font-size: 10px;
+  font-size: 11px;
   text-transform: uppercase;
   color: var(--ink-3);
 }
