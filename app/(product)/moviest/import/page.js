@@ -1,5 +1,5 @@
 import { APP_STORE } from '../appstore';
-import { PAGE_URL, UPDATED, UPDATED_ISO } from '../facts';
+import { PAGE_URL, UPDATED, UPDATED_ISO, breadcrumbJsonLd } from '../facts';
 import { JsonLd } from '../JsonLd';
 import { LegalDoc } from '../LegalDoc';
 import styles from '../legal.module.css';
@@ -127,6 +127,7 @@ const sections = [
 export default function ImportPage() {
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd('Import', 'import/')} />
       <JsonLd
         data={howTo(
           'Import your IMDb ratings and watchlist into Moviest',

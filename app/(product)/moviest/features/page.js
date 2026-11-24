@@ -1,6 +1,13 @@
 import Link from 'next/link';
 import { APP_STORE } from '../appstore';
-import { PAGE_URL, PLUS_FEATURES, UPDATED, UPDATED_ISO, appJsonLd } from '../facts';
+import {
+  PAGE_URL,
+  PLUS_FEATURES,
+  UPDATED,
+  UPDATED_ISO,
+  appJsonLd,
+  breadcrumbJsonLd,
+} from '../facts';
 import { JsonLd } from '../JsonLd';
 import { LegalDoc } from '../LegalDoc';
 import styles from '../legal.module.css';
@@ -234,6 +241,7 @@ const pageJsonLd = {
 export default function FeaturesPage() {
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd('Features', 'features/')} />
       <JsonLd data={pageJsonLd} />
       <LegalDoc
         keyTitle="In one paragraph"

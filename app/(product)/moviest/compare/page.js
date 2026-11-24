@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { APP_STORE } from '../appstore';
-import { PAGE_URL, UPDATED, UPDATED_ISO } from '../facts';
+import { COMPARE_CHECKED, PAGE_URL, UPDATED, UPDATED_ISO, breadcrumbJsonLd } from '../facts';
 import { JsonLd } from '../JsonLd';
 import { LegalDoc, Table } from '../LegalDoc';
 import styles from '../legal.module.css';
 
-// Claims about other apps go stale. Each one here was checked on UPDATED. Keep them
+// Claims about other apps go stale. Each one here was checked on COMPARE_CHECKED. Keep them
 // broad (what the product is for, account or not) and leave out prices and limits,
 // which change often. Say where the other app is the better choice.
 
@@ -49,7 +49,7 @@ const sections = [
     body: (
       <>
         <Table head={['', 'Moviest', 'Letterboxd', 'Trakt']} rows={ROWS} />
-        <p>Checked on {UPDATED}. The other apps change, so check their own sites too.</p>
+        <p>Checked on {COMPARE_CHECKED}. The other apps change, so check their own sites too.</p>
       </>
     ),
   },
@@ -113,7 +113,8 @@ const sections = [
     body: (
       <ul>
         <li>
-          There is no Android or web version of the tracker. The web version is for browsing only.
+          There is no Android or web version of the tracker. The web version is for browsing: film
+          and show pages, where to watch and episode ratings.
         </li>
         <li>There is no social feed, no followers and no public profile.</li>
         <li>Moviest does not track automatically from streaming apps. You mark what you watch.</li>
@@ -136,6 +137,7 @@ const pageJsonLd = {
 export default function ComparePage() {
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd('Compared', 'compare/')} />
       <JsonLd data={pageJsonLd} />
       <LegalDoc
         keyTitle="In one paragraph"

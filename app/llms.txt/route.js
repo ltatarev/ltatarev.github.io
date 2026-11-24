@@ -1,5 +1,5 @@
 import { APP_STORE } from '../(product)/moviest/appstore';
-import { FACTS, FAQ, PAGE_URL, SITE, SUMMARY, UPDATED } from '../(product)/moviest/facts';
+import { FACTS, FAQ, PAGE_URL, SITE, SUMMARY, UPDATED, WEBAPP } from '../(product)/moviest/facts';
 
 // /llms.txt: a plain-text map of the site for AI assistants (llmstxt.org). Built
 // from the same facts.js as the Moviest pages, so the two cannot disagree.
@@ -22,6 +22,7 @@ Pages:
 - [Import from IMDb or Trakt](${PAGE_URL}import/): step-by-step export and import
 - [Moviest compared](${PAGE_URL}compare/): Moviest, Letterboxd, Trakt, and TV Time after it closed
 - [Product facts](${PAGE_URL}facts/): the facts above, as a page
+- [Web version](${WEBAPP}): browse films and shows, where to watch, and episode ratings by season
 - [Privacy policy](${PAGE_URL}privacy-policy/)
 - [Terms](${PAGE_URL}terms-of-service/)
 - [App Store](${APP_STORE})

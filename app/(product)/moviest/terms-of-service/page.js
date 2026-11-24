@@ -1,3 +1,5 @@
+import { JsonLd } from '../JsonLd';
+import { breadcrumbJsonLd } from '../facts';
 import { EMAIL, Fill, LegalDoc } from '../LegalDoc';
 
 const TITLE = 'Terms — Moviest';
@@ -150,29 +152,32 @@ const sections = [
 
 export default function TermsOfServicePage() {
   return (
-    <LegalDoc
-      key="terms-of-service"
-      alt
-      title={
-        <>
-          The deal, in
-          <br />
-          plain terms
-        </>
-      }
-      lede="Moviest is a small app made by one person. These are the terms you agree to by using it — short, because there isn’t much to it."
-      lastUpdated="4 November 2026"
-      shortVersion={
-        <ul>
-          <li>Use Moviest for what it’s for. Don’t attack it or abuse the API behind it.</li>
-          <li>
-            Your library is <b>yours</b> — it lives on your phone and we make no claim to it.
-          </li>
-          <li>Film and show data comes from TMDB and belongs to its owners, not to us.</li>
-          <li>It’s a hobby project, given as-is, with no promise it keeps working forever.</li>
-        </ul>
-      }
-      sections={sections}
-    />
+    <>
+      <JsonLd data={breadcrumbJsonLd('Terms', 'terms-of-service/')} />
+      <LegalDoc
+        key="terms-of-service"
+        alt
+        title={
+          <>
+            The deal, in
+            <br />
+            plain terms
+          </>
+        }
+        lede="Moviest is a small app made by one person. These are the terms you agree to by using it — short, because there isn’t much to it."
+        lastUpdated="4 November 2026"
+        shortVersion={
+          <ul>
+            <li>Use Moviest for what it’s for. Don’t attack it or abuse the API behind it.</li>
+            <li>
+              Your library is <b>yours</b> — it lives on your phone and we make no claim to it.
+            </li>
+            <li>Film and show data comes from TMDB and belongs to its owners, not to us.</li>
+            <li>It’s a hobby project, given as-is, with no promise it keeps working forever.</li>
+          </ul>
+        }
+        sections={sections}
+      />
+    </>
   );
 }

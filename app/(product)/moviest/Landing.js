@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { APP_STORE } from './appstore';
 import { Browser } from './Browser';
 import { Device } from './Device';
-import { FAQ } from './facts';
+import { FAQ, WEBAPP, WEBAPP_HOST } from './facts';
 import { POSTERS, posterSrc } from './posters';
 import styles from './landing.module.css';
 
@@ -13,11 +13,6 @@ import styles from './landing.module.css';
 // card can't drift apart.
 const EMAIL = 'rushed-marble-3q@icloud.com';
 const FEEDBACK = `mailto:${EMAIL}?subject=Moviest%20feedback`;
-
-// The browsing half of Moviest, live on the web today. Split into host and href so
-// the URL pill drawn in the window frame and the link under it can't disagree.
-const WEBAPP_HOST = 'the-moviest.vercel.app';
-const WEBAPP = `https://${WEBAPP_HOST}/`;
 
 // Circumference of the ring's r=33 circle in its 78-unit viewBox, which is also the
 // dasharray the stylesheet seeds it with. The fill is the offset between C and 0.
@@ -602,8 +597,8 @@ export function Landing() {
               </h2>
               <p className={styles.reveal} data-reveal data-d="2">
                 There’s a web version doing the browsing half too — search, film and show pages,
-                cast, trailers and where to watch. The watchlist, the episode ticks and the scores
-                you keep are what the app adds.
+                cast, where to watch, and every episode of a show rated season by season. The
+                watchlist, the episode ticks and the scores you keep are what the app adds.
               </p>
               <p className={`${styles.ctas} ${styles.reveal}`} data-reveal data-d="3">
                 <a

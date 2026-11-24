@@ -1,3 +1,5 @@
+import { JsonLd } from '../JsonLd';
+import { breadcrumbJsonLd } from '../facts';
 import { EMAIL, Fill, LegalDoc, Table } from '../LegalDoc';
 
 const TITLE = 'Privacy — Moviest';
@@ -168,10 +170,10 @@ const sections = [
         </ul>
         <p>
           The publisher is based in Germany, so the GDPR applies. The data controller is{' '}
-          <b>Lucija Tatarević</b>. If you’re in the EU or UK and want
-          to make a request about the proxy’s server logs, write to the address below. If you
-          believe personal data has been processed unlawfully, you may complain to a supervisory
-          authority in your country of residence.
+          <b>Lucija Tatarević</b>. If you’re in the EU or UK and want to make a request about the
+          proxy’s server logs, write to the address below. If you believe personal data has been
+          processed unlawfully, you may complain to a supervisory authority in your country of
+          residence.
         </p>
       </>
     ),
@@ -211,34 +213,37 @@ const sections = [
 
 export default function PrivacyPolicyPage() {
   return (
-    <LegalDoc
-      key="privacy-policy"
-      title={
-        <>
-          What stays on
-          <br />
-          your phone
-        </>
-      }
-      lede="Moviest has no accounts and no server holding your library. This page says exactly what the app stores, the few things that leave your phone, and what it never collects."
-      lastUpdated="28 October 2026"
-      shortVersion={
-        <ul>
-          <li>
-            There’s <b>no account</b>, so there’s nothing to sign up with and nothing to leak.
-          </li>
-          <li>
-            Your watchlist, ratings, reviews and lists are stored <b>on your device only</b>.
-          </li>
-          <li>
-            The app asks a catalogue server for film and show data. Those requests carry a title ID,
-            not who you are.
-          </li>
-          <li>Nothing is sold, shared or used for advertising. There are no ads.</li>
-          <li>Delete the app and the data goes with it.</li>
-        </ul>
-      }
-      sections={sections}
-    />
+    <>
+      <JsonLd data={breadcrumbJsonLd('Privacy', 'privacy-policy/')} />
+      <LegalDoc
+        key="privacy-policy"
+        title={
+          <>
+            What stays on
+            <br />
+            your phone
+          </>
+        }
+        lede="Moviest has no accounts and no server holding your library. This page says exactly what the app stores, the few things that leave your phone, and what it never collects."
+        lastUpdated="28 October 2026"
+        shortVersion={
+          <ul>
+            <li>
+              There’s <b>no account</b>, so there’s nothing to sign up with and nothing to leak.
+            </li>
+            <li>
+              Your watchlist, ratings, reviews and lists are stored <b>on your device only</b>.
+            </li>
+            <li>
+              The app asks a catalogue server for film and show data. Those requests carry a title
+              ID, not who you are.
+            </li>
+            <li>Nothing is sold, shared or used for advertising. There are no ads.</li>
+            <li>Delete the app and the data goes with it.</li>
+          </ul>
+        }
+        sections={sections}
+      />
+    </>
   );
 }

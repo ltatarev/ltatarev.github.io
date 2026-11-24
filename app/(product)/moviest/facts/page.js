@@ -1,5 +1,13 @@
 import Link from 'next/link';
-import { FACTS, PAGE_URL, SUMMARY, UPDATED, UPDATED_ISO, appJsonLd } from '../facts';
+import {
+  FACTS,
+  PAGE_URL,
+  SUMMARY,
+  UPDATED,
+  UPDATED_ISO,
+  appJsonLd,
+  breadcrumbJsonLd,
+} from '../facts';
 import { JsonLd } from '../JsonLd';
 import { LegalDoc, Table } from '../LegalDoc';
 
@@ -94,6 +102,7 @@ const pageJsonLd = {
 export default function FactsPage() {
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd('Product facts', 'facts/')} />
       <JsonLd data={pageJsonLd} />
       <LegalDoc
         keyTitle="In one paragraph"

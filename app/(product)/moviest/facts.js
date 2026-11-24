@@ -18,8 +18,17 @@ export const DEVELOPER = 'Lucija Tatarević';
 export const GITHUB = 'https://github.com/ltatarev';
 
 // Change both when a fact on this page changes.
-export const UPDATED = '4 November 2026';
-export const UPDATED_ISO = '2026-11-04';
+export const UPDATED = '24 November 2026';
+export const UPDATED_ISO = '2026-11-24';
+
+// The day the claims about other apps on the compare page were last checked. Change
+// it only after you check those apps again, not when a Moviest fact changes.
+export const COMPARE_CHECKED = '4 November 2026';
+export const COMPARE_CHECKED_ISO = '2026-11-04';
+
+// The web version: the browsing half of Moviest. The watchlist is in the app.
+export const WEBAPP_HOST = 'the-moviest.vercel.app';
+export const WEBAPP = `https://${WEBAPP_HOST}/`;
 
 export const SUMMARY =
   'Moviest is a free film and TV tracker for iPhone and iPad. It keeps films and shows in one watchlist, tracks every episode, shows return dates, and lets you rate what you watch and see where to stream it. No account, no ads, no tracking.';
@@ -75,7 +84,9 @@ export const FACTS = [
   { key: 'Streaming availability', value: 'JustWatch' },
   {
     key: 'Web version',
-    value: 'the-moviest.vercel.app, for browsing only. The watchlist and ratings are in the app',
+    value:
+      'the-moviest.vercel.app, for browsing: film and show pages, where to watch, and the rating of every episode by season. The watchlist and your own ratings are in the app',
+    link: WEBAPP,
   },
   { key: 'Download', value: 'App Store', link: APP_STORE },
 ];
@@ -110,6 +121,10 @@ export const FAQ = [
   {
     q: 'Can I see where a film or show is streaming?',
     a: 'Yes. Each title page shows which services stream, rent or sell it in your country, with your own services marked. The streaming data comes from JustWatch.',
+  },
+  {
+    q: 'Is there a web version of Moviest?',
+    a: 'Yes, for browsing. The web version at the-moviest.vercel.app has film and show pages with cast and where to watch, and a page for each show with the rating of every episode by season. The watchlist, episode tracking and your own ratings are in the iPhone and iPad app.',
   },
   {
     q: 'Where does the film and TV data come from?',
@@ -151,3 +166,15 @@ export const faqJsonLd = {
     acceptedAnswer: { '@type': 'Answer', text: a },
   })),
 };
+
+// The trail a search result shows under the page title: Moviest > the page.
+export function breadcrumbJsonLd(name, path) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: NAME, item: PAGE_URL },
+      { '@type': 'ListItem', position: 2, name, item: `${PAGE_URL}${path}` },
+    ],
+  };
+}
